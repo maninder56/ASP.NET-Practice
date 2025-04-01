@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.Extensions.Logging.Abstractions;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
