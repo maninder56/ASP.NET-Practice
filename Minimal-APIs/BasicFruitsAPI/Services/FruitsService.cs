@@ -1,24 +1,10 @@
 ﻿using BasicFruitsAPI.Model;
-using System.Runtime.CompilerServices;
 
-namespace BasicFruitsAPI;
+namespace BasicFruitsAPI.Services; 
 
-public static class FuitsEndpointsAndService
+public class FruitsService
 {
-    private static readonly FruitsService fruitsService = new FruitsService();
-
-    public static WebApplication AddFuitsEndpoints(this WebApplication app)
-    {
-
-        app.MapGet("/fruit", () => "Hello from Fuit class"); 
-        app.MapGet("/fruitlist", () => fruitsService.GetFruitList()); 
-
-        return app; 
-    }
-
-    private class FruitsService
-    {
-        List<Fruit> fruitList = new List<Fruit>()
+    List<Fruit> fruitList = new List<Fruit>()
         {
             new Fruit(1, "Mango", "Simple", "A mango is an edible stone fruit produced by the tropical tree Mangifera indica. It originated from the region between northwestern Myanmar, Bangladesh, and northeastern India."),
             new Fruit(2, "Apple", "Simple", "An apple is a round, edible fruit produced by an apple tree (Malus spp.). Fruit trees of the orchard or domestic apple (Malus domestica), the most widely grown in the genus, are cultivated worldwide."),
@@ -34,8 +20,99 @@ public static class FuitsEndpointsAndService
             new Fruit(10, "Breadfruit", "Multiple", "Breadfruit (Artocarpus altilis) is a species of flowering tree in the mulberry and jackfruit family (Moraceae) believed to be a domesticated descendant of Artocarpus camansi originating in New Guinea, the Maluku Islands, and the Philippines."),
         };
 
-        // Service CRUD Operations
-        public List<Fruit> GetFruitList() => fruitList;
 
+    // Service CRUD Operations
+
+    // Read Operations 
+    public List<Fruit> GetFruitList() => fruitList;
+
+    public Fruit? GetFruitByID(int id)
+    {
+        return fruitList.Find(f => f.Id == id);  
+    }
+
+    public Fruit? GetFruitByName(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            return null;
+        }
+
+        return fruitList.Where(f => f.Name == name)
+            .FirstOrDefault();
+    }
+
+    public List<Fruit>? GetFruitsByClassification(string classification)
+    {
+        if (string.IsNullOrEmpty(classification))
+        {
+            return null;
+        }
+
+        if (!fruitList.Exists(f => f.Classification == classification))
+        {
+            return null; 
+        }
+
+        List<Fruit> query =  fruitList.Where(f => f.Classification == classification)
+            .ToList();
+
+        return query; 
+    }
+
+
+    // Create Operations
+    public Fruit? CreateFruit(Fruit fruit)
+    {
+        if (fruitList.Exists(f => f.Name == fruit.Name))
+        {
+            return null; 
+        }
+
+        fruit.Id = fruitList.Count + 1;
+        fruitList.Add(fruit);
+
+        return fruit;
+    }
+
+
+    // Update Operations 
+    public Fruit? UpdateFruitByID(int id,  Fruit newFruit)
+    {
+        if (id < 1)
+        {
+            return null;
+        }
+
+        if (!fruitList.Exists(f => f.Id == id))
+        {
+            return null; 
+        }
+
+        Fruit oldFruit = fruitList.First(f => f.Id == id);
+
+        int oldFruitIndex = fruitList.IndexOf(oldFruit);
+
+        fruitList[oldFruitIndex] = newFruit;
+        return newFruit; 
+    }
+
+    
+    // Delete Operations
+    public bool DeleteFruitByID(int id)
+    {
+        if (id < 1)
+        {
+            return false;
+        }
+
+        if (!fruitList.Exists(f => f.Id == id))
+        {
+            return false; 
+        }
+
+        Fruit fruit = fruitList.First(f => f.Id == id);
+
+        return fruitList.Remove(fruit);
     }
 }

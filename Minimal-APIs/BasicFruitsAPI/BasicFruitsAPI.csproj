@@ -10,4 +10,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="FuitsEndpointExtentionMethod.cs" />
+  </ItemGroup>
+
 </Project>

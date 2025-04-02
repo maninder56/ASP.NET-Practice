@@ -1,6 +1,18 @@
-@BasicFruitsAPI_HostAddress = http://localhost:5058
+@BasicFruitsAPI_HostAddress = https://localhost:7000
 
-GET {{BasicFruitsAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
+# Get Requests
+GET {{BasicFruitsAPI_HostAddress}}/
+Accept : application/json
 ###
+
+GET {{BasicFruitsAPI_HostAddress}}/fruit
+Accept : application/json
+###
+
+
+GET {{BasicFruitsAPI_HostAddress}}/fruitlist
+Accept : application/json
+### 
+
+
+

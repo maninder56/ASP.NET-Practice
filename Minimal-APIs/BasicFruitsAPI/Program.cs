@@ -8,7 +8,6 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpLogging(config => 
     config.LoggingFields = HttpLoggingFields.RequestProperties | HttpLoggingFields.ResponsePropertiesAndHeaders);
 
-
 // Ensures that logs added by the HTTP logging middleware are visible in the log output
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
