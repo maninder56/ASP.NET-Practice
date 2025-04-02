@@ -32,7 +32,8 @@ public class FruitsService
         {
             return null;
         }
-        return fruitList.Find(f => f.Id == id);  
+
+        return fruitList.FirstOrDefault(f => f.Id == id);  
     }
 
     public Fruit? GetFruitByName(string name)
