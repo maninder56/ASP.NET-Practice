@@ -28,6 +28,10 @@ public class FruitsService
 
     public Fruit? GetFruitByID(int id)
     {
+        if (id < 1)
+        {
+            return null;
+        }
         return fruitList.Find(f => f.Id == id);  
     }
 
@@ -92,6 +96,8 @@ public class FruitsService
         Fruit oldFruit = fruitList.First(f => f.Id == id);
 
         int oldFruitIndex = fruitList.IndexOf(oldFruit);
+
+        newFruit.Id = id; 
 
         fruitList[oldFruitIndex] = newFruit;
         return newFruit; 

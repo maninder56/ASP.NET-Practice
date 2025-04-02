@@ -11,8 +11,19 @@ public static class FuitsEndpointExtentionMethod
     public static WebApplication AddFuitsEndpoints(this WebApplication app)
     {
         // Get Endpoints
-        app.MapGet("/fruit", () => "Hello from Fuit class"); 
-        app.MapGet("/fruitlist", () => fruitsService.GetFruitList()); 
+        app.MapGet("/fruitlist", fruitsService.GetFruitList);
+        app.MapGet("/fruitbyid/{id:int}", fruitsService.GetFruitByID);
+        app.MapGet("/fruitbyname/{name}", fruitsService.GetFruitByName);
+        app.MapGet("/fruitbyclassification/{classification}", fruitsService.GetFruitsByClassification); 
+
+        // Post Endpoints
+        app.MapPost("/fruit", fruitsService.CreateFruit);
+
+        // Put Endpoints 
+        app.MapPut("/fruit/{id:int}", fruitsService.UpdateFruitByID);
+
+        // Delete Endpoints 
+        app.MapDelete("/fruit/{id:int}", fruitsService.DeleteFruitByID); 
 
         return app; 
     }

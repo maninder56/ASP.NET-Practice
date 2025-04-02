@@ -1,18 +1,68 @@
 @BasicFruitsAPI_HostAddress = https://localhost:7000
 
 # Get Requests
+
+# Get Home Endpoint
 GET {{BasicFruitsAPI_HostAddress}}/
 Accept : application/json
 ###
 
-GET {{BasicFruitsAPI_HostAddress}}/fruit
+# Error EndPoint
+GET {{BasicFruitsAPI_HostAddress}}/error
 Accept : application/json
 ###
 
-
+# Get Fruit List
 GET {{BasicFruitsAPI_HostAddress}}/fruitlist
 Accept : application/json
 ### 
 
+# Get Fruit By ID
+GET {{BasicFruitsAPI_HostAddress}}/fruitbyid/2
+Accept : application/json
+###
+
+# Get Fruit By Name 
+GET {{BasicFruitsAPI_HostAddress}}/fruitbyname/Pineapple
+Accept : application/json
+###
+
+# Get Fruits By Classification
+GET {{BasicFruitsAPI_HostAddress}}/fruitbyclassification/Simple
+Accept : application/json
+### 
 
 
+# Post Requests 
+
+# Post Fruit 
+POST {{BasicFruitsAPI_HostAddress}}/fruit
+Content-Type: application/json
+
+{
+    "name": "TestFruit",
+    "classification": "Simple",
+    "description": "Testing the api endpoint"
+}
+###
+
+
+# Put Requests 
+
+# Replace Fruit By ID
+PUT {{BasicFruitsAPI_HostAddress}}/fruit/11
+Content-Type: application/json
+
+{
+    "name": "ChangeTestFruit",
+    "classification": "Simple",
+    "description": "Changing the fruit"
+}
+###
+
+
+# Delete Requests
+
+# Delete Fruit By ID 
+DELETE {{BasicFruitsAPI_HostAddress}}/fruit/11
+###
