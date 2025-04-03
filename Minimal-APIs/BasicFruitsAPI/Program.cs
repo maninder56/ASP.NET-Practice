@@ -2,7 +2,7 @@ using BasicFruitsAPI;
 using Microsoft.AspNetCore.HttpLogging;
 
 
-WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHttpLogging(config => 
@@ -11,7 +11,7 @@ builder.Services.AddHttpLogging(config =>
 // Ensures that logs added by the HTTP logging middleware are visible in the log output
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
-WebApplication? app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
