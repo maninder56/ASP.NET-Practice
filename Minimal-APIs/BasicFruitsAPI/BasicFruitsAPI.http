@@ -27,15 +27,19 @@ GET {{BasicFruitsAPI_HostAddress}}/fruitbyname/Pineapple
 Accept : application/json
 ###
 
-# Get Fruits By Classification
+# Get Fruits By Simple Classification
 GET {{BasicFruitsAPI_HostAddress}}/fruitbyclassification/Simple
 Accept : application/json
 ### 
 
+# Get Fruits By Aggregate Classification
+GET {{BasicFruitsAPI_HostAddress}}/fruitbyclassification/Aggregate
+Accept : application/json
+### 
 
 # Post Requests 
 
-# Post Fruit 
+# Add New Fruit
 POST {{BasicFruitsAPI_HostAddress}}/fruit
 Content-Type: application/json
 
