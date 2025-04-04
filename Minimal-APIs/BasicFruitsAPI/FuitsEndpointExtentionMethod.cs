@@ -18,13 +18,13 @@ public static class FuitsEndpointExtentionMethod
         app.MapGet("/fruitbyclassification/{classification}", GetFruitsByClassification); 
 
         // Post Endpoints
-        app.MapPost("/fruit", fruitsService.CreateFruit);
+        app.MapPost("/fruit", CreateFruit);
 
         // Put Endpoints 
-        app.MapPut("/fruit/{id:int}", fruitsService.UpdateFruitByID);
+        app.MapPut("/fruit/{id:int}", UpdateFruitByID);
 
         // Delete Endpoints 
-        app.MapDelete("/fruit/{id:int}", fruitsService.DeleteFruitByID); 
+        app.MapDelete("/fruit/{id:int}", DeleteFruitByID); 
 
         return app; 
     }
@@ -81,6 +81,61 @@ public static class FuitsEndpointExtentionMethod
         }
 
         return TypedResults.Ok(fruitList);
+    }
+
+    
+
+    // POST Handlers
+
+    private static Results<Created<Fruit>, BadRequest<string>> CreateFruit(Fruit newFruit)
+    {
+        Fruit? createdFruit = fruitsService.CreateFruit(newFruit);
+
+        if (createdFruit == null)
+        {
+            return TypedResults.BadRequest("Duplicate names are not allowed.");
+        }
+
+        return TypedResults.Created($"/fruitbyid/{createdFruit.Id}",createdFruit);
+    }
+
+
+    // PUT Handlers 
+
+    private static Results<NoContent, BadRequest<string>, InternalServerError<string>> UpdateFruitByID(int  id, Fruit newFruit)
+    {
+
+        if (id < 1 || !(fruitsService.isIDValid(id)))
+        {
+            return TypedResults.BadRequest("ID is not valid");
+        }
+
+        Fruit? updatedFruit = fruitsService.UpdateFruitByID(id, newFruit);
+
+        if (updatedFruit == null)
+        {
+            return TypedResults.InternalServerError("Failed to Update fruit");
+        }
+
+        return TypedResults.NoContent(); 
+    }
+
+
+    // DELETE Handlers 
+
+    private static Results<NoContent, BadRequest<string>, InternalServerError<string>> DeleteFruitByID(int id)
+    {
+        if (id < 1 || !(fruitsService.isIDValid(id)))
+        {
+            return TypedResults.BadRequest("ID is not valid"); 
+        }
+
+        if (!fruitsService.DeleteFruitByID(id))
+        {
+            return TypedResults.InternalServerError("Failed To Delete Fruit"); 
+        }
+
+        return TypedResults.NoContent();    
     }
 
 }
