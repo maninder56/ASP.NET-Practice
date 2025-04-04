@@ -11,6 +11,9 @@ builder.Services.AddHttpLogging(config =>
 // Ensures that logs added by the HTTP logging middleware are visible in the log output
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
+// Adding Problem Detail standard 
+builder.Services.AddProblemDetails(); 
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +29,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Adds Problem Detail Body to all error status code that don't have body
+app.UseStatusCodePages();
 
 app.UseStaticFiles();
 app.UseRouting();
