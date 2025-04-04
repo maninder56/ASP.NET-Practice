@@ -29,6 +29,7 @@ public class FruitsService
         fruitDictionary = new ConcurrentDictionary<int, Fruit>(fruitListWithKeys);        
     }
 
+    public bool isIDValid(int id) => fruitDictionary.ContainsKey(id);
 
     // Service CRUD Operations
 
@@ -93,12 +94,7 @@ public class FruitsService
     // Update Operations 
     public Fruit? UpdateFruitByID(int id,  Fruit newFruit)
     {
-        if (id < 1)
-        {
-            return null;
-        }
-
-        if (!fruitDictionary.ContainsKey(id))
+        if (!isIDValid(id))
         {
             return null; 
         }
@@ -119,11 +115,6 @@ public class FruitsService
     // Delete Operations
     public bool DeleteFruitByID(int id)
     {
-        if (id < 1)
-        {
-            return false;
-        }
-
         return fruitDictionary.TryRemove(id, out _); 
     }
 }
