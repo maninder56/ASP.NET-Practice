@@ -31,6 +31,9 @@ public class FruitsService
 
     public bool isIDValid(int id) => fruitDictionary.ContainsKey(id);
 
+    public bool isFruitNameDubplicate(string name) => 
+        fruitDictionary.Values.Any(f => f.Name == name);    
+
     // Service CRUD Operations
 
     // Read Operations 

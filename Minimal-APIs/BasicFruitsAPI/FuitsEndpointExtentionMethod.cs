@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using BasicFruitsAPI.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using BasicFruitsAPI.ValidationFilters;
 
 namespace BasicFruitsAPI;
 
@@ -10,22 +11,29 @@ public static class FuitsEndpointExtentionMethod
 {
     private static readonly FruitsService fruitsService = new FruitsService();
 
+    private static IdValidationFilter _idValidationFilter = new IdValidationFilter(fruitsService);
+
     public static WebApplication AddFuitsEndpoints(this WebApplication app)
     {
+        RouteGroupBuilder fruitApi = app.MapGroup("/fruit");
+
+        RouteGroupBuilder fruitApiWithIdValidation = fruitApi.MapGroup("/")
+            .AddEndpointFilter(_idValidationFilter); 
+
         // Get Endpoints
-        app.MapGet("/fruitlist", GetFruitList);
-        app.MapGet("/fruitbyid/{id:int}", GetFruitByID);
-        app.MapGet("/fruitbyname/{name}", GetFruitByName);
-        app.MapGet("/fruitbyclassification/{classification}", GetFruitsByClassification); 
+        fruitApi.MapGet("/list", GetFruitList);
+        fruitApiWithIdValidation.MapGet("/id/{id:int}", GetFruitByID); 
+        fruitApi.MapGet("/name/{name}", GetFruitByName);
+        fruitApi.MapGet("/classification/{classification}", GetFruitsByClassification);
 
         // Post Endpoints
-        app.MapPost("/fruit", CreateFruit);
+        fruitApi.MapPost("/", CreateFruit);
 
         // Put Endpoints 
-        app.MapPut("/fruit/{id:int}", UpdateFruitByID);
+        fruitApiWithIdValidation.MapPut("/id/{id:int}", UpdateFruitByID);
 
         // Delete Endpoints 
-        app.MapDelete("/fruit/{id:int}", DeleteFruitByID); 
+        fruitApiWithIdValidation.MapDelete("/id/{id:int}", DeleteFruitByID);
 
         return app; 
     }
@@ -54,7 +62,7 @@ public static class FuitsEndpointExtentionMethod
 
         if (fruit == null)
         {
-            return TypedResults.Problem(statusCode: 404, detail: $"Fruit with ID: {id} can not be found.");
+            return TypedResults.Problem(statusCode: 500);
         }
 
         return TypedResults.Ok(fruit);  
@@ -88,35 +96,23 @@ public static class FuitsEndpointExtentionMethod
 
     // POST Handlers
 
-    private static Results<Created<Fruit>, ValidationProblem> CreateFruit(Fruit newFruit)
+    private static Results<Created<Fruit>, InternalServerError<string>> CreateFruit(Fruit newFruit)
     {
         Fruit? createdFruit = fruitsService.CreateFruit(newFruit);
 
         if (createdFruit == null)
         {
-            return TypedResults.ValidationProblem(new Dictionary<string, string[]>
-            {
-                {"name" , new[] { "Duplicate names are not allowed." } }
-            });
+            return TypedResults.InternalServerError("Failed to Create fruit");
         }
 
-        return TypedResults.Created($"/fruitbyid/{createdFruit.Id}",createdFruit);
+        return TypedResults.Created($"/fruit/id/{createdFruit.Id}",createdFruit);
     }
 
 
     // PUT Handlers 
 
-    private static Results<NoContent, ValidationProblem, InternalServerError<string>> UpdateFruitByID(int  id, Fruit newFruit)
+    private static Results<NoContent, InternalServerError<string>> UpdateFruitByID(int  id, Fruit newFruit)
     {
-
-        if (id < 1 || !(fruitsService.isIDValid(id)))
-        {
-            return TypedResults.ValidationProblem(new Dictionary<string, string[]>
-            {
-                {"id", new string[] { "Invalid ID" , $"Fruit with ID {id} does not exists." } }
-            });
-        }
-
         Fruit? updatedFruit = fruitsService.UpdateFruitByID(id, newFruit);
 
         if (updatedFruit == null)
@@ -130,16 +126,8 @@ public static class FuitsEndpointExtentionMethod
 
     // DELETE Handlers 
 
-    private static Results<NoContent, ValidationProblem, InternalServerError<string>> DeleteFruitByID(int id)
+    private static Results<NoContent, InternalServerError<string>> DeleteFruitByID(int id)
     {
-        if (id < 1 || !(fruitsService.isIDValid(id)))
-        {
-            return TypedResults.ValidationProblem(new Dictionary<string, string[]>
-            {
-                {"id", new string[] { "Invalid ID", $"Fruit with ID {id} does not exists." } }
-            });
-        }
-
         if (!fruitsService.DeleteFruitByID(id))
         {
             return TypedResults.InternalServerError("Failed To Delete Fruit"); 
