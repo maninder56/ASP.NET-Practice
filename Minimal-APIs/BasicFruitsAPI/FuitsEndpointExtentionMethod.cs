@@ -22,9 +22,9 @@ public static class FuitsEndpointExtentionMethod
 
         // Get Endpoints
         fruitApi.MapGet("/list", GetFruitList);
-        fruitApiWithIdValidation.MapGet("/id/{id:int}", GetFruitByID); 
-        fruitApi.MapGet("/name/{name}", GetFruitByName);
-        fruitApi.MapGet("/classification/{classification}", GetFruitsByClassification);
+        fruitApiWithIdValidation.MapGet("/id/{id:int}", GetFruitByID).WithName("fruitId"); 
+        fruitApi.MapGet("/name/{name:alpha}", GetFruitByName);
+        fruitApi.MapGet("/classification/{classification:alpha}", GetFruitsByClassification);
 
         // Post Endpoints
         fruitApi.MapPost("/", CreateFruit);
@@ -96,7 +96,7 @@ public static class FuitsEndpointExtentionMethod
 
     // POST Handlers
 
-    private static Results<Created<Fruit>, InternalServerError<string>> CreateFruit(Fruit newFruit)
+    private static Results<Created<Fruit>, InternalServerError<string>> CreateFruit(Fruit newFruit, LinkGenerator link)
     {
         Fruit? createdFruit = fruitsService.CreateFruit(newFruit);
 
@@ -105,7 +105,8 @@ public static class FuitsEndpointExtentionMethod
             return TypedResults.InternalServerError("Failed to Create fruit");
         }
 
-        return TypedResults.Created($"/fruit/id/{createdFruit.Id}",createdFruit);
+        string? createdFruitLink = link.GetPathByName("fruitId", new { id = createdFruit.Id }); 
+        return TypedResults.Created(createdFruitLink,createdFruit);
     }
 
 

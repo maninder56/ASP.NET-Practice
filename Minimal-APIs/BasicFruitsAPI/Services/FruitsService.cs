@@ -29,10 +29,13 @@ public class FruitsService
         fruitDictionary = new ConcurrentDictionary<int, Fruit>(fruitListWithKeys);        
     }
 
-    public bool isIDValid(int id) => fruitDictionary.ContainsKey(id);
+    // Helper Methods
+    public bool DoesFruitIDExists(int id) => fruitDictionary.ContainsKey(id);
 
     public bool isFruitNameDubplicate(string name) => 
         fruitDictionary.Values.Any(f => f.Name == name);    
+
+
 
     // Service CRUD Operations
 
@@ -97,11 +100,6 @@ public class FruitsService
     // Update Operations 
     public Fruit? UpdateFruitByID(int id,  Fruit newFruit)
     {
-        if (!isIDValid(id))
-        {
-            return null; 
-        }
-
         Fruit oldFruit = fruitDictionary.Values.First(f => f.Id == id);
 
         newFruit.Id = oldFruit.Id; 

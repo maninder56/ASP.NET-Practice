@@ -16,7 +16,7 @@ public class IdValidationFilter : IEndpointFilter
     {
         int id = context.GetArgument<int>(0);
 
-        if (id < 1 || !(_fruitsService.isIDValid(id)))
+        if (id < 1 || !(_fruitsService.DoesFruitIDExists(id)))
         {
             return TypedResults.ValidationProblem(new Dictionary<string, string[]>
             {
