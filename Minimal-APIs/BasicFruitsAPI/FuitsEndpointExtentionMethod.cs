@@ -25,6 +25,7 @@ public static class FuitsEndpointExtentionMethod
         fruitApiWithIdValidation.MapGet("/id/{id:int}", GetFruitByID).WithName("fruitId"); 
         fruitApi.MapGet("/name/{name:alpha}", GetFruitByName);
         fruitApi.MapGet("/classification/{classification:alpha}", GetFruitsByClassification);
+        fruitApi.MapGet("/available-classification", GetAvailableClassifications); 
 
         // Post Endpoints
         fruitApi.MapPost("/", CreateFruit);
@@ -56,7 +57,7 @@ public static class FuitsEndpointExtentionMethod
         return TypedResults.Ok(fruitList);
     }
 
-    private static Results<Ok<Fruit>, ProblemHttpResult> GetFruitByID(int id)
+    private static Results<Ok<Fruit>, ProblemHttpResult> GetFruitByID([FromRoute]int id)
     {
         Fruit? fruit = fruitsService.GetFruitByID(id);
 
@@ -68,7 +69,7 @@ public static class FuitsEndpointExtentionMethod
         return TypedResults.Ok(fruit);  
     }
 
-    private static Results<Ok<Fruit>, ProblemHttpResult> GetFruitByName(string name)
+    private static Results<Ok<Fruit>, ProblemHttpResult> GetFruitByName([FromRoute] string name)
     {
         Fruit? fruit = fruitsService.GetFruitByName(name);
 
@@ -80,7 +81,7 @@ public static class FuitsEndpointExtentionMethod
         return TypedResults.Ok(fruit);
     }
 
-    private static Results<Ok<List<Fruit>>, ProblemHttpResult> GetFruitsByClassification(string classification)
+    private static Results<Ok<List<Fruit>>, ProblemHttpResult> GetFruitsByClassification([FromRoute] string classification)
     {
         List<Fruit>? fruitList = fruitsService.GetFruitsByClassification(classification);
 
@@ -90,6 +91,18 @@ public static class FuitsEndpointExtentionMethod
         }
 
         return TypedResults.Ok(fruitList);
+    }
+
+    private static Results<Ok<List<string>>, ProblemHttpResult> GetAvailableClassifications()
+    {
+        List<string> availableClassifications = fruitsService.GetAvailableClassifications();
+
+        if (availableClassifications.Count == 0)
+        {
+            return TypedResults.Problem(statusCode: 404); 
+        }
+
+        return TypedResults.Ok(availableClassifications);
     }
 
     

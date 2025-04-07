@@ -68,12 +68,21 @@ public class FruitsService
     {
         if (string.IsNullOrEmpty(classification))
         {
-            return null;
+            return null; 
         }
 
         return fruitDictionary
             .Where(pair => pair.Value.Classification == classification)
             .Select(pair => pair.Value)
+            .ToList();
+    }
+
+    public List<string> GetAvailableClassifications()
+    {
+        return fruitDictionary.Values
+            .Where(f => f.Classification != null)
+            .Select(f => f.Classification!)
+            .Distinct()
             .ToList();
     }
 

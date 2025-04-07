@@ -37,6 +37,12 @@ GET {{BasicFruitsAPI_HostAddress}}/fruit/classification/Aggregate
 Accept : application/json
 ### 
 
+# Get Available Classifications
+GET {{BasicFruitsAPI_HostAddress}}/fruit/available-classification
+Accept : application/json
+### 
+
+
 # Post Requests 
 
 # Add New Fruit
