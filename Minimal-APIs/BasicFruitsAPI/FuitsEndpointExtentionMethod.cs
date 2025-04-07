@@ -81,7 +81,8 @@ public static class FuitsEndpointExtentionMethod
         return TypedResults.Ok(fruit);
     }
 
-    private static Results<Ok<List<Fruit>>, ProblemHttpResult> GetFruitsByClassification([FromRoute] string classification)
+    private static Results<Ok<List<Fruit>>, ProblemHttpResult> GetFruitsByClassification(
+        [FromRoute] string classification)
     {
         List<Fruit>? fruitList = fruitsService.GetFruitsByClassification(classification);
 
@@ -109,7 +110,8 @@ public static class FuitsEndpointExtentionMethod
 
     // POST Handlers
 
-    private static Results<Created<Fruit>, InternalServerError<string>> CreateFruit(Fruit newFruit, LinkGenerator link)
+    private static Results<Created<Fruit>, InternalServerError<string>> CreateFruit(
+        [FromBody] Fruit newFruit, [FromServices] LinkGenerator link)
     {
         Fruit? createdFruit = fruitsService.CreateFruit(newFruit);
 
@@ -125,7 +127,8 @@ public static class FuitsEndpointExtentionMethod
 
     // PUT Handlers 
 
-    private static Results<NoContent, InternalServerError<string>> UpdateFruitByID(int  id, Fruit newFruit)
+    private static Results<NoContent, InternalServerError<string>> UpdateFruitByID(
+        int  id, [FromBody] Fruit newFruit)
     {
         Fruit? updatedFruit = fruitsService.UpdateFruitByID(id, newFruit);
 
