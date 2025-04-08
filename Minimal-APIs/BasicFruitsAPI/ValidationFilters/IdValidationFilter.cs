@@ -1,13 +1,14 @@
 ﻿
 using BasicFruitsAPI.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BasicFruitsAPI.ValidationFilters;
 
 public class IdValidationFilter : IEndpointFilter
 {
-    private FruitsService _fruitsService; 
+    private IFruitService _fruitsService; 
 
-    public IdValidationFilter(FruitsService fruitsService)
+    public IdValidationFilter([FromServices] IFruitService fruitsService)
     {
         _fruitsService = fruitsService;
     }

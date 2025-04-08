@@ -4,7 +4,7 @@ using System.Security.Cryptography.Xml;
 
 namespace BasicFruitsAPI.Services; 
 
-public class FruitsService
+public class FruitsService : IFruitService
 {
     private List<KeyValuePair<int, Fruit>> fruitListWithKeys = new List<KeyValuePair<int, Fruit>>()
     {

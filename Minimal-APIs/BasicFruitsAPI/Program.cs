@@ -1,4 +1,5 @@
 using BasicFruitsAPI;
+using BasicFruitsAPI.Services;
 using Microsoft.AspNetCore.HttpLogging;
 
 
@@ -7,6 +8,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddHttpLogging(config => 
     config.LoggingFields = HttpLoggingFields.RequestProperties | HttpLoggingFields.ResponsePropertiesAndHeaders);
+
+// Add Fruit Service 
+builder.Services.AddFruitService();
 
 // Ensures that logs added by the HTTP logging middleware are visible in the log output
 builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);

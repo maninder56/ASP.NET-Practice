@@ -9,29 +9,35 @@ namespace BasicFruitsAPI;
 
 public static class FuitsEndpointExtentionMethod 
 {
-    private static readonly FruitsService fruitsService = new FruitsService();
-
-    private static IdValidationFilter _idValidationFilter = new IdValidationFilter(fruitsService);
-
     public static WebApplication AddFuitsEndpoints(this WebApplication app)
     {
         RouteGroupBuilder fruitApi = app.MapGroup("/fruit");
 
         RouteGroupBuilder fruitApiWithIdValidation = fruitApi.MapGroup("/")
-            .AddEndpointFilter(_idValidationFilter); 
+            .AddEndpointFilter<IdValidationFilter>();  
 
         // Get Endpoints
         fruitApi.MapGet("/list", GetFruitList);
-        fruitApiWithIdValidation.MapGet("/id/{id:int}", GetFruitByID).WithName("fruitId"); 
+
+        fruitApiWithIdValidation.MapGet("/id/{id:int}", GetFruitByID)
+            .WithName("fruitId"); 
+
         fruitApi.MapGet("/name/{name:alpha}", GetFruitByName);
+
         fruitApi.MapGet("/classification/{classification:alpha}", GetFruitsByClassification);
+
         fruitApi.MapGet("/available-classification", GetAvailableClassifications); 
 
+
         // Post Endpoints
-        fruitApi.MapPost("/", CreateFruit);
+        fruitApi.MapPost("/", CreateFruit)
+            .WithParameterValidation();
+
 
         // Put Endpoints 
-        fruitApiWithIdValidation.MapPut("/id/{id:int}", UpdateFruitByID);
+        fruitApiWithIdValidation.MapPut("/id/{id:int}", UpdateFruitByID)
+            .WithParameterValidation();
+
 
         // Delete Endpoints 
         fruitApiWithIdValidation.MapDelete("/id/{id:int}", DeleteFruitByID);
@@ -45,9 +51,10 @@ public static class FuitsEndpointExtentionMethod
 
     // GET Handlers
 
-    private static Results<Ok<List<Fruit>>, ProblemHttpResult> GetFruitList()
+    private static Results<Ok<List<Fruit>>, ProblemHttpResult> GetFruitList(
+        [FromServices] IFruitService fruitService)
     {
-        List<Fruit> fruitList = fruitsService.GetFruitList();
+        List<Fruit> fruitList = fruitService.GetFruitList();
 
         if (fruitList.Count == 0)
         {
@@ -57,9 +64,10 @@ public static class FuitsEndpointExtentionMethod
         return TypedResults.Ok(fruitList);
     }
 
-    private static Results<Ok<Fruit>, ProblemHttpResult> GetFruitByID([FromRoute]int id)
+    private static Results<Ok<Fruit>, ProblemHttpResult> GetFruitByID(
+        [FromRoute]int id, [FromServices] IFruitService fruitService)
     {
-        Fruit? fruit = fruitsService.GetFruitByID(id);
+        Fruit? fruit = fruitService.GetFruitByID(id);
 
         if (fruit == null)
         {
@@ -69,9 +77,10 @@ public static class FuitsEndpointExtentionMethod
         return TypedResults.Ok(fruit);  
     }
 
-    private static Results<Ok<Fruit>, ProblemHttpResult> GetFruitByName([FromRoute] string name)
+    private static Results<Ok<Fruit>, ProblemHttpResult> GetFruitByName(
+        [FromRoute] string name, [FromServices] IFruitService fruitService)
     {
-        Fruit? fruit = fruitsService.GetFruitByName(name);
+        Fruit? fruit = fruitService.GetFruitByName(name);
 
         if (fruit == null)
         {
@@ -82,9 +91,9 @@ public static class FuitsEndpointExtentionMethod
     }
 
     private static Results<Ok<List<Fruit>>, ProblemHttpResult> GetFruitsByClassification(
-        [FromRoute] string classification)
+        [FromRoute] string classification, [FromServices] IFruitService fruitService)
     {
-        List<Fruit>? fruitList = fruitsService.GetFruitsByClassification(classification);
+        List<Fruit>? fruitList = fruitService.GetFruitsByClassification(classification);
 
         if (fruitList == null || fruitList.Count == 0)
         {
@@ -94,9 +103,10 @@ public static class FuitsEndpointExtentionMethod
         return TypedResults.Ok(fruitList);
     }
 
-    private static Results<Ok<List<string>>, ProblemHttpResult> GetAvailableClassifications()
+    private static Results<Ok<List<string>>, ProblemHttpResult> GetAvailableClassifications(
+        [FromServices] IFruitService fruitService)
     {
-        List<string> availableClassifications = fruitsService.GetAvailableClassifications();
+        List<string> availableClassifications = fruitService.GetAvailableClassifications();
 
         if (availableClassifications.Count == 0)
         {
@@ -111,9 +121,9 @@ public static class FuitsEndpointExtentionMethod
     // POST Handlers
 
     private static Results<Created<Fruit>, InternalServerError<string>> CreateFruit(
-        [FromBody] Fruit newFruit, [FromServices] LinkGenerator link)
+        [FromBody] Fruit newFruit, [FromServices] LinkGenerator link, [FromServices] IFruitService fruitService)
     {
-        Fruit? createdFruit = fruitsService.CreateFruit(newFruit);
+        Fruit? createdFruit = fruitService.CreateFruit(newFruit);
 
         if (createdFruit == null)
         {
@@ -128,9 +138,9 @@ public static class FuitsEndpointExtentionMethod
     // PUT Handlers 
 
     private static Results<NoContent, InternalServerError<string>> UpdateFruitByID(
-        int  id, [FromBody] Fruit newFruit)
+        int  id, [FromBody] Fruit newFruit, [FromServices] IFruitService fruitService)
     {
-        Fruit? updatedFruit = fruitsService.UpdateFruitByID(id, newFruit);
+        Fruit? updatedFruit = fruitService.UpdateFruitByID(id, newFruit);
 
         if (updatedFruit == null)
         {
@@ -143,9 +153,10 @@ public static class FuitsEndpointExtentionMethod
 
     // DELETE Handlers 
 
-    private static Results<NoContent, InternalServerError<string>> DeleteFruitByID(int id)
+    private static Results<NoContent, InternalServerError<string>> DeleteFruitByID(
+        int id, [FromServices] IFruitService fruitService)
     {
-        if (!fruitsService.DeleteFruitByID(id))
+        if (!fruitService.DeleteFruitByID(id))
         {
             return TypedResults.InternalServerError("Failed To Delete Fruit"); 
         }

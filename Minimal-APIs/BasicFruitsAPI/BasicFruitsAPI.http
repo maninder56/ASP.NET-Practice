@@ -22,6 +22,11 @@ GET {{BasicFruitsAPI_HostAddress}}/fruit/id/2
 Accept : application/json
 ###
 
+# Get Fruit By ID that does not exists
+GET {{BasicFruitsAPI_HostAddress}}/fruit/id/21
+Accept : application/json
+###
+
 # Get Fruit By Name 
 GET {{BasicFruitsAPI_HostAddress}}/fruit/name/Pineapple
 Accept : application/json
@@ -51,6 +56,16 @@ Content-Type: application/json
 
 {
     "name": "TestFruit",
+    "classification": "Simple",
+    "description": "Testing the api endpoint"
+}
+###
+
+# Add New Fruit wtihout some properties
+POST {{BasicFruitsAPI_HostAddress}}/fruit
+Content-Type: application/json
+
+{
     "classification": "Simple",
     "description": "Testing the api endpoint"
 }
