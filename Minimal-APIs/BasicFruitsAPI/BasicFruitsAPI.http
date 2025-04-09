@@ -12,6 +12,9 @@ GET {{BasicFruitsAPI_HostAddress}}/error
 Accept : application/json
 ###
 
+
+# Fruit API Endpoints
+
 # Get Fruit List
 GET {{BasicFruitsAPI_HostAddress}}/fruit/list
 Accept : application/json
@@ -91,3 +94,4 @@ Content-Type: application/json
 # Delete Fruit By ID 
 DELETE {{BasicFruitsAPI_HostAddress}}/fruit/id/11
 ###
+

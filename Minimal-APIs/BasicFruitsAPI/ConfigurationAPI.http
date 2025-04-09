@@ -1,0 +1,11 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+
+@ConfigurationAPI_HostAdress = https://localhost:7000
+
+# Configuration API Endpoints 
+
+GET {{ConfigurationAPI_HostAdress}}/configurations/all
+Accept: application/json
+
+###
+

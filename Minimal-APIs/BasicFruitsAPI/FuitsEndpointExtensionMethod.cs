@@ -7,7 +7,7 @@ using BasicFruitsAPI.ValidationFilters;
 
 namespace BasicFruitsAPI;
 
-public static class FuitsEndpointExtentionMethod 
+public static class FuitsEndpointExtensionMethod 
 {
     public static WebApplication AddFuitsEndpoints(this WebApplication app)
     {

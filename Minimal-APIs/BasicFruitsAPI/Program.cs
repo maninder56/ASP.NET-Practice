@@ -18,6 +18,16 @@ builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Informati
 // Adding Problem Detail standard 
 builder.Services.AddProblemDetails(); 
 
+if (builder.Environment.IsDevelopment())
+{
+    // Loading configurations 
+    builder.Configuration.Sources.Clear(); // Clear default configuration sources
+    builder.Configuration.AddJsonFile(
+        "appsettings.Development.json", 
+        optional: true, 
+        reloadOnChange: true);
+}
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,7 +55,10 @@ app.MapGet("/error", () => "Sorry, There was an error processing your request");
 
 app.MapGet("/", () => "Hello World");
 
-// Fruits Endpoints
-app.AddFuitsEndpoints(); 
+// Adding Fruits Endpoints
+app.AddFuitsEndpoints();
+
+// Adding Configuration Endpoints
+app.AddConfigurationEndpoints(); 
 
 app.Run();
