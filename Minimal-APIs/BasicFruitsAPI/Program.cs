@@ -1,4 +1,5 @@
 using BasicFruitsAPI;
+using BasicFruitsAPI.ConfigurationClasses;
 using BasicFruitsAPI.Services;
 using Microsoft.AspNetCore.HttpLogging;
 
@@ -26,6 +27,19 @@ if (builder.Environment.IsDevelopment())
         "appsettings.Development.json", 
         optional: true, 
         reloadOnChange: true);
+    builder.Configuration.AddUserSecrets<Program>();
+    
+    // convert configuration to POCO 
+    builder.Services.Configure<UserOne>(
+        builder.Configuration.GetSection("UserOne"));
+    builder.Services.Configure<ExternalAPI>(
+        builder.Configuration.GetSection("ExternalAPI"));
+    builder.Services.Configure<MockConfigurations>(
+        builder.Configuration.GetSection("MockConfigurations")); 
+
+    // Addign Open API description 
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(); 
 }
 
 WebApplication app = builder.Build();
@@ -40,6 +54,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseHttpLogging();
+
+    app.UseSwagger();
+    app.UseSwaggerUI(); 
 }
 
 app.UseHttpsRedirection();

@@ -4,8 +4,24 @@
 
 # Configuration API Endpoints 
 
+# Get all configurations 
 GET {{ConfigurationAPI_HostAdress}}/configurations/all
 Accept: application/json
 
 ###
 
+# Get UseOne Secrets
+GET {{ConfigurationAPI_HostAdress}}/configurations/userOne
+
+###
+
+
+# Get api key 
+GET {{ConfigurationAPI_HostAdress}}/configurations/apikey
+
+###
+
+# Get mock configuration
+GET {{ConfigurationAPI_HostAdress}}/configurations/mockconfiguration
+
+###
