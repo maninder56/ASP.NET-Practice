@@ -18,27 +18,31 @@ public static class FuitsEndpointExtensionMethod
 
         // Get Endpoints
         fruitApi.MapGet("/list", GetFruitList)
+            .WithName("GetFruitList")
             .WithTags("fruit")
             .Produces<List<Fruit>>()
             .ProducesProblem(404); 
 
         fruitApiWithIdValidation.MapGet("/id/{id:int}", GetFruitByID)
-            .WithName("fruitId")
+            .WithName("GetFruitByID")
             .WithTags("fruit")
             .Produces<Fruit>()
             .ProducesValidationProblem(); 
 
-        fruitApi.MapGet("/name/{name:alpha}", GetFruitByName)
+        fruitApi.MapGet("/name/{name}", GetFruitByName)
+            .WithName("GetFruitByName")
             .WithTags("fruit")
             .Produces<Fruit>()
             .ProducesProblem(404);
 
         fruitApi.MapGet("/classification/{classification:alpha}", GetFruitsByClassification)
+            .WithName("GetFruitsByClassification")
             .WithTags("fruit")
             .Produces<List<Fruit>>()
             .ProducesProblem(404);
 
         fruitApi.MapGet("/available-classification", GetAvailableClassifications)
+            .WithName("GetAvailableClassifications")
             .WithTags("fruit")
             .Produces<List<string>>()
             .ProducesProblem(404);
@@ -46,6 +50,7 @@ public static class FuitsEndpointExtensionMethod
 
         // Post Endpoints
         fruitApi.MapPost("/", CreateFruit)
+            .WithName("CreateFruit")
             .WithParameterValidation()
             .WithTags("fruit")
             .Produces<Fruit>(201)
@@ -54,6 +59,7 @@ public static class FuitsEndpointExtensionMethod
 
         // Put Endpoints 
         fruitApiWithIdValidation.MapPut("/id/{id:int}", UpdateFruitByID)
+            .WithName("UpdateFruitByID")
             .WithParameterValidation()
             .WithTags("fruit")
             .Produces(204)
@@ -63,6 +69,7 @@ public static class FuitsEndpointExtensionMethod
 
         // Delete Endpoints 
         fruitApiWithIdValidation.MapDelete("/id/{id:int}", DeleteFruitByID)
+            .WithName("DeleteFruitByID")
             .WithTags("fruit")
             .Produces(204)
             .ProducesValidationProblem()
@@ -155,7 +162,7 @@ public static class FuitsEndpointExtensionMethod
             return TypedResults.InternalServerError("Failed to Create fruit");
         }
 
-        string? createdFruitLink = link.GetPathByName("fruitId", new { id = createdFruit.Id }); 
+        string? createdFruitLink = link.GetPathByName("GetFruitByID", new { id = createdFruit.Id }); 
         return TypedResults.Created(createdFruitLink,createdFruit);
     }
     #endregion
