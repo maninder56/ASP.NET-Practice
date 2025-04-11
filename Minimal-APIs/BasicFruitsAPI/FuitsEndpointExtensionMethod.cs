@@ -14,33 +14,59 @@ public static class FuitsEndpointExtensionMethod
         RouteGroupBuilder fruitApi = app.MapGroup("/fruit");
 
         RouteGroupBuilder fruitApiWithIdValidation = fruitApi.MapGroup("/")
-            .AddEndpointFilter<IdValidationFilter>();  
+            .AddEndpointFilter<IdValidationFilter>();
 
         // Get Endpoints
-        fruitApi.MapGet("/list", GetFruitList);
+        fruitApi.MapGet("/list", GetFruitList)
+            .WithTags("fruit")
+            .Produces<List<Fruit>>()
+            .ProducesProblem(404); 
 
         fruitApiWithIdValidation.MapGet("/id/{id:int}", GetFruitByID)
-            .WithName("fruitId"); 
+            .WithName("fruitId")
+            .WithTags("fruit")
+            .Produces<Fruit>()
+            .ProducesValidationProblem(); 
 
-        fruitApi.MapGet("/name/{name:alpha}", GetFruitByName);
+        fruitApi.MapGet("/name/{name:alpha}", GetFruitByName)
+            .WithTags("fruit")
+            .Produces<Fruit>()
+            .ProducesProblem(404);
 
-        fruitApi.MapGet("/classification/{classification:alpha}", GetFruitsByClassification);
+        fruitApi.MapGet("/classification/{classification:alpha}", GetFruitsByClassification)
+            .WithTags("fruit")
+            .Produces<List<Fruit>>()
+            .ProducesProblem(404);
 
-        fruitApi.MapGet("/available-classification", GetAvailableClassifications); 
+        fruitApi.MapGet("/available-classification", GetAvailableClassifications)
+            .WithTags("fruit")
+            .Produces<List<string>>()
+            .ProducesProblem(404);
 
 
         // Post Endpoints
         fruitApi.MapPost("/", CreateFruit)
-            .WithParameterValidation();
+            .WithParameterValidation()
+            .WithTags("fruit")
+            .Produces<Fruit>(201)
+            .ProducesValidationProblem();
 
 
         // Put Endpoints 
         fruitApiWithIdValidation.MapPut("/id/{id:int}", UpdateFruitByID)
-            .WithParameterValidation();
+            .WithParameterValidation()
+            .WithTags("fruit")
+            .Produces(204)
+            .ProducesValidationProblem()
+            .ProducesProblem(500);
 
 
         // Delete Endpoints 
-        fruitApiWithIdValidation.MapDelete("/id/{id:int}", DeleteFruitByID);
+        fruitApiWithIdValidation.MapDelete("/id/{id:int}", DeleteFruitByID)
+            .WithTags("fruit")
+            .Produces(204)
+            .ProducesValidationProblem()
+            .ProducesProblem(500);
 
         return app; 
     }
@@ -48,9 +74,7 @@ public static class FuitsEndpointExtensionMethod
 
     // Endpoint Handlers
 
-
-    // GET Handlers
-
+    #region Get Handlers
     private static Results<Ok<List<Fruit>>, ProblemHttpResult> GetFruitList(
         [FromServices] IFruitService fruitService)
     {
@@ -116,9 +140,10 @@ public static class FuitsEndpointExtensionMethod
         return TypedResults.Ok(availableClassifications);
     }
 
-    
+    #endregion
 
-    // POST Handlers
+
+    #region POST Handlers
 
     private static Results<Created<Fruit>, InternalServerError<string>> CreateFruit(
         [FromBody] Fruit newFruit, [FromServices] LinkGenerator link, [FromServices] IFruitService fruitService)
@@ -133,9 +158,9 @@ public static class FuitsEndpointExtensionMethod
         string? createdFruitLink = link.GetPathByName("fruitId", new { id = createdFruit.Id }); 
         return TypedResults.Created(createdFruitLink,createdFruit);
     }
+    #endregion
 
-
-    // PUT Handlers 
+    #region PUT Handlers 
 
     private static Results<NoContent, InternalServerError<string>> UpdateFruitByID(
         int  id, [FromBody] Fruit newFruit, [FromServices] IFruitService fruitService)
@@ -149,9 +174,9 @@ public static class FuitsEndpointExtensionMethod
 
         return TypedResults.NoContent(); 
     }
+    #endregion
 
-
-    // DELETE Handlers 
+    #region DELETE Handlers 
 
     private static Results<NoContent, InternalServerError<string>> DeleteFruitByID(
         int id, [FromServices] IFruitService fruitService)
@@ -163,5 +188,5 @@ public static class FuitsEndpointExtensionMethod
 
         return TypedResults.NoContent();    
     }
-
+    #endregion
 }
