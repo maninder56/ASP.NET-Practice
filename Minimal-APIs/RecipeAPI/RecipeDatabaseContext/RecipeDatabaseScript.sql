@@ -62,4 +62,7 @@ INNER JOIN Ingredient I
 WHERE R.RecipeName = 'Hot honey chicken';
 
 
+SELECT *
+FROM INFORMATION_SCHEMA.TABLES T; 
+
 

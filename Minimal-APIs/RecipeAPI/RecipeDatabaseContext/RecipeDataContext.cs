@@ -6,20 +6,15 @@ namespace RecipeDatabaseContext;
 
 public partial class RecipeDataContext : DbContext
 {
-    public RecipeDataContext()
-    {
-    }
+    public RecipeDataContext() { }
 
-    public RecipeDataContext(DbContextOptions<RecipeDataContext> options)
-        : base(options)
-    {
-    }
+    public RecipeDataContext(DbContextOptions<RecipeDataContext> options) : base(options) { }
 
     public virtual DbSet<Ingredient> Ingredients { get; set; }
 
-    public virtual DbSet<Recipy> Recipies { get; set; }
+    public virtual DbSet<Recipe> Recipies { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -46,7 +41,7 @@ public partial class RecipeDataContext : DbContext
                 .HasConstraintName("FK__Ingredien__Recip__3A81B327");
         });
 
-        modelBuilder.Entity<Recipy>(entity =>
+        modelBuilder.Entity<Recipe>(entity =>
         {
             entity.HasKey(e => e.RecipeId).HasName("PK__Recipies__FDD988D0E4D28C52");
 
