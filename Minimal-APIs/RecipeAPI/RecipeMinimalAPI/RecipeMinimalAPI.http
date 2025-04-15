@@ -1,0 +1,16 @@
+@RecipeMinimalAPI_HostAddress = https://localhost:7000
+
+# Home
+GET {{RecipeMinimalAPI_HostAddress}}/
+Accept: application/json
+
+### 
+
+# Throw Exception
+GET {{RecipeMinimalAPI_HostAddress}}/throwException
+Accept: application/json
+
+###
+
+
+
