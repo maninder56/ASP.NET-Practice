@@ -6,15 +6,18 @@ namespace RecipeDatabaseContext;
 
 public partial class RecipeDataContext : DbContext
 {
-    public RecipeDataContext() { }
+    public RecipeDataContext()
+    {
+    }
 
-    public RecipeDataContext(DbContextOptions<RecipeDataContext> options) : base(options) { }
+    public RecipeDataContext(DbContextOptions<RecipeDataContext> options)
+        : base(options)
+    {
+    }
 
     public virtual DbSet<Ingredient> Ingredients { get; set; }
 
-    public virtual DbSet<Recipe> Recipies { get; set; }
-
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+    public virtual DbSet<Recipe> Recipes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

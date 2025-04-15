@@ -6,6 +6,12 @@ Accept: application/json
 
 ### 
 
+# Endpoint Does not exists
+GET {{RecipeMinimalAPI_HostAddress}}/unknown
+Accept: application/json
+
+### 
+
 # Throw Exception
 GET {{RecipeMinimalAPI_HostAddress}}/throwException
 Accept: application/json
@@ -13,4 +19,19 @@ Accept: application/json
 ###
 
 
+# Recipe API Endpoints 
 
+
+# GET Methods 
+
+# Get all Recipies
+GET {{RecipeMinimalAPI_HostAddress}}/recipe/all
+Accept: application/json
+
+###
+
+# Get Recipe by ID 
+GET {{RecipeMinimalAPI_HostAddress}}/recipe/1
+Accept: application/json
+
+###

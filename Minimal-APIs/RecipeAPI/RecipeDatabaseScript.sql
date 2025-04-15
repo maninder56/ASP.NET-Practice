@@ -5,7 +5,7 @@ FROM master.sys.databases d;
 
 USE RecipeData;
 
---CREATE TABLE Recipies (
+--CREATE TABLE Recipes (
 --	RecipeID INT PRIMARY KEY, 
 --	RecipeName VARCHAR(100) NOT NULL, 
 --	DateCreated DATE 
@@ -20,7 +20,7 @@ SELECT CAST(CURRENT_TIMESTAMP AS DATE);
 --(2, 'Baked sweet potato with roasted vegetables and bulgur wheat'); 
 
 SELECT *
-FROM Recipies;
+FROM Recipes;
 
 --CREATE TABLE Ingredient(
 --	IngredientID INT PRIMARY KEY, 
@@ -48,6 +48,9 @@ FROM Recipies;
 --ALTER TABLE Ingredient
 --ALTER COLUMN Quantity DECIMAL(10,2);
 
+
+--EXEC sp_rename 'Recipies', 'Recipes';
+
 SELECT *
 FROM Ingredient; 
 
@@ -56,13 +59,13 @@ SELECT
 	I.IngredientName, 
 	I.Quantity, 
 	I.Unit
-FROM Recipies R
+FROM Recipes R
 INNER JOIN Ingredient I 
 	ON	R.RecipeID = I.RecipeID
 WHERE R.RecipeName = 'Hot honey chicken';
 
 
-SELECT *
+SELECT T.TABLE_NAME
 FROM INFORMATION_SCHEMA.TABLES T; 
 
 

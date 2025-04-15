@@ -7,15 +7,14 @@ public static class EndpointExtensionMethods
 {
     public static WebApplication AddRecipeEndpoints(this WebApplication app)
     {
-        RouteGroupBuilder recipeApi = app.MapGroup("/recipe"); 
+        RouteGroupBuilder recipeApi = app.MapGroup("/recipe");
 
-        recipeApi.MapGet("/All", (IRecipeEndpointHandlersService handler) 
+        recipeApi.MapGet("/all", ([FromServices] IRecipeEndpointHandlersService handler)
             => handler.GetAllRecipies);
 
-        recipeApi.MapGet("/{id:int}", (int id, IRecipeEndpointHandlersService handler) 
-            => handler.GetRecipieByID(id)); 
+        recipeApi.MapGet("/{id:int}", (int id, [FromServices] IRecipeEndpointHandlersService handler)
+            => handler.GetRecipieByID(id));
 
         return app;
-
     }
 }

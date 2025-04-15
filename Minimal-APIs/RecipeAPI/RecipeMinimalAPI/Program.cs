@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.AspNetCore.HttpLogging;
 using RecipeMinimalAPI;
+using RecipeMinimalAPI.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +11,11 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpLogging(configureOptions => configureOptions.LoggingFields =
     HttpLoggingFields.RequestProperties | HttpLoggingFields.ResponseHeaders);
 
-builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information); 
+builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
+builder.Services.AddProblemDetails();
+
+builder.Services.AddRecipeServices(); 
 
 WebApplication app = builder.Build();
 
@@ -20,7 +24,7 @@ WebApplication app = builder.Build();
 switch(app.Environment.IsDevelopment())
 {
     case false:
-        app.UseExceptionHandler("/error"); 
+        app.UseExceptionHandler(); 
         break;
 
     case true:
@@ -28,6 +32,8 @@ switch(app.Environment.IsDevelopment())
         app.UseDeveloperExceptionPage();
         break;
 }
+
+app.UseStatusCodePages();   
 
 app.UseHttpsRedirection();
 app.UseRouting();

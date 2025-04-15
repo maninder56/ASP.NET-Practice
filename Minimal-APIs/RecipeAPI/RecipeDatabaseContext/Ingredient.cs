@@ -16,4 +16,6 @@ public partial class Ingredient
     public int? RecipeId { get; set; }
 
     public virtual Recipe? Recipe { get; set; }
+
+    public Ingredient() { }
 }

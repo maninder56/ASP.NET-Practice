@@ -12,4 +12,6 @@ public partial class Recipe
     public DateOnly? DateCreated { get; set; }
 
     public virtual ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
+
+    public Recipe() { } 
 }

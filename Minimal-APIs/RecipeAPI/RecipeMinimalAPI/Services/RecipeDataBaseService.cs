@@ -4,7 +4,7 @@ namespace RecipeMinimalAPI.Services;
 
 public class RecipeDataBaseService : IRecipeDataBaseService
 {
-    private readonly RecipeDataContext database; 
+    private RecipeDataContext database; 
 
     public RecipeDataBaseService (RecipeDataContext database)
     {
@@ -13,12 +13,12 @@ public class RecipeDataBaseService : IRecipeDataBaseService
 
     public List<Recipe> GetAllRecipes()
     {
-        return database.Recipies.ToList();
+        return database.Recipes.ToList();
     }
 
     public Recipe? GetRecipeByID(int id)
     {
-        return database.Recipies.FirstOrDefault(r => r.RecipeId == id);
+        return database.Recipes.FirstOrDefault(r => r.RecipeId == id);
     }
 
 }
