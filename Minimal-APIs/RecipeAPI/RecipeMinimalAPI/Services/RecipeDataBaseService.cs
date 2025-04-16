@@ -56,4 +56,37 @@ public class RecipeDataBaseService : IRecipeDataBaseService
             })
             .FirstOrDefault(r => r.RecipeId == id);
     }
+
+
+
+    public RecipeModel? CreateOnlyRecipe(RecipeModel recipeDetails)
+    {
+        int recipeID = database.Recipes.Max(r => r.RecipeId) + 1; 
+        DateOnly recipeDate = DateOnly.FromDateTime(DateTime.Now);
+
+        Recipe recipeEntity = new Recipe()
+        {
+            RecipeId = recipeID,
+            RecipeName = recipeDetails.RecipeName,
+            DateCreated = recipeDate
+        }; 
+
+        database.Add(recipeEntity);
+
+        int entityChanges = database.SaveChanges();
+
+        if (entityChanges == 0)
+        {
+            return null; 
+        }
+
+        RecipeModel createdRecipe = new RecipeModel()
+        {
+            RecipeId = recipeEntity.RecipeId,
+            RecipeName = recipeEntity.RecipeName,
+            DateCreated = recipeEntity.DateCreated
+        }; 
+
+        return createdRecipe; 
+    }
 }

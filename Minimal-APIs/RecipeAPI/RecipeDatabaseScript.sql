@@ -12,15 +12,11 @@ USE RecipeData;
 --		DEFAULT CAST(CURRENT_TIMESTAMP AS DATE)
 --	);
 
-SELECT CAST(CURRENT_TIMESTAMP AS DATE);
-
 
 --INSERT INTO Recipies (RecipeID, RecipeName) VALUES 
 --(1, 'Hot honey chicken'), 
 --(2, 'Baked sweet potato with roasted vegetables and bulgur wheat'); 
 
-SELECT *
-FROM Recipes;
 
 --CREATE TABLE Ingredient(
 --	IngredientID INT PRIMARY KEY, 
@@ -51,9 +47,8 @@ FROM Recipes;
 
 --EXEC sp_rename 'Recipies', 'Recipes';
 
-SELECT *
-FROM Ingredient; 
-
+--DELETE FROM Recipes
+--WHERE RecipeID > 2; 
 
 SELECT
 	I.IngredientName, 
@@ -68,4 +63,11 @@ WHERE R.RecipeName = 'Hot honey chicken';
 SELECT T.TABLE_NAME
 FROM INFORMATION_SCHEMA.TABLES T; 
 
+SELECT CAST(CURRENT_TIMESTAMP AS DATE);
 
+
+SELECT *
+FROM Ingredient; 
+
+SELECT *
+FROM Recipes;

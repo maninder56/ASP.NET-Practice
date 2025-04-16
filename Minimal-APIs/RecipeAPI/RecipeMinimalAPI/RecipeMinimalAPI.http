@@ -47,3 +47,13 @@ GET {{RecipeMinimalAPI_HostAddress}}/recipe/recipeDetail/1
 Accept: application/json
 
 ###
+
+POST {{RecipeMinimalAPI_HostAddress}}/recipe
+Content-Type: application/json
+
+{
+  "recipeName": "dummy recipe 2 "
+}
+
+
+###

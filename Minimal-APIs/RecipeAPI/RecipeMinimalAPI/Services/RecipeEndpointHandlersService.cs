@@ -8,11 +8,16 @@ namespace RecipeMinimalAPI.Services;
 public class RecipeEndpointHandlersService : IRecipeEndpointHandlersService
 {
     IRecipeDataBaseService dataBaseService; 
+    LinkGenerator linkGenerator;
 
-    public RecipeEndpointHandlersService(IRecipeDataBaseService recipeDataBaseService)
+    public RecipeEndpointHandlersService(
+        IRecipeDataBaseService recipeDataBaseService, LinkGenerator linkGenerator)
     {
         dataBaseService = recipeDataBaseService;
+        this.linkGenerator = linkGenerator;
     }
+
+    // GET Handlers
 
     public Results<Ok<List<RecipeModel>>, ProblemHttpResult> GetAllRecipies() 
     {
@@ -48,5 +53,23 @@ public class RecipeEndpointHandlersService : IRecipeEndpointHandlersService
         }
 
         return TypedResults.Ok(recipeDetails);
+    }
+
+
+
+    // POST Handlers 
+
+    public Results<Created<RecipeModel>, ProblemHttpResult> CreateOnlyRecipe(RecipeModel recipe)
+    {
+        RecipeModel? createdRecipe = dataBaseService.CreateOnlyRecipe(recipe);
+
+        if (createdRecipe == null)
+        {
+            return TypedResults.Problem(statusCode: 500, detail: $"Failed to create Recipe"); 
+        }
+
+        string? link = linkGenerator.GetPathByName("recipeOnly", new { id = createdRecipe.RecipeId });
+
+        return TypedResults.Created(link, createdRecipe); 
     }
 }
