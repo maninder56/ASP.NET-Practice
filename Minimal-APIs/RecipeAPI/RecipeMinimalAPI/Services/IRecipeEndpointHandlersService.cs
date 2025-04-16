@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
-using RecipeDatabaseContext; 
+using RecipeMinimalAPI.Models; 
 
 namespace RecipeMinimalAPI.Services;
 
 public interface IRecipeEndpointHandlersService
 {
     // GET Methods
-    public Results<Ok<List<Recipe>>, ProblemHttpResult> GetAllRecipies();
-    public Results<Ok<Recipe>, ProblemHttpResult> GetRecipieByID(int id);
+    public Results<Ok<List<RecipeModel>>, ProblemHttpResult> GetAllRecipies();
+    public Results<Ok<RecipeModel>, ProblemHttpResult> GetRecipieByID(int id);
 
 }

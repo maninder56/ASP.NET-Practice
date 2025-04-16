@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecipeDatabaseContext;
+using RecipeMinimalAPI.Models; 
 
 namespace RecipeMinimalAPI.Services;
 
@@ -12,44 +13,28 @@ public class RecipeDataBaseService : IRecipeDataBaseService
         this.database = database;
     }
 
-    public List<Recipe> GetAllRecipes()
+    public List<RecipeModel> GetAllRecipes()
     {
         return database.Recipes
             .AsNoTracking()
-            .Select(r => new Recipe()
+            .Select(r => new RecipeModel()
             {
                 RecipeId = r.RecipeId,
                 RecipeName = r.RecipeName,
                 DateCreated = r.DateCreated,
-                Ingredients = r.Ingredients
-                    .Select(i => new Ingredient()
-                    {
-                        IngredientId = i.IngredientId,
-                        IngredientName = i.IngredientName,
-                        Quantity = i.Quantity,
-                        Unit = i.Unit,
-                    }).ToList()
             })
             .ToList();
     }
 
-    public Recipe? GetRecipeByID(int id)
+    public RecipeModel? GetRecipeByID(int id)
     {
         return database.Recipes
             .AsNoTracking()
-            .Select(r => new Recipe()
+            .Select(r => new RecipeModel()
             {
                 RecipeId = r.RecipeId,
                 RecipeName = r.RecipeName,
-                DateCreated = r.DateCreated, 
-                Ingredients = r.Ingredients
-                    .Select(i => new Ingredient()
-                    {
-                        IngredientId = i.IngredientId,
-                        IngredientName = i.IngredientName,
-                        Quantity = i.Quantity,
-                        Unit = i.Unit,
-                    }).ToList()
+                DateCreated = r.DateCreated
             })
             .FirstOrDefault(r => r.RecipeId == id);
     }

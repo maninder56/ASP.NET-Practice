@@ -1,9 +1,10 @@
 ﻿using RecipeDatabaseContext;
+using RecipeMinimalAPI.Models;
 
 namespace RecipeMinimalAPI.Services; 
 
 public interface IRecipeDataBaseService
 {
-    public List<Recipe> GetAllRecipes();
-    public Recipe? GetRecipeByID(int id);
+    public List<RecipeModel> GetAllRecipes();
+    public RecipeModel? GetRecipeByID(int id);
 }
