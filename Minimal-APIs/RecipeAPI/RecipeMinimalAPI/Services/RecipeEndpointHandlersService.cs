@@ -37,4 +37,16 @@ public class RecipeEndpointHandlersService : IRecipeEndpointHandlersService
 
         return TypedResults.Ok(recipe);
     }
+
+    public Results<Ok<RecipeDetailsModel>, ProblemHttpResult> GetRecipeDetailsByID(int id)
+    {
+        RecipeDetailsModel? recipeDetails = dataBaseService.GetRecipeDetailsByID(id);
+
+        if (recipeDetails == null)
+        {
+            return TypedResults.Problem(statusCode: 404, detail: $"Recipe with ID {id} does not exists");
+        }
+
+        return TypedResults.Ok(recipeDetails);
+    }
 }

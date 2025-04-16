@@ -18,8 +18,13 @@ public static class EndpointExtensionMethods
         recipeApi.MapGet("/all", ([FromServices] IRecipeEndpointHandlersService handler)
             => handler.GetAllRecipies());
 
-        recipeApiWithIDValidation.MapGet("/{id:int}", (int id, [FromServices] IRecipeEndpointHandlersService handler)
+        recipeApiWithIDValidation.MapGet("/{id:int}", 
+            (int id, [FromServices] IRecipeEndpointHandlersService handler)
             => handler.GetRecipieByID(id));
+
+        recipeApiWithIDValidation.MapGet("/recipeDetail/{id:int}", 
+            (int id, [FromServices] IRecipeEndpointHandlersService handler) 
+            => handler.GetRecipeDetailsByID(id)); 
 
         return app;
     }

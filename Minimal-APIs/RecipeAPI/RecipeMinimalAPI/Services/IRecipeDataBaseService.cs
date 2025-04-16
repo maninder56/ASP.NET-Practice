@@ -7,4 +7,5 @@ public interface IRecipeDataBaseService
 {
     public List<RecipeModel> GetAllRecipes();
     public RecipeModel? GetRecipeByID(int id);
+    public RecipeDetailsModel? GetRecipeDetailsByID(int id);
 }

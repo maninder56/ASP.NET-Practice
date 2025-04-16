@@ -15,8 +15,7 @@ public class RecipeDataBaseService : IRecipeDataBaseService
 
     public List<RecipeModel> GetAllRecipes()
     {
-        return database.Recipes
-            .AsNoTracking()
+        return database.Recipes.AsNoTracking()
             .Select(r => new RecipeModel()
             {
                 RecipeId = r.RecipeId,
@@ -28,8 +27,7 @@ public class RecipeDataBaseService : IRecipeDataBaseService
 
     public RecipeModel? GetRecipeByID(int id)
     {
-        return database.Recipes
-            .AsNoTracking()
+        return database.Recipes.AsNoTracking()
             .Select(r => new RecipeModel()
             {
                 RecipeId = r.RecipeId,
@@ -39,4 +37,23 @@ public class RecipeDataBaseService : IRecipeDataBaseService
             .FirstOrDefault(r => r.RecipeId == id);
     }
 
+    public RecipeDetailsModel? GetRecipeDetailsByID(int id)
+    {
+        return database.Recipes.AsNoTracking()
+            .Select(r => new RecipeDetailsModel()
+            {
+                RecipeId = r.RecipeId,
+                RecipeName = r.RecipeName,
+                DateCreated = r.DateCreated, 
+                Ingredients = r.Ingredients
+                    .Select(i => new IngredientModel()
+                    {
+                        IngredientId = i.IngredientId,
+                        IngredientName = i.IngredientName,
+                        Quantity = i.Quantity,
+                        Unit = i.Unit,
+                    }).ToList()
+            })
+            .FirstOrDefault(r => r.RecipeId == id);
+    }
 }

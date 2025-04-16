@@ -1,10 +1,15 @@
-﻿using RecipeDatabaseContext;
-
+﻿
 namespace RecipeMinimalAPI.Models; 
 
-public class RecipeDetailsModel : RecipeModel
+public class RecipeDetailsModel
 {
+    public int RecipeId { get; set; }
+
+    public string RecipeName { get; set; } = null!;
+
+    public DateOnly? DateCreated { get; set; }
+
     public RecipeDetailsModel() { }
 
-    public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
+    public List<IngredientModel> Ingredients { get; set; } = new List<IngredientModel>();
 }

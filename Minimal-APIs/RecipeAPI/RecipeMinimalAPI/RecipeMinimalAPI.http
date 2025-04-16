@@ -41,3 +41,9 @@ GET {{RecipeMinimalAPI_HostAddress}}/recipe/0
 Accept: application/json
 
 ###
+
+# Get Recipe Details By ID
+GET {{RecipeMinimalAPI_HostAddress}}/recipe/recipeDetail/1
+Accept: application/json
+
+###
