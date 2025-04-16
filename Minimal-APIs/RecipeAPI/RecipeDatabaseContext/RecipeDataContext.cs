@@ -6,14 +6,10 @@ namespace RecipeDatabaseContext;
 
 public partial class RecipeDataContext : DbContext
 {
-    public RecipeDataContext()
-    {
-    }
+    public RecipeDataContext() { }
 
     public RecipeDataContext(DbContextOptions<RecipeDataContext> options)
-        : base(options)
-    {
-    }
+        : base(options) { }
 
     public virtual DbSet<Ingredient> Ingredients { get; set; }
 

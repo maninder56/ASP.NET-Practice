@@ -1,4 +1,5 @@
-﻿using RecipeDatabaseContext;
+﻿using Microsoft.EntityFrameworkCore;
+using RecipeDatabaseContext;
 
 namespace RecipeMinimalAPI.Services;
 
@@ -13,12 +14,16 @@ public class RecipeDataBaseService : IRecipeDataBaseService
 
     public List<Recipe> GetAllRecipes()
     {
-        return database.Recipes.ToList();
+        return database.Recipes
+            .AsNoTracking()
+            .ToList();
     }
 
     public Recipe? GetRecipeByID(int id)
     {
-        return database.Recipes.FirstOrDefault(r => r.RecipeId == id);
+        return database.Recipes
+            .AsNoTracking ()
+            .FirstOrDefault(r => r.RecipeId == id);
     }
 
 }

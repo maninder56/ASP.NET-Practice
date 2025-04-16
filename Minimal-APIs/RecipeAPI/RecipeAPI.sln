@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeDatabaseContext", "Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeMinimalAPI", "RecipeMinimalAPI\RecipeMinimalAPI.csproj", "{59F34E99-0F45-4DC5-9750-5648F9866EB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppToDataBaseContext", "ConsoleAppToDataBaseContext\ConsoleAppToDataBaseContext.csproj", "{F381337F-3C45-494E-B0E3-AE8FC4BA9589}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{59F34E99-0F45-4DC5-9750-5648F9866EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59F34E99-0F45-4DC5-9750-5648F9866EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59F34E99-0F45-4DC5-9750-5648F9866EB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F381337F-3C45-494E-B0E3-AE8FC4BA9589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F381337F-3C45-494E-B0E3-AE8FC4BA9589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F381337F-3C45-494E-B0E3-AE8FC4BA9589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F381337F-3C45-494E-B0E3-AE8FC4BA9589}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
