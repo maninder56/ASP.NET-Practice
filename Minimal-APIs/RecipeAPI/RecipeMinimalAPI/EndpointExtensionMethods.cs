@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using RecipeDatabaseContext;
 using RecipeMinimalAPI.Services;
+using RecipeMinimalAPI.ValidationFilters;
 
 namespace RecipeMinimalAPI;
 
@@ -9,10 +12,13 @@ public static class EndpointExtensionMethods
     {
         RouteGroupBuilder recipeApi = app.MapGroup("/recipe");
 
-        recipeApi.MapGet("/all", ([FromServices] IRecipeEndpointHandlersService handler)
-            => handler.GetAllRecipies);
+        RouteGroupBuilder recipeApiWithIDValidation = recipeApi.MapGroup("/")
+            .AddEndpointFilter<IDValidationFilter>();
 
-        recipeApi.MapGet("/{id:int}", (int id, [FromServices] IRecipeEndpointHandlersService handler)
+        recipeApi.MapGet("/all", ([FromServices] IRecipeEndpointHandlersService handler)
+            => handler.GetAllRecipies());
+
+        recipeApiWithIDValidation.MapGet("/{id:int}", (int id, [FromServices] IRecipeEndpointHandlersService handler)
             => handler.GetRecipieByID(id));
 
         return app;

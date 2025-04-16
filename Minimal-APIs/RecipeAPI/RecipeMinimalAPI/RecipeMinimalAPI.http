@@ -35,3 +35,9 @@ GET {{RecipeMinimalAPI_HostAddress}}/recipe/1
 Accept: application/json
 
 ###
+
+# Get Recipe by wrong ID 
+GET {{RecipeMinimalAPI_HostAddress}}/recipe/0
+Accept: application/json
+
+###

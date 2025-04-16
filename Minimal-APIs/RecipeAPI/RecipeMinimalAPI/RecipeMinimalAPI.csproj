@@ -4,10 +4,6 @@
     <ProjectReference Include="..\RecipeDatabaseContext\RecipeDatabaseContext.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ValidationFilters\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>

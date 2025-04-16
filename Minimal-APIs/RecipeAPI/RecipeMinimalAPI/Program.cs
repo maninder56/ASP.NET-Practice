@@ -41,7 +41,7 @@ app.UseRouting();
 // Endpoints 
 app.MapGet("/error", () => "Sorry, There was an error while processing your request"); 
 
-app.MapGet("/", () => "Hello world");
+app.MapGet("/", () => "Recipe API endpoints starts with /recipe/...");
 
 app.MapGet("/throwException", () => { throw new Exception("Intentional Exception"); }); 
 
