@@ -59,7 +59,7 @@ public class RecipeDataBaseService : IRecipeDataBaseService
 
 
 
-    public RecipeModel? CreateOnlyRecipe(RecipeModel recipeDetails)
+    public RecipeModel? CreateOnlyRecipe(string recipeName)
     {
         int recipeID = database.Recipes.Max(r => r.RecipeId) + 1; 
         DateOnly recipeDate = DateOnly.FromDateTime(DateTime.Now);
@@ -67,7 +67,7 @@ public class RecipeDataBaseService : IRecipeDataBaseService
         Recipe recipeEntity = new Recipe()
         {
             RecipeId = recipeID,
-            RecipeName = recipeDetails.RecipeName,
+            RecipeName = recipeName,
             DateCreated = recipeDate
         }; 
 

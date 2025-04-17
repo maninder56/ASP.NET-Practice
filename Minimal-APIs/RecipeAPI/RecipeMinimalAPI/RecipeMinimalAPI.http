@@ -52,7 +52,7 @@ POST {{RecipeMinimalAPI_HostAddress}}/recipe
 Content-Type: application/json
 
 {
-  "recipeName": "dummy recipe 2 "
+  "Name": "Testing recipe name"
 }
 
 

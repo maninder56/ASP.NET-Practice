@@ -59,9 +59,14 @@ public class RecipeEndpointHandlersService : IRecipeEndpointHandlersService
 
     // POST Handlers 
 
-    public Results<Created<RecipeModel>, ProblemHttpResult> CreateOnlyRecipe(RecipeModel recipe)
+    public Results<Created<RecipeModel>, ProblemHttpResult> CreateOnlyRecipe(string recipeName)
     {
-        RecipeModel? createdRecipe = dataBaseService.CreateOnlyRecipe(recipe);
+        if (string.IsNullOrEmpty(recipeName))
+        {
+            return TypedResults.Problem(statusCode: 400, detail: "Recipe name not provided"); 
+        }
+
+        RecipeModel? createdRecipe = dataBaseService.CreateOnlyRecipe(recipeName);
 
         if (createdRecipe == null)
         {

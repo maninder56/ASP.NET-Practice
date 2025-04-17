@@ -12,5 +12,5 @@ public interface IRecipeEndpointHandlersService
     public Results<Ok<RecipeDetailsModel>, ProblemHttpResult> GetRecipeDetailsByID(int id);
 
     // POST Methods 
-    public Results<Created<RecipeModel>, ProblemHttpResult> CreateOnlyRecipe(RecipeModel recipe);    
+    public Results<Created<RecipeModel>, ProblemHttpResult> CreateOnlyRecipe(string recipeName);    
 }

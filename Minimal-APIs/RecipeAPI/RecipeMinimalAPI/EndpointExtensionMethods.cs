@@ -30,9 +30,13 @@ public static class EndpointExtensionMethods
                 => handler.GetRecipeDetailsByID(id));
 
         recipeApi.MapPost("/",
-            (RecipeModel recipeOnly, [FromServices] IRecipeEndpointHandlersService handler)
-                => handler.CreateOnlyRecipe(recipeOnly)); 
+            ([FromBody] RecipeName recipeName, [FromServices] IRecipeEndpointHandlersService handler)
+                => handler.CreateOnlyRecipe(recipeName.Name)); 
 
         return app;
     }
+
+    private record RecipeName(string Name);
 }
+
+
