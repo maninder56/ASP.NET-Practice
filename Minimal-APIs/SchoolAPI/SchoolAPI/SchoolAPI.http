@@ -1,6 +1,22 @@
 @SchoolAPI_HostAddress = https://localhost:7000
 
+# Simple Endpoints
 GET {{SchoolAPI_HostAddress}}/
 Accept: application/json
 
 ###
+
+GET {{SchoolAPI_HostAddress}}/error
+
+###
+
+GET {{SchoolAPI_HostAddress}}/exception
+
+###
+
+
+
+# School Endpoints
+
+
+

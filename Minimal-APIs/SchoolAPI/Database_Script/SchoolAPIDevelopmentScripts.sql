@@ -44,7 +44,7 @@ GO
 SELECT T.TABLE_SCHEMA, T.TABLE_NAME
 FROM INFORMATION_SCHEMA.TABLES T
 WHERE T.TABLE_SCHEMA = 'school'; 
-
+GO
 
 -- All the cources available
 SELECT 
@@ -59,11 +59,12 @@ FROM school.Course C
 LEFT JOIN school.OnsiteCourse SC
 	 ON C.CourseID = SC.CourseID
 ORDER BY CourseType; 
-
+GO
 
 -- Available Departmetns and associated cources 
 SELECT *
 FROM school.Department D; 
+GO 
 
 SELECT 
 	C.CourseID, 
@@ -72,6 +73,7 @@ SELECT
 FROM school.Department D
 INNER JOIN school.Course C
 	ON D.DepartmentID = C.DepartmentID; 
+GO
 
 -- Number of cources in each department 
 SELECT 
@@ -81,9 +83,36 @@ FROM school.Department D
 INNER JOIN school.Course C
 	ON D.DepartmentID = C.DepartmentID
 GROUP BY D.Name; 
+GO
+
+-- Inline table-valued function to get column Info
+--CREATE FUNCTION dbo.ColumnInfoOfTable (@tableName VARCHAR(30))
+--RETURNS TABLE 
+--AS 
+--RETURN (
+--	SELECT C.COLUMN_NAME, C.IS_NULLABLE, C.DATA_TYPE, C.CHARACTER_MAXIMUM_LENGTH
+--	FROM INFORMATION_SCHEMA.COLUMNS C
+--	WHERE C.TABLE_NAME = @tableName
+--); 
+--GO
 
 
 
+-- All the Table's Columns Info 
 
+-- Department Table's Columns Info
+SELECT * FROM dbo.ColumnInfoOfTable('Department'); 
+GO 
 
+-- Course Table's Columns Info
+SELECT * FROM dbo.ColumnInfoOfTable('Course'); 
+GO 
+
+-- OnsiteCourse Table's Columns Info
+SELECT * FROM dbo.ColumnInfoOfTable('OnsiteCourse'); 
+GO 
+
+-- OnlineCourse Table's Columns Info
+SELECT * FROM dbo.ColumnInfoOfTable('OnlineCourse'); 
+GO
 
