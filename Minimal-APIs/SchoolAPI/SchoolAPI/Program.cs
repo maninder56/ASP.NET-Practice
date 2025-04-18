@@ -1,34 +1,30 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.HttpLogging; 
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var app = builder.Build();
+// Add Http Logging 
+builder.Services.AddHttpLogging(configureOptions => configureOptions.LoggingFields =
+    HttpLoggingFields.RequestProperties | HttpLoggingFields.ResponseHeaders);
+builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information); 
+
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
+switch (app.Environment.IsDevelopment())
+{
+    case true:
+        app.UseHttpLogging(); 
+        app.UseDeveloperExceptionPage();
+        break;
+    case false:
+        break; 
+}
+
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
+app.MapGet("/", () => "School Api Home"); 
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
