@@ -46,6 +46,14 @@ FROM INFORMATION_SCHEMA.TABLES T
 WHERE T.TABLE_SCHEMA = 'school'; 
 GO
 
+
+-- Department Table data 
+SELECT *
+FROM school.Department; 
+
+
+
+
 -- All the cources available
 SELECT 
 	C.CourseID, 
