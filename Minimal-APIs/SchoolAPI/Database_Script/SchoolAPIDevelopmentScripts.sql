@@ -62,10 +62,6 @@ ORDER BY CourseType;
 GO
 
 -- Available Departmetns and associated cources 
-SELECT *
-FROM school.Department D; 
-GO 
-
 SELECT 
 	C.CourseID, 
 	C.Title, 
