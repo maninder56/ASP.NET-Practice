@@ -10,4 +10,8 @@
     <Folder Include="Modles\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseContext\DatabaseContext.csproj" />
+  </ItemGroup>
+
 </Project>
