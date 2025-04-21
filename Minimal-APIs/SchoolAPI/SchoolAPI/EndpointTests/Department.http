@@ -5,8 +5,50 @@
 
 # Get Requests 
 
-# Get All Department 
-GET {{Address}}/department/
+# Get All epartment 
+GET {{Address}}/departmnet
 
 ###
 
+# Get epartment by id 
+GET {{Address}}/departmnet/1
+
+###
+
+# Get epartment by name
+GET {{Address}}/departmnet/English
+
+###
+
+# Create epartment 
+POST {{Address}}/departmnet
+Content-Type: application/json
+
+{
+    "departmentId": 0,
+    "name": "Arts",
+    "budget": 50000,
+    "startDate": "2007-09-01T00:00:00",
+    "administrator": 2
+}
+
+###
+
+# Update department
+PUT {{Address}}/departmnet/8
+Content-Type: application/json
+
+{
+    "departmentId": 0,
+    "name": "Arts Updated",
+    "budget": 500,
+    "startDate": "2003-09-01T00:00:00",
+    "administrator": 4
+}
+
+###
+
+# Delete department 
+DELETE {{Address}}/departmnet/8
+
+###

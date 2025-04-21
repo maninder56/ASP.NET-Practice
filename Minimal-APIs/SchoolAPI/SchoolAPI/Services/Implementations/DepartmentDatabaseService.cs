@@ -125,7 +125,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
         DatabaseContext.Department entityModel = new DatabaseContext.Department()
         {
-            DepartmentId = department.DepartmentId,
+            DepartmentId = id,
             Name = department.Name,
             Budget = department.Budget,
             StartDate = department.StartDate,
@@ -138,7 +138,6 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
         if (entriesWritten > 0)
         {
-            department.DepartmentId = entityModel.DepartmentId;
             return department;
         }
         else
