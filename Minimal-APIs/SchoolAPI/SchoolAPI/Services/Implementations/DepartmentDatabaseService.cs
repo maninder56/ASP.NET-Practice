@@ -89,7 +89,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
     {
         DatabaseContext.Department entityModel = new DatabaseContext.Department()
         {
-            DepartmentId = MaximumDepartmentID() +1,
+            DepartmentId = MaximumDepartmentID() + 1,
             Name = department.Name,
             Budget = department.Budget,
             StartDate = department.StartDate,
@@ -105,7 +105,6 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
             department.DepartmentId = entityModel.DepartmentId;
             return department; 
         }
-
         else
         {
             return null; 
@@ -117,7 +116,35 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     public DepartmentModel? UpdateDepartmentByID(int id, DepartmentModel department)
     {
-        throw new NotImplementedException();
+        bool entityExists = GetDepartmentById(id) != null;
+
+        if (!entityExists)
+        {
+            return null; 
+        }
+
+        DatabaseContext.Department entityModel = new DatabaseContext.Department()
+        {
+            DepartmentId = department.DepartmentId,
+            Name = department.Name,
+            Budget = department.Budget,
+            StartDate = department.StartDate,
+            Administrator = department.Administrator,
+        };
+
+        database.Departments?.Update(entityModel);
+
+        int entriesWritten = database.SaveChanges();
+
+        if (entriesWritten > 0)
+        {
+            department.DepartmentId = entityModel.DepartmentId;
+            return department;
+        }
+        else
+        {
+            return null;
+        }
     }
 
 
@@ -125,7 +152,25 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     public bool DeleteDepartmentByID(int id)
     {
-        throw new NotImplementedException();
+        DepartmentModel? department = GetDepartmentById(id);
+
+        if (department == null)
+        {
+            return false;
+        }
+
+        DatabaseContext.Department entityModel = new DatabaseContext.Department()
+        {
+            DepartmentId = department.DepartmentId,
+            Name = department.Name,
+            Budget = department.Budget,
+            StartDate = department.StartDate,
+            Administrator = department.Administrator,
+        };
+
+        database.Departments?.Remove(entityModel);
+
+        return database.SaveChanges() > 0; 
     }
 
     

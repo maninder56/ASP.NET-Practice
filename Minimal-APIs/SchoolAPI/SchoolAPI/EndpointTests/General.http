@@ -13,8 +13,3 @@ GET {{SchoolAPI_HostAddress}}/error
 GET {{SchoolAPI_HostAddress}}/exception
 
 ###
-
-
-
-# School Endpoints
-

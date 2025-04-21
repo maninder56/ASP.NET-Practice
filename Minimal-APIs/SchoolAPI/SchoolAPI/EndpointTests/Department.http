@@ -1,0 +1,12 @@
+@Address = https://localhost:7000
+
+# Department Endpoints
+
+
+# Get Requests 
+
+# Get All Department 
+GET {{Address}}/department/
+
+###
+
