@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseContext;
 
 public partial class Course
 {
+    [Required]
     public int CourseId { get; set; }
 
+    [Required]
+    [StringLength(100)]
     public string Title { get; set; } = null!;
 
+    [Required]
     public int Credits { get; set; }
 
+    [Required]
     public int DepartmentId { get; set; }
 
     public virtual Department Department { get; set; } = null!;

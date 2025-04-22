@@ -80,14 +80,6 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
         Department? department = database.Departments?
             .AsNoTracking()
             .Where(d => d.Name == name) 
-            .Select(d => new Department()
-            {
-                DepartmentId = d.DepartmentId,
-                Name = d.Name,
-                Budget = d.Budget,
-                StartDate = d.StartDate,
-                Administrator = d.Administrator,
-            })
             .FirstOrDefault();
 
         return department;
@@ -98,22 +90,14 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     public Department? CreateDepartment(Department department)
     {
-        DatabaseContext.Department entityModel = new DatabaseContext.Department()
-        {
-            DepartmentId = MaximumDepartmentID() + 1,
-            Name = department.Name,
-            Budget = department.Budget,
-            StartDate = department.StartDate,
-            Administrator = department.Administrator,
-        };
+        department.DepartmentId = MaximumDepartmentID() + 1; 
 
-        database.Departments?.Add(entityModel); 
+        database.Departments?.Add(department); 
 
         int entriesWritten = database.SaveChanges();
 
         if (entriesWritten > 0)
         {
-            department.DepartmentId = entityModel.DepartmentId;
             return department; 
         }
         else
@@ -127,23 +111,9 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     public Department? UpdateDepartmentByID(int id, Department department)
     {
-        bool entityExists = GetDepartmentById(id) != null;
+        department.DepartmentId = id; 
 
-        if (!entityExists)
-        {
-            return null; 
-        }
-
-        DatabaseContext.Department entityModel = new DatabaseContext.Department()
-        {
-            DepartmentId = id,
-            Name = department.Name,
-            Budget = department.Budget,
-            StartDate = department.StartDate,
-            Administrator = department.Administrator,
-        };
-
-        database.Departments?.Update(entityModel);
+        database.Departments?.Update(department);
 
         int entriesWritten = database.SaveChanges();
 
@@ -169,16 +139,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
             return false;
         }
 
-        DatabaseContext.Department entityModel = new DatabaseContext.Department()
-        {
-            DepartmentId = department.DepartmentId,
-            Name = department.Name,
-            Budget = department.Budget,
-            StartDate = department.StartDate,
-            Administrator = department.Administrator,
-        };
-
-        database.Departments?.Remove(entityModel);
+        database.Departments?.Remove(department);
 
         return database.SaveChanges() > 0; 
     }

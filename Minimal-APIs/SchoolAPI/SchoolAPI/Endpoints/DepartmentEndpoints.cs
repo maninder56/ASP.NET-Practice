@@ -18,14 +18,17 @@ public static class DepartmentEndpoints
 
         // GET Endpoints
         endpoints.MapGet("/", GetAllDepartments);
-        endpointsWithValidation.MapGet("/{id:int}", GetDepartmentByID); 
+        endpointsWithValidation.MapGet("/{id:int}", GetDepartmentByID)
+            .WithName("DepartmentByID"); 
         endpoints.MapGet("/{name}", GetDepartmentByName);
 
         // POST Endpoints 
-        endpoints.MapPost("/", CreateDepartment);
+        endpoints.MapPost("/", CreateDepartment)
+            .WithParameterValidation();
 
         // PUT Endpoints 
-        endpointsWithValidation.MapPut("/{id:int}", UpdateDepartmentByID);
+        endpointsWithValidation.MapPut("/{id:int}", UpdateDepartmentByID)
+            .WithParameterValidation();
 
         // DELETE Endpoints 
         endpointsWithValidation.MapDelete("/{id:int}", DeleteDepartmentByID);
@@ -38,9 +41,9 @@ public static class DepartmentEndpoints
     // GET Handlers 
     
     private static Results<Ok<List<Department>>, ProblemHttpResult> GetAllDepartments(
-        [FromServices] IDepartmentDatabaseService databaseService)
+        [FromQuery] bool? courses, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        List<Department> departments = databaseService.GetAllDepartments(courses: true);
+        List<Department> departments = databaseService.GetAllDepartments(courses ?? false);
 
         return TypedResults.Ok(departments);
     }
@@ -75,7 +78,8 @@ public static class DepartmentEndpoints
     // POST Handlers 
 
     private static Results<Created<Department>, ProblemHttpResult> CreateDepartment(
-        Department newDepartment, [FromServices] IDepartmentDatabaseService databaseService)
+        Department newDepartment, [FromServices] IDepartmentDatabaseService databaseService,
+        [FromServices] LinkGenerator linkGenerator)
     {
         Department? createdDepartment = databaseService.CreateDepartment(newDepartment);
 
@@ -84,8 +88,9 @@ public static class DepartmentEndpoints
             return TypedResults.Problem(statusCode: 500, detail: "Failed to create department"); 
         }
 
-        // implement link generator
-        return TypedResults.Created($"department/{createdDepartment.DepartmentId}", createdDepartment); 
+        string? link = linkGenerator.GetPathByName("DepartmentByID", new { id = createdDepartment.DepartmentId }); 
+
+        return TypedResults.Created(link, createdDepartment); 
     }
 
 
@@ -117,18 +122,11 @@ public static class DepartmentEndpoints
     private static Results<NoContent, ProblemHttpResult> DeleteDepartmentByID(
         int id, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        bool entityExists = databaseService.GetDepartmentById(id) != null;
-
-        if (!entityExists)
-        {
-            return TypedResults.Problem(statusCode: 400, detail: $"Department with ID {id} does not exists");
-        }
-
         bool deleted = databaseService.DeleteDepartmentByID(id);
 
         if (!deleted)
         {
-            return TypedResults.Problem(statusCode: 500, detail: $"Failed to delete department with id {id}"); 
+            return TypedResults.Problem(statusCode: 400, detail: $"Department with ID {id} does not exists");
         }
 
         return TypedResults.NoContent();
