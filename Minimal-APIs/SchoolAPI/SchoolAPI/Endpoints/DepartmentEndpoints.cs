@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using SchoolAPI.Modles.DepartmentModels;
+using DatabaseContext; 
 using SchoolAPI.Services;
 
 namespace SchoolAPI.Endpoints; 
@@ -33,18 +33,18 @@ public static class DepartmentEndpoints
 
     // GET Handlers 
     
-    private static Results<Ok<List<DepartmentModel>>, ProblemHttpResult> GetAllDepartments(
-        [FromServices] IDepartmentDatabaseService database)
+    private static Results<Ok<List<Department>>, ProblemHttpResult> GetAllDepartments(
+        [FromServices] IDepartmentDatabaseService databaseService)
     {
-        List<DepartmentModel> departments = database.GetAllDepartments();
+        List<Department> departments = databaseService.GetAllDepartments(courses: true);
 
         return TypedResults.Ok(departments);
     }
 
-    private static Results<Ok<DepartmentModel>, ProblemHttpResult> GetDepartmentByID(
-        int id, [FromServices] IDepartmentDatabaseService database)
+    private static Results<Ok<Department>, ProblemHttpResult> GetDepartmentByID(
+        int id, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        DepartmentModel? department = database.GetDepartmentById(id);
+        Department? department = databaseService.GetDepartmentById(id);
 
         if (department == null)
         {
@@ -54,10 +54,10 @@ public static class DepartmentEndpoints
         return TypedResults.Ok(department);
     }
 
-    private static Results<Ok<DepartmentModel>, ProblemHttpResult> GetDepartmentByName(
-        string name, [FromServices] IDepartmentDatabaseService database)
+    private static Results<Ok<Department>, ProblemHttpResult> GetDepartmentByName(
+        string name, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        DepartmentModel? department = database.GetDepartmentByName(name);
+        Department? department = databaseService.GetDepartmentByName(name);
 
         if (department == null)
         {
@@ -70,10 +70,10 @@ public static class DepartmentEndpoints
 
     // POST Handlers 
 
-    private static Results<Created<DepartmentModel>, ProblemHttpResult> CreateDepartment(
-        DepartmentModel newDepartment, [FromServices] IDepartmentDatabaseService database)
+    private static Results<Created<Department>, ProblemHttpResult> CreateDepartment(
+        Department newDepartment, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        DepartmentModel? createdDepartment = database.CreateDepartment(newDepartment);
+        Department? createdDepartment = databaseService.CreateDepartment(newDepartment);
 
         // return 400 status code when validation fails 
 
@@ -90,9 +90,9 @@ public static class DepartmentEndpoints
     // PUT Handlers 
 
     private static Results<NoContent, ProblemHttpResult> UpdateDepartmentByID(
-        int id, DepartmentModel department, [FromServices] IDepartmentDatabaseService database)
+        int id, Department department, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        DepartmentModel? updatedDepartment = database.UpdateDepartmentByID(id, department);
+        Department? updatedDepartment = databaseService.UpdateDepartmentByID(id, department);
 
         if (updatedDepartment == null)
         {
@@ -106,9 +106,9 @@ public static class DepartmentEndpoints
     // DELETE Handlers 
 
     private static Results<NoContent, ProblemHttpResult> DeleteDepartmentByID(
-        int id, [FromServices] IDepartmentDatabaseService database)
+        int id, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        bool deleted = database.DeleteDepartmentByID(id);
+        bool deleted = databaseService.DeleteDepartmentByID(id);
 
         if (!deleted)
         {

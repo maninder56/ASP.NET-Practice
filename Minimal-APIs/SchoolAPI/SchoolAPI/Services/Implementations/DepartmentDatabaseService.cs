@@ -1,6 +1,5 @@
 ﻿using DatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using SchoolAPI.Modles.DepartmentModels;
 
 namespace SchoolAPI.Services.Implementations;
 
@@ -30,46 +29,58 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     // Read Operations 
 
-    public List<DepartmentModel> GetAllDepartments()
+    public List<Department> GetAllDepartments(bool courses)
     {
-        List<DepartmentModel>? departments = database.Departments?
-            .AsNoTracking()
-            .Select(d => new DepartmentModel()
-            {
-                DepartmentId = d.DepartmentId,
-                Name = d.Name,
-                Budget = d.Budget, 
-                StartDate = d.StartDate,
-                Administrator = d.Administrator,
-            }).ToList();
+        List<Department>? departments = null; 
 
-        return departments ?? new List<DepartmentModel>();
+        if (courses)
+        {
+            departments = database.Departments?.AsNoTracking()
+                .Select(d => new Department()
+                {
+                    DepartmentId = d.DepartmentId,
+                    Name = d.Name,
+                    Budget = d.Budget,
+                    StartDate = d.StartDate,
+                    Administrator = d.Administrator,
+                    Courses = d.Courses
+                        .Select(c => new Course()
+                        {
+                            CourseId = c.CourseId,
+                            Title = c.Title,
+                            Credits = c.Credits,
+                            DepartmentId = c.DepartmentId
+                        })
+                    .ToList()
+                })
+                .ToList();
+        }
+        else
+        {
+            departments = database.Departments?
+                .AsNoTracking()
+                .ToList();
+        }
+        
+        return departments ?? new List<Department>();
     }
 
-    public DepartmentModel? GetDepartmentById(int id)
+    public Department? GetDepartmentById(int id)
     {
-        DepartmentModel? department = database.Departments?
+        Department? department = database.Departments?
             .AsNoTracking()
             .Where(d => d.DepartmentId == id)
-            .Select(d => new DepartmentModel()
-            {
-                DepartmentId = d.DepartmentId,
-                Name = d.Name,
-                Budget = d.Budget,
-                StartDate = d.StartDate,
-                Administrator = d.Administrator,
-            })
             .FirstOrDefault();
 
         return department;
     }
 
-    public DepartmentModel? GetDepartmentByName(string name)
+    public Department? GetDepartmentByName(string name)
     {
-        DepartmentModel? department = database.Departments?
+        Department? department = database.Departments?
             .AsNoTracking()
             .Where(d => d.Name == name) 
-            .Select(d => new DepartmentModel()
+            .Select(d => new Department()
             {
                 DepartmentId = d.DepartmentId,
                 Name = d.Name,
@@ -85,7 +96,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     // Create  Operations 
 
-    public DepartmentModel? CreateDepartment(DepartmentModel department)
+    public Department? CreateDepartment(Department department)
     {
         DatabaseContext.Department entityModel = new DatabaseContext.Department()
         {
@@ -114,7 +125,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     // Update Operations 
 
-    public DepartmentModel? UpdateDepartmentByID(int id, DepartmentModel department)
+    public Department? UpdateDepartmentByID(int id, Department department)
     {
         bool entityExists = GetDepartmentById(id) != null;
 
@@ -151,7 +162,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     public bool DeleteDepartmentByID(int id)
     {
-        DepartmentModel? department = GetDepartmentById(id);
+        Department? department = GetDepartmentById(id);
 
         if (department == null)
         {

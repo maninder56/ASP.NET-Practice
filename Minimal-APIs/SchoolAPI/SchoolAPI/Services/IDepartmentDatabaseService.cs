@@ -1,19 +1,19 @@
-﻿using SchoolAPI.Modles.DepartmentModels;
+﻿using DatabaseContext; 
 
 namespace SchoolAPI.Services; 
 
 public interface IDepartmentDatabaseService
 {
     // Read Opeartions 
-    public List<DepartmentModel> GetAllDepartments();
-    public DepartmentModel? GetDepartmentById(int id);
-    public DepartmentModel? GetDepartmentByName(string name);
+    public List<Department> GetAllDepartments(bool courses);
+    public Department? GetDepartmentById(int id);
+    public Department? GetDepartmentByName(string name);
 
     // Create Operattions 
-    public DepartmentModel? CreateDepartment(DepartmentModel department);
+    public Department? CreateDepartment(Department department);
 
     // Update Operations 
-    public DepartmentModel? UpdateDepartmentByID(int id, DepartmentModel department);
+    public Department? UpdateDepartmentByID(int id, Department department);
 
     // Delete Operations 
     public bool DeleteDepartmentByID(int id);
