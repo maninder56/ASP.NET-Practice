@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DatabaseContext; 
 using SchoolAPI.Services;
+using SchoolAPI.EndpointFilters;
 
 namespace SchoolAPI.Endpoints; 
 
@@ -9,27 +10,30 @@ public static class DepartmentEndpoints
 {
     public static WebApplication MapDepartmentEndpoints(this WebApplication app)
     {
-        RouteGroupBuilder departmnetEndpoints = app.MapGroup("/departmnet");
+        RouteGroupBuilder endpoints = app.MapGroup("/departmnet");
+
+        RouteGroupBuilder endpointsWithValidation = endpoints.MapGroup("/")
+            .AddEndpointFilter<IdValidationFilter>(); 
+
 
         // GET Endpoints
-        departmnetEndpoints.MapGet("/", GetAllDepartments);
-        departmnetEndpoints.MapGet("/{id:int}", GetDepartmentByID); 
-        departmnetEndpoints.MapGet("/{name}", GetDepartmentByName);
+        endpoints.MapGet("/", GetAllDepartments);
+        endpointsWithValidation.MapGet("/{id:int}", GetDepartmentByID); 
+        endpoints.MapGet("/{name}", GetDepartmentByName);
 
         // POST Endpoints 
-        departmnetEndpoints.MapPost("/", CreateDepartment);
+        endpoints.MapPost("/", CreateDepartment);
 
         // PUT Endpoints 
-        departmnetEndpoints.MapPut("/{id:int}", UpdateDepartmentByID);
+        endpointsWithValidation.MapPut("/{id:int}", UpdateDepartmentByID);
 
         // DELETE Endpoints 
-        departmnetEndpoints.MapDelete("/{id:int}", DeleteDepartmentByID);
+        endpointsWithValidation.MapDelete("/{id:int}", DeleteDepartmentByID);
 
         return app; 
     }
 
     // Endpoints Handlers 
-
 
     // GET Handlers 
     
@@ -48,7 +52,7 @@ public static class DepartmentEndpoints
 
         if (department == null)
         {
-            return TypedResults.Problem(statusCode: 404, detail: $"Departmnet with ID {id} does not exists"); 
+            return TypedResults.Problem(statusCode: 400, detail: $"Departmnet with ID {id} does not exists"); 
         }
 
         return TypedResults.Ok(department);
@@ -61,7 +65,7 @@ public static class DepartmentEndpoints
 
         if (department == null)
         {
-            return TypedResults.Problem(statusCode: 404, detail: $"Departmnet with name {name} does not exists");
+            return TypedResults.Problem(statusCode: 400, detail: $"Departmnet with name {name} does not exists");
         }
 
         return TypedResults.Ok(department);
@@ -74,8 +78,6 @@ public static class DepartmentEndpoints
         Department newDepartment, [FromServices] IDepartmentDatabaseService databaseService)
     {
         Department? createdDepartment = databaseService.CreateDepartment(newDepartment);
-
-        // return 400 status code when validation fails 
 
         if (createdDepartment == null)
         {
@@ -92,6 +94,13 @@ public static class DepartmentEndpoints
     private static Results<NoContent, ProblemHttpResult> UpdateDepartmentByID(
         int id, Department department, [FromServices] IDepartmentDatabaseService databaseService)
     {
+        bool entityExists = databaseService.GetDepartmentById(id) != null;
+
+        if (!entityExists)
+        {
+            return TypedResults.Problem(statusCode: 400, detail: $"Department with ID {id} does not exists"); 
+        }
+
         Department? updatedDepartment = databaseService.UpdateDepartmentByID(id, department);
 
         if (updatedDepartment == null)
@@ -108,6 +117,13 @@ public static class DepartmentEndpoints
     private static Results<NoContent, ProblemHttpResult> DeleteDepartmentByID(
         int id, [FromServices] IDepartmentDatabaseService databaseService)
     {
+        bool entityExists = databaseService.GetDepartmentById(id) != null;
+
+        if (!entityExists)
+        {
+            return TypedResults.Problem(statusCode: 400, detail: $"Department with ID {id} does not exists");
+        }
+
         bool deleted = databaseService.DeleteDepartmentByID(id);
 
         if (!deleted)

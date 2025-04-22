@@ -29,11 +29,11 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     // Read Operations 
 
-    public List<Department> GetAllDepartments(bool courses)
+    public List<Department> GetAllDepartments(bool getCourses)
     {
         List<Department>? departments = null; 
 
-        if (courses)
+        if (getCourses)
         {
             departments = database.Departments?.AsNoTracking()
                 .Select(d => new Department()
