@@ -16,8 +16,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     private int MaximumDepartmentID()
     {
-        int? id = database.Departments?
-            .AsNoTracking()
+        int? id = database.Departments?.AsNoTracking()
             .Max(d => d.DepartmentId);
 
         return id ?? 0; 
@@ -57,8 +56,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
         }
         else
         {
-            departments = database.Departments?
-                .AsNoTracking()
+            departments = database.Departments?.AsNoTracking()
                 .ToList();
         }
         
@@ -71,8 +69,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
         if (getCourses)
         {
-            department = database.Departments?
-            .AsNoTracking()
+            department = database.Departments?.AsNoTracking()
             .Where(d => d.DepartmentId == id)
             .Select(d => new Department()
             {
@@ -96,8 +93,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
             return department;
         }
 
-        department = database.Departments?
-            .AsNoTracking()
+        department = database.Departments?.AsNoTracking()
             .Where(d => d.DepartmentId == id)
             .FirstOrDefault();
 
@@ -110,8 +106,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
         if (getCourses)
         {
-            department = database.Departments?
-            .AsNoTracking()
+            department = database.Departments?.AsNoTracking()
             .Where(d => d.Name == name)
             .Select(d => new Department()
             {
@@ -135,8 +130,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
             return department;
         }
 
-        department = database.Departments?
-            .AsNoTracking()
+        department = database.Departments?.AsNoTracking()
             .Where(d => d.Name == name)
             .FirstOrDefault();
 
