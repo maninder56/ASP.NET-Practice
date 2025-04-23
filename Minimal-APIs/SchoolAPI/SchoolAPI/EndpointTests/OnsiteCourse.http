@@ -1,0 +1,47 @@
+@SchoolAPI_HostAddress = https://localhost:7000
+
+# Onsite course Endpoints 
+
+
+# Get all 
+GET {{SchoolAPI_HostAddress}}/onsitecourse
+
+###
+
+# Get by id 
+GET {{SchoolAPI_HostAddress}}/onsitecourse/1050
+
+###
+
+
+# create onsite course 
+POST {{SchoolAPI_HostAddress}}/onsitecourse
+content-type: application/json
+
+{
+  "courseId": 999999,
+  "location": "test lab",
+  "days": "MTWH",
+  "time": "1900-01-01T11:30:00"
+}
+
+###
+
+# update onsite course 
+PUT {{SchoolAPI_HostAddress}}/onsitecourse/999999
+content-type: application/json
+
+{
+  "courseId": 999999,
+  "location": "test lab updated",
+  "days": "MTWH",
+  "time": "1900-01-01T11:30:00"
+}
+
+###
+
+
+# delete onsite course 
+DELETE {{SchoolAPI_HostAddress}}/onsitecourse/999999
+
+###
