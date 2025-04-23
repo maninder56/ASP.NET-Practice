@@ -24,7 +24,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
     }
 
 
-
+  
     // CRUD Operations on Department Table
 
     // Read Operations 
@@ -65,21 +65,79 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
         return departments ?? new List<Department>();
     }
 
-    public Department? GetDepartmentById(int id)
+    public Department? GetDepartmentById(int id, bool getCourses)
     {
-        Department? department = database.Departments?
+        Department? department = null;  
+
+        if (getCourses)
+        {
+            department = database.Departments?
+            .AsNoTracking()
+            .Where(d => d.DepartmentId == id)
+            .Select(d => new Department()
+            {
+                DepartmentId = d.DepartmentId,
+                Name = d.Name,
+                Budget = d.Budget,
+                StartDate = d.StartDate,
+                Administrator = d.Administrator,
+                Courses = d.Courses
+                    .Select(c => new Course()
+                    {
+                        CourseId = c.CourseId,
+                        Title = c.Title,
+                        Credits = c.Credits,
+                        DepartmentId = c.DepartmentId
+                    })
+                    .ToList()
+            })
+            .FirstOrDefault();
+
+            return department;
+        }
+
+        department = database.Departments?
             .AsNoTracking()
             .Where(d => d.DepartmentId == id)
             .FirstOrDefault();
 
-        return department;
+        return department; 
     }
 
-    public Department? GetDepartmentByName(string name)
+    public Department? GetDepartmentByName(string name, bool getCourses)
     {
-        Department? department = database.Departments?
+        Department? department = null;
+
+        if (getCourses)
+        {
+            department = database.Departments?
             .AsNoTracking()
-            .Where(d => d.Name == name) 
+            .Where(d => d.Name == name)
+            .Select(d => new Department()
+            {
+                DepartmentId = d.DepartmentId,
+                Name = d.Name,
+                Budget = d.Budget,
+                StartDate = d.StartDate,
+                Administrator = d.Administrator,
+                Courses = d.Courses
+                    .Select(c => new Course()
+                    {
+                        CourseId = c.CourseId,
+                        Title = c.Title,
+                        Credits = c.Credits,
+                        DepartmentId = c.DepartmentId
+                    })
+                    .ToList()
+            })
+            .FirstOrDefault();
+
+            return department;
+        }
+
+        department = database.Departments?
+            .AsNoTracking()
+            .Where(d => d.Name == name)
             .FirstOrDefault();
 
         return department;
@@ -132,7 +190,7 @@ public class DepartmentDatabaseService : IDepartmentDatabaseService
 
     public bool DeleteDepartmentByID(int id)
     {
-        Department? department = GetDepartmentById(id);
+        Department? department = GetDepartmentById(id, getCourses: false);
 
         if (department == null)
         {

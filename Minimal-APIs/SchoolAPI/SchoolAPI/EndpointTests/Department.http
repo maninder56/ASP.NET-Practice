@@ -20,8 +20,18 @@ GET {{Address}}/departmnet/1
 
 ###
 
+# Get department by id with courses 
+GET {{Address}}/departmnet/1?courses=true
+
+###
+
 # Get department by name
 GET {{Address}}/departmnet/English
+
+###
+
+# Get department by name with courses
+GET {{Address}}/departmnet/English?courses=true
 
 ###
 

@@ -49,9 +49,9 @@ public static class DepartmentEndpoints
     }
 
     private static Results<Ok<Department>, ProblemHttpResult> GetDepartmentByID(
-        int id, [FromServices] IDepartmentDatabaseService databaseService)
+        int id, [FromQuery] bool? courses, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        Department? department = databaseService.GetDepartmentById(id);
+        Department? department = databaseService.GetDepartmentById(id, courses ?? false);
 
         if (department == null)
         {
@@ -62,9 +62,9 @@ public static class DepartmentEndpoints
     }
 
     private static Results<Ok<Department>, ProblemHttpResult> GetDepartmentByName(
-        string name, [FromServices] IDepartmentDatabaseService databaseService)
+        string name, [FromQuery] bool? courses, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        Department? department = databaseService.GetDepartmentByName(name);
+        Department? department = databaseService.GetDepartmentByName(name, courses ?? false);
 
         if (department == null)
         {
@@ -99,7 +99,7 @@ public static class DepartmentEndpoints
     private static Results<NoContent, ProblemHttpResult> UpdateDepartmentByID(
         int id, Department department, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        bool entityExists = databaseService.GetDepartmentById(id) != null;
+        bool entityExists = databaseService.GetDepartmentById(id, false) != null;
 
         if (!entityExists)
         {
