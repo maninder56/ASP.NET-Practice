@@ -17,18 +17,19 @@ public static class OnsiteCourseEndpoints
 
         // GET Endpoints
         endpoint.MapGet("/", GetAllOnsiteCourses); 
-        endpointWithValidation.MapGet("/{id:int}", GetOnsiteCourseById);
+        endpointWithValidation.MapGet("/{id:int}", GetOnsiteCourseById)
+            .WithName("OnsiteCourseById");
 
         // POST Endpoints 
         endpoint.MapPost("/", CreateOnsiteCourse)
             .WithParameterValidation(); 
 
         // PUT Endpoints
-        endpoint.MapPut("/{id:int}", UpdateOnsiteCourseByID)
+        endpointWithValidation.MapPut("/{id:int}", UpdateOnsiteCourseByID)
             .WithParameterValidation();
 
         // DELETE Endpoints
-        endpoint.MapDelete("/{id:int}", DeleteOnsiteCourseById); 
+        endpointWithValidation.MapDelete("/{id:int}", DeleteOnsiteCourseById); 
 
         return app; 
     }
