@@ -50,5 +50,6 @@ app.MapGet("/exception", () => { throw new Exception("This is an Intentional Exc
 
 app.MapDepartmentEndpoints();
 app.MapOnsiteCourseEndpoints();
+app.MapOnlineCourseEndpoints();
 
 app.Run();

@@ -132,20 +132,16 @@ GO
 
 
 
---BEGIN TRANSACTION; 
+BEGIN TRANSACTION; 
 
---SELECT *
---FROM school.OnsiteCourse; 
+SELECT *
+FROM school.OnsiteCourse; 
 
---SELECT * 
---FROM school.Course; 
+SELECT * 
+FROM school.Course; 
 
---INSERT INTO school.Course (CourseID, Title, Credits, DepartmentID)
---VALUES (999999, 'Dummy Course', 4, 7);
---GO
+INSERT INTO school.Course (CourseID, Title, Credits, DepartmentID)
+VALUES (999999, 'Dummy Course', 4, 7);
+GO
 
---INSERT INTO school.OnsiteCourse (CourseID, Location, Days, Time) VALUES 
---(999999, 'test lab', 'MWFS', '2025-01-01 10:00:00'); 
---GO 
-
---ROLLBACK; 
+ROLLBACK; 

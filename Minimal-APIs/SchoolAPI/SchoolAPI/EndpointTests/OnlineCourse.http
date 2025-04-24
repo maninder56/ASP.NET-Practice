@@ -1,0 +1,40 @@
+@SchoolAPI_HostAddress = https://localhost:7000
+
+#Online course Endpoints
+
+# Get all 
+GET {{SchoolAPI_HostAddress}}/onlinecourse
+
+###
+
+# Get by id 
+GET {{SchoolAPI_HostAddress}}/onlinecourse/2030
+
+###
+
+# Create Online course 
+POST {{SchoolAPI_HostAddress}}/onlinecourse
+content-type: application/json 
+
+{
+  "courseId": 999999,
+  "url": "http://www.newMockwebsite"
+}
+
+###
+
+PUT {{SchoolAPI_HostAddress}}/onlinecourse/999999
+content-type: application/json 
+
+{
+  "courseId": 999999,
+  "url": "http://www.Mockwebsite/Updated"
+}
+
+
+###
+
+DELETE {{SchoolAPI_HostAddress}}/onlinecourse/999999
+
+###
+
