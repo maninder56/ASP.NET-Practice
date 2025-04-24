@@ -9,6 +9,7 @@ public static class DatabaseOperationsServiceCollectionExtension
         services.AddScoped<IDepartmentDatabaseService, DepartmentDatabaseService>(); 
         services.AddScoped<IOnsiteCoursesDatabaseService, OnsiteCoursesDatabaseService>();
         services.AddScoped<IOnlineCoursesDatabaseService, OnlineCoursesDatabaseService>(); 
+        services.AddScoped<ICourseDatabaseService, CourseDatabaseService>();
 
         return services; 
     }

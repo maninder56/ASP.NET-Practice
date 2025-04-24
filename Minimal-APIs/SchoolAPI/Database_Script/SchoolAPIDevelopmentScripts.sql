@@ -63,7 +63,7 @@ FROM school.OnsiteCourse;
 GO 
 
 
--- All the cources available
+-- All the cources available --------------------------Need to be more specific, generate null if not found
 SELECT 
 	C.CourseID, 
 	C.Title, 
@@ -145,3 +145,5 @@ VALUES (999999, 'Dummy Course', 4, 7);
 GO
 
 ROLLBACK; 
+
+COMMIT; 

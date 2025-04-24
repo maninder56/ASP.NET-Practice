@@ -29,4 +29,11 @@ public class BaseDatabaseService
             .Any(c => c.CourseId == courseId)
             ?? false;
     }
+
+    public int MaximumCourseID()
+    {
+        return database.Courses?.AsNoTracking()
+            .Max(c => c.CourseId) 
+            ?? 0; 
+    }
 }

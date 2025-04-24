@@ -1,0 +1,24 @@
+@SchoolAPI_HostAddress = https://localhost:7000
+
+# Course Endpoints
+
+# Get all 
+GET {{SchoolAPI_HostAddress}}/course/
+
+###
+
+# Get all online courses 
+GET {{SchoolAPI_HostAddress}}/course/online
+
+###
+
+
+# Get all onsite courses 
+GET {{SchoolAPI_HostAddress}}/course/onsite
+
+###
+
+# Get by ID 
+GET {{SchoolAPI_HostAddress}}/course/
+
+###
