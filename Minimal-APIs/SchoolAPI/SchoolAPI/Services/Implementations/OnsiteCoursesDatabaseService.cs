@@ -3,23 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SchoolAPI.Services.Implementations;
 
-public class OnsiteCoursesDatabaseService : IOnsiteCoursesDatabaseService
+public class OnsiteCoursesDatabaseService : BaseDatabaseService, IOnsiteCoursesDatabaseService
 {
-    private SchoolForApiContext database;
-
     public OnsiteCoursesDatabaseService(SchoolForApiContext database)
-    {
-        this.database = database;
-    }
-
-    // Helper Methdos 
-    public bool CourseExists(int courseId)
-    {
-        return database.Courses?.AsNoTracking()
-            .Any(c => c.CourseId == courseId)
-            ?? false;
-    }
-
+        : base(database) { }
 
     // CRUD Operations on OnsiteCourse Table
 

@@ -3,26 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SchoolAPI.Services.Implementations;
 
-public class DepartmentDatabaseService : IDepartmentDatabaseService
+public class DepartmentDatabaseService : BaseDatabaseService, IDepartmentDatabaseService
 {
-    private SchoolForApiContext database; 
-
     public DepartmentDatabaseService(SchoolForApiContext database)
-    {
-        this.database = database;
-    }
-
-    // Helper Methods
-
-    private int MaximumDepartmentID()
-    {
-        int? id = database.Departments?.AsNoTracking()
-            .Max(d => d.DepartmentId);
-
-        return id ?? 0; 
-    }
-
-
+        : base(database) { } 
   
     // CRUD Operations on Department Table
 

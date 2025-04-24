@@ -67,7 +67,7 @@ public static class OnsiteCourseEndpoint
     {
         if (!dbService.CourseExists(onsiteCourse.CourseId))
         {
-            return TypedResults.Problem(statusCode: 400, detail: $"Can not create onsite Course wihtout existing course");
+            return TypedResults.Problem(statusCode: 400, detail: $"Can not create Onsite details for course that does not exists");
         }
 
         OnsiteCourse? created = dbService.CreateOnsiteCourse(onsiteCourse); 
