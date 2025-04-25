@@ -16,7 +16,7 @@ GET {{Address}}/departmnet?courses=true
 ###
 
 # Get department by id 
-GET {{Address}}/departmnet/1
+GET {{Address}}/departmnet/8
 
 ###
 
@@ -41,7 +41,7 @@ Content-Type: application/json
 
 {
     "departmentId": 0,
-    "name": "Arts",
+    "name": "Created Department",
     "budget": 50000,
     "startDate": "2007-09-01T00:00:00",
     "administrator": 2
@@ -55,7 +55,7 @@ Content-Type: application/json
 
 {
     "departmentId": 0,
-    "name": "Arts Updated",
+    "name": "Updated Department",
     "budget": 500,
     "startDate": "2003-09-01T00:00:00",
     "administrator": 4

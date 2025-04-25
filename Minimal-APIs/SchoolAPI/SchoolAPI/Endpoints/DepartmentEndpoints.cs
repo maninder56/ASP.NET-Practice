@@ -13,7 +13,8 @@ public static class DepartmentEndpoints
         RouteGroupBuilder endpoints = app.MapGroup("/departmnet");
 
         RouteGroupBuilder endpointsWithValidation = endpoints.MapGroup("/")
-            .AddEndpointFilter<IdValidationFilter>(); 
+            .AddEndpointFilter<IdValidationFilter>()
+            .AddEndpointFilter<DepartmentExistsValidationFilter>(); 
 
 
         // GET Endpoints
@@ -55,7 +56,7 @@ public static class DepartmentEndpoints
 
         if (department == null)
         {
-            return TypedResults.Problem(statusCode: 400, detail: $"Departmnet with ID {id} does not exists"); 
+            return TypedResults.Problem(statusCode: 500, detail: "Falied to retrive department"); 
         }
 
         return TypedResults.Ok(department);
@@ -99,13 +100,6 @@ public static class DepartmentEndpoints
     private static Results<NoContent, ProblemHttpResult> UpdateDepartmentByID(
         int id, Department department, [FromServices] IDepartmentDatabaseService databaseService)
     {
-        bool entityExists = databaseService.GetDepartmentById(id, false) != null;
-
-        if (!entityExists)
-        {
-            return TypedResults.Problem(statusCode: 400, detail: $"Department with ID {id} does not exists"); 
-        }
-
         Department? updatedDepartment = databaseService.UpdateDepartmentByID(id, department);
 
         if (updatedDepartment == null)
@@ -126,7 +120,7 @@ public static class DepartmentEndpoints
 
         if (!deleted)
         {
-            return TypedResults.Problem(statusCode: 400, detail: $"Department with ID {id} does not exists");
+            return TypedResults.Problem(statusCode: 500, detail: "Failed to delete department");
         }
 
         return TypedResults.NoContent();

@@ -13,7 +13,8 @@ public static class CourseEndpoints
         RouteGroupBuilder endpoint = app.MapGroup("/course");
 
         RouteGroupBuilder endpointWithValidation = endpoint.MapGroup("/")
-            .AddEndpointFilter<IdValidationFilter>();
+            .AddEndpointFilter<IdValidationFilter>()
+            .AddEndpointFilter<CourseExistsValidationFilter>(); 
 
         // GET Endpoints
         endpoint.MapGet("/{type:alpha=all}", GetAllCourses); 
@@ -52,7 +53,7 @@ public static class CourseEndpoints
 
         if (course == null)
         {
-            return TypedResults.Problem(statusCode: 400, detail: $"Course with id {id} does not exist");
+            return TypedResults.Problem(statusCode: 500, detail: "Failed to retrive course");
         }
 
         return TypedResults.Ok(course);
@@ -80,13 +81,6 @@ public static class CourseEndpoints
     private static Results<NoContent, ProblemHttpResult> UpdateCourseByID(
         int id, Course course, [FromServices] ICourseDatabaseService dbService)
     {
-        bool entityExists = dbService.GetCourseByID(id) != null;
-
-        if (!entityExists)
-        {
-            return TypedResults.Problem(statusCode: 400, detail: $"Course with id {id} does not exists"); 
-        }
-
         Course? updatedCourse = dbService.UpdateCourseByID(id, course);
 
         if (updatedCourse == null)
@@ -102,13 +96,6 @@ public static class CourseEndpoints
     private static Results<NoContent, ProblemHttpResult> DeleteCourseByID(
         int id, [FromServices] ICourseDatabaseService dbService)
     {
-        bool entityExists = dbService.GetCourseByID(id) != null;
-
-        if (!entityExists)
-        {
-            return TypedResults.Problem(statusCode: 400, detail: $"Course with id {id} does not exists");
-        }
-
         bool deleted = dbService.DeleteCourseByID(id);
 
         if (!deleted)

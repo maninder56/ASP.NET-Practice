@@ -4,6 +4,9 @@ namespace SchoolAPI.Services;
 
 public interface IDepartmentDatabaseService
 {
+    // Helper Methods 
+    public bool DepartmentExists(int departmentID); 
+
     // Read Opeartions 
     public List<Department> GetAllDepartments(bool getCourses);
     public Department? GetDepartmentById(int id, bool getCourses);

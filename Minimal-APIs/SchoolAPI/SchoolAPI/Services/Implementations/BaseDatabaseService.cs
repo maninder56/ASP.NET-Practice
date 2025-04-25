@@ -14,6 +14,7 @@ public class BaseDatabaseService
 
     // Helper Methods
 
+    // Department Helper Methods
     public int MaximumDepartmentID()
     {
         int? id = database.Departments?.AsNoTracking()
@@ -22,7 +23,15 @@ public class BaseDatabaseService
         return id ?? 0;
     }
 
+    public bool DepartmentExists(int departmentID)
+    {
+        return database.Departments?.AsNoTracking()
+            .Any(d => d.DepartmentId == departmentID)
+            ?? false; 
+    }
 
+
+    // Course Helper Methods 
     public bool CourseExists(int courseId)
     {
         return database.Courses?.AsNoTracking()
@@ -36,4 +45,21 @@ public class BaseDatabaseService
             .Max(c => c.CourseId) 
             ?? 0; 
     }
+
+    // OnlineCourse Helper Methods 
+    public bool OnlineCourseExists(int courseID)
+    {
+        return database.OnlineCourses?.AsNoTracking()
+            .Any(oc => oc.CourseId == courseID)
+            ?? false;
+    }
+
+    // OnsiteCourse Helper Methods 
+    public bool OnsiteCourseExists(int courseID)
+    {
+        return database.OnsiteCourses?.AsNoTracking()
+            .Any(os => os.CourseId == courseID)
+            ?? false; 
+    }
+
 }
