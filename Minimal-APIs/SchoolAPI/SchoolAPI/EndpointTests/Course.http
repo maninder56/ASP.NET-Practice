@@ -19,6 +19,38 @@ GET {{SchoolAPI_HostAddress}}/course/onsite
 ###
 
 # Get by ID 
-GET {{SchoolAPI_HostAddress}}/course/
+GET {{SchoolAPI_HostAddress}}/course/4062
 
 ###
+
+# Create course 
+POST {{SchoolAPI_HostAddress}}/course
+content-type: application/json 
+
+{
+  "courseId": 0,
+  "title": "Dummy Created",
+  "credits": 4,
+  "departmentId": 7
+}
+
+###
+
+# Update Course by id 
+PUT {{SchoolAPI_HostAddress}}/course/4062
+content-type: application/json 
+
+{
+  "courseId": 0,
+  "title": "Dummy updated",
+  "credits": 4,
+  "departmentId": 7
+}
+
+###
+
+# Delete Course by id
+DELETE {{SchoolAPI_HostAddress}}/course/4062
+
+###
+

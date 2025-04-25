@@ -3,7 +3,7 @@
 namespace SchoolAPI.Services; 
 
 public interface IOnsiteCoursesDatabaseService
-{
+{ 
     // Helper methods 
     public bool CourseExists(int courseId); 
 

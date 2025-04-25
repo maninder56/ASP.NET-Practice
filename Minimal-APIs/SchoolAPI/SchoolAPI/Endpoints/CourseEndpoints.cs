@@ -17,11 +17,19 @@ public static class CourseEndpoints
 
         // GET Endpoints
         endpoint.MapGet("/{type:alpha=all}", GetAllCourses); 
-        endpointWithValidation.MapGet("/{id:int}", GetCourseByID);
+        endpointWithValidation.MapGet("/{id:int}", GetCourseByID)
+            .WithName("GetCourseByID");
 
-        // Endpoints
-        // Endpoints
-        // Endpoints
+        // POST Endpoints
+        endpoint.MapPost("/", CreateCourse)
+            .WithParameterValidation();
+
+        // PUT Endpoints
+        endpointWithValidation.MapPut("/{id:int}", UpdateCourseByID)
+            .WithParameterValidation();
+
+        // DELETE Endpoints
+        endpointWithValidation.MapDelete("/{id:int}", DeleteCourseByID); 
 
         return app; 
     }
@@ -51,10 +59,65 @@ public static class CourseEndpoints
     }
 
 
-    // Handlers
-    // Handlers
-    // Handlers
+    // POST Handlers
+    private static Results<Created<Course>, ProblemHttpResult> CreateCourse(
+        Course course, [FromServices] ICourseDatabaseService dbService, [FromServices] LinkGenerator linkGenerator)
+    {
+        Course? created = dbService.CreateCourse(course);
 
+        if (created == null)
+        {
+            return TypedResults.Problem(statusCode: 500, detail: "Failed to created Course"); 
+        }
+
+        string? link = linkGenerator.GetPathByName("GetCourseByID", new { id = created.CourseId }); 
+
+        return TypedResults.Created(link, created);
+    }
+
+
+    // PUT Handlers
+    private static Results<NoContent, ProblemHttpResult> UpdateCourseByID(
+        int id, Course course, [FromServices] ICourseDatabaseService dbService)
+    {
+        bool entityExists = dbService.GetCourseByID(id) != null;
+
+        if (!entityExists)
+        {
+            return TypedResults.Problem(statusCode: 400, detail: $"Course with id {id} does not exists"); 
+        }
+
+        Course? updatedCourse = dbService.UpdateCourseByID(id, course);
+
+        if (updatedCourse == null)
+        {
+            return TypedResults.Problem(statusCode: 500, detail: "Failed to update course"); 
+        }
+
+        return TypedResults.NoContent(); 
+    }
+
+
+    // DELETE Handlers
+    private static Results<NoContent, ProblemHttpResult> DeleteCourseByID(
+        int id, [FromServices] ICourseDatabaseService dbService)
+    {
+        bool entityExists = dbService.GetCourseByID(id) != null;
+
+        if (!entityExists)
+        {
+            return TypedResults.Problem(statusCode: 400, detail: $"Course with id {id} does not exists");
+        }
+
+        bool deleted = dbService.DeleteCourseByID(id);
+
+        if (!deleted)
+        {
+            return TypedResults.Problem(statusCode: 500, detail: "Failed to delete given request"); 
+        }
+
+        return TypedResults.NoContent();
+    }
 
 
 }

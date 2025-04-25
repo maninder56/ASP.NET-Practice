@@ -70,7 +70,5 @@ public class CourseDatabaseService : BaseDatabaseService, ICourseDatabaseService
         database.Courses?.Remove(course);
 
         return database.SaveChanges() > 0; 
-    }
-
-    
+    }   
 }
