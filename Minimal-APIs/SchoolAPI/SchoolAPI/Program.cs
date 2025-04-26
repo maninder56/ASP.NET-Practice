@@ -19,7 +19,7 @@ builder.Services.AddProblemDetails();
 
 // Add Database Service
 builder.Services.AddSchoolDatabaseService();
-builder.Services.AddDatabaseOperations();
+builder.Services.AddDatabaseOperationsServices();
 
 WebApplication app = builder.Build();
 
@@ -52,5 +52,6 @@ app.MapDepartmentEndpoints();
 app.MapOnsiteCourseEndpoints();
 app.MapOnlineCourseEndpoints();
 app.MapCourseEndpoints();
+app.MapOfficeAssignmentEndpoints();
 
 app.Run();

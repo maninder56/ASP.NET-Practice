@@ -46,6 +46,7 @@ public class BaseDatabaseService
             ?? 0; 
     }
 
+
     // OnlineCourse Helper Methods 
     public bool OnlineCourseExists(int courseID)
     {
@@ -61,5 +62,16 @@ public class BaseDatabaseService
             .Any(os => os.CourseId == courseID)
             ?? false; 
     }
+
+
+    // OfficeAssignment Helper Methods 
+    public bool OfficeAssignmentExists(int InstructorId)
+    {
+        return database.OfficeAssignments?.AsNoTracking()
+            .Any(o => o.InstructorId == InstructorId)
+            ?? false;
+    }
+
+
 
 }

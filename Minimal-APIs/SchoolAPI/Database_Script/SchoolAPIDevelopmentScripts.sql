@@ -47,20 +47,45 @@ WHERE T.TABLE_SCHEMA = 'school';
 GO
 
 
--- Department Table data 
+-- Department data 
 SELECT *
 FROM school.Department; 
 GO
 
--- Course Table data 
+-- Course data 
 SELECT *
 FROM school.Course; 
 GO
 
--- Onsite Course Table data 
+-- Onsite Course data 
 SELECT *
 FROM school.OnsiteCourse; 
 GO 
+
+-- Online Course data 
+SELECT *
+FROM school.OnlineCourse; 
+GO 
+
+
+-- Course Instructor data 
+SELECT *
+FROM school.CourseInstructor; 
+
+-- Person data 
+SELECT *
+FROM school.Person; 
+
+-- Office Assignment data 
+SELECT *
+FROM school.OfficeAssignment; 
+
+-- Student Grade data 
+SELECT *
+FROM school.StudentGrade; 
+
+
+
 
 
 -- All the cources available
@@ -101,6 +126,12 @@ INNER JOIN school.Course C
 GROUP BY D.Name; 
 GO
 
+
+
+
+
+
+
 -- Inline table-valued function to get column Info
 --CREATE FUNCTION dbo.ColumnInfoOfTable (@tableName VARCHAR(30))
 --RETURNS TABLE 
@@ -133,20 +164,24 @@ SELECT * FROM dbo.ColumnInfoOfTable('OnlineCourse');
 GO
 
 
-
-
-BEGIN TRANSACTION; 
-
-SELECT *
-FROM school.OnsiteCourse; 
-
-SELECT * 
-FROM school.Course; 
-
-INSERT INTO school.Course (CourseID, Title, Credits, DepartmentID)
-VALUES (999999, 'Dummy Course', 4, 7);
+--  OfficeAssignment Columns Info 
+SELECT *FROM dbo.ColumnInfoOfTable('OfficeAssignment'); 
 GO
 
-ROLLBACK; 
 
-COMMIT; 
+
+--BEGIN TRANSACTION; 
+
+--SELECT *
+--FROM school.OnsiteCourse; 
+
+--SELECT * 
+--FROM school.Course; 
+
+--INSERT INTO school.Course (CourseID, Title, Credits, DepartmentID)
+--VALUES (999999, 'Dummy Course', 4, 7);
+--GO
+
+--ROLLBACK; 
+
+--COMMIT; 

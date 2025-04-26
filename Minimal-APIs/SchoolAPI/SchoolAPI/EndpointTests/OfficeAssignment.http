@@ -1,0 +1,6 @@
+@SchoolAPI_HostAddress = https://localhost:7000
+
+
+GET {{SchoolAPI_HostAddress}}/office-assignment
+
+###
