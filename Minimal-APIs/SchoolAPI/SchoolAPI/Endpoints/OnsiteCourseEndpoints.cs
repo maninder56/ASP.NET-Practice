@@ -13,7 +13,8 @@ public static class OnsiteCourseEndpoints
         RouteGroupBuilder endpoint = app.MapGroup("/onsitecourse"); 
 
         RouteGroupBuilder endpointWithValidation = endpoint.MapGroup("/")
-            .AddEndpointFilter<IdValidationFilter>();
+            .AddEndpointFilter<IdValidationFilter>()
+            .AddEndpointFilter<OnsiteCourseExistsValidationFilter>();
 
         // GET Endpoints
         endpoint.MapGet("/", GetAllOnsiteCourses); 
@@ -53,7 +54,7 @@ public static class OnsiteCourseEndpoints
 
         if (course == null)
         {
-            return TypedResults.Problem(statusCode: 400, detail: $"Course with id {id} does not exist");
+            return TypedResults.Problem(statusCode: 500, detail: $"Failed to retrive Onsite Course");
         }
 
         return TypedResults.Ok(course);
@@ -89,13 +90,6 @@ public static class OnsiteCourseEndpoints
     private static Results<NoContent, ProblemHttpResult> UpdateOnsiteCourseByID(
         int id, OnsiteCourse course, [FromServices] IOnsiteCoursesDatabaseService dbService)
     {
-        bool entityExists = dbService.GetOnsiteCourseByCourseId(id) != null; 
-
-        if (!entityExists)
-        {
-             return TypedResults.Problem(statusCode: 400, detail: $"onsite course with id {id} does not exist");
-        }
-
         OnsiteCourse? updatedCourse = dbService.UpdateOnsiteCourseByCourseID(id, course);
 
         if (updatedCourse == null)
@@ -112,13 +106,6 @@ public static class OnsiteCourseEndpoints
     private static Results<NoContent, ProblemHttpResult> DeleteOnsiteCourseById(
         int id, [FromServices] IOnsiteCoursesDatabaseService dbService)
     {
-        bool entityExists = dbService.GetOnsiteCourseByCourseId(id) != null;
-
-        if (!entityExists)
-        {
-            return TypedResults.Problem(statusCode: 400, detail: $"onsite course with id {id} does not exist");
-        }
-
         bool deleted = dbService.DeleteOnsiteCourseByCourseID(id);
 
         if (!deleted)

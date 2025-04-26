@@ -34,7 +34,7 @@ content-type: application/json
 
 ###
 
-DELETE {{SchoolAPI_HostAddress}}/onlinecourse/999999
+DELETE {{SchoolAPI_HostAddress}}/onlinecourse/4062
 
 ###
 

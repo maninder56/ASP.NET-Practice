@@ -4,20 +4,20 @@ using SchoolAPI.Services;
 
 namespace SchoolAPI.EndpointFilters;
 
-public class OnlineCourseExistsValidationFilter : IEndpointFilter
+public class OnsiteCourseExistsValidationFilter : IEndpointFilter
 {
-    IOnlineCoursesDatabaseService dbServie; 
+    IOnsiteCoursesDatabaseService dbServie;
 
-    public OnlineCourseExistsValidationFilter([FromServices] IOnlineCoursesDatabaseService dbServie)
+    public OnsiteCourseExistsValidationFilter([FromServices] IOnsiteCoursesDatabaseService dbServie)
     {
         this.dbServie = dbServie;
     }
 
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
-        int id = context.GetArgument<int>(0); 
+        int id = context.GetArgument<int>(0);
 
-        if (!dbServie.OnlineCourseExists(id))
+        if (!dbServie.OnsiteCourseExists(id))
         {
             return Results.ValidationProblem(new Dictionary<string, string[]>
             {

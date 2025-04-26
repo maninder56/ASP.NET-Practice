@@ -9,7 +9,7 @@ GET {{SchoolAPI_HostAddress}}/onsitecourse
 ###
 
 # Get by id 
-GET {{SchoolAPI_HostAddress}}/onsitecourse/1050
+GET {{SchoolAPI_HostAddress}}/onsitecourse/4062
 
 ###
 
@@ -19,8 +19,8 @@ POST {{SchoolAPI_HostAddress}}/onsitecourse
 content-type: application/json
 
 {
-  "courseId": 999999,
-  "location": "test lab",
+  "courseId": 4062,
+  "location": "Dummy labroom Craeted",
   "days": "MTWH",
   "time": "1900-01-01T11:30:00"
 }
@@ -28,12 +28,12 @@ content-type: application/json
 ###
 
 # update onsite course 
-PUT {{SchoolAPI_HostAddress}}/onsitecourse/999999
+PUT {{SchoolAPI_HostAddress}}/onsitecourse/4062
 content-type: application/json
 
 {
-  "courseId": 999999,
-  "location": "test lab updated",
+  "courseId": 4062,
+  "location": "Dummy labroom updated",
   "days": "MTWH",
   "time": "1900-01-01T11:30:00"
 }
@@ -42,6 +42,6 @@ content-type: application/json
 
 
 # delete onsite course 
-DELETE {{SchoolAPI_HostAddress}}/onsitecourse/999999
+DELETE {{SchoolAPI_HostAddress}}/onsitecourse/4062
 
 ###
