@@ -63,18 +63,21 @@ FROM school.OnsiteCourse;
 GO 
 
 
--- All the cources available --------------------------Need to be more specific, generate null if not found
+-- All the cources available
 SELECT 
 	C.CourseID, 
 	C.Title, 
 	C.Credits, 
 	(CASE 
-		WHEN (SC.CourseID IS NULL) THEN 'Online'
-		ELSE 'OnSite'
+		WHEN (SC.CourseID IS NOT NULL) THEN 'OnSite'
+		WHEN (OC.CourseID IS NOT NULL) THEN 'Online'
+		ELSE NULL
 	END ) AS CourseType
 FROM school.Course C
 LEFT JOIN school.OnsiteCourse SC
 	 ON C.CourseID = SC.CourseID
+LEFT JOIN school.OnlineCourse OC
+	ON C.CourseID = OC.CourseID
 ORDER BY CourseType; 
 GO
 
