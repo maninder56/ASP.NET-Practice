@@ -5,7 +5,8 @@ namespace SchoolAPI.Services;
 public interface IOnlineCoursesDatabaseService
 {
     // Helper Methods 
-    public bool CourseExists(int courseId); 
+    public bool CourseExists(int courseId);
+    public bool OnlineCourseExists(int courseId); 
 
     // Read Operations
     public List<OnlineCourse> GetAllOnlineCourses();

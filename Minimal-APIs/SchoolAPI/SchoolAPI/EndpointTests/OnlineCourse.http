@@ -8,7 +8,7 @@ GET {{SchoolAPI_HostAddress}}/onlinecourse
 ###
 
 # Get by id 
-GET {{SchoolAPI_HostAddress}}/onlinecourse/2030
+GET {{SchoolAPI_HostAddress}}/onlinecourse/4062
 
 ###
 
@@ -17,17 +17,17 @@ POST {{SchoolAPI_HostAddress}}/onlinecourse
 content-type: application/json 
 
 {
-  "courseId": 999999,
+  "courseId": 4062,
   "url": "http://www.newMockwebsite"
 }
 
 ###
 
-PUT {{SchoolAPI_HostAddress}}/onlinecourse/999999
+PUT {{SchoolAPI_HostAddress}}/onlinecourse/4062
 content-type: application/json 
 
 {
-  "courseId": 999999,
+  "courseId": 4062,
   "url": "http://www.Mockwebsite/Updated"
 }
 

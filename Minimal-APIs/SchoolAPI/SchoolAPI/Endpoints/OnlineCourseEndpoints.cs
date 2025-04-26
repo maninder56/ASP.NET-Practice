@@ -15,7 +15,8 @@ public static class OnlineCourseEndpoints
         RouteGroupBuilder endpoint = app.MapGroup("/onlinecourse");
 
         RouteGroupBuilder endpointWithValidation = endpoint.MapGroup("/")
-            .AddEndpointFilter<IdValidationFilter>();
+            .AddEndpointFilter<IdValidationFilter>()
+            .AddEndpointFilter<OnlineCourseExistsValidationFilter>();
 
         // GET Endpoints 
         endpoint.MapGet("/", GetAllOnlineCourses); 
@@ -54,7 +55,7 @@ public static class OnlineCourseEndpoints
 
         if (course == null)
         {
-            return TypedResults.Problem(statusCode: 400, detail: $"Course with id {id} does not exist");
+            return TypedResults.Problem(statusCode: 500, detail: $"Falied to retrive online course");
         }
 
         return TypedResults.Ok(course);
@@ -88,13 +89,6 @@ public static class OnlineCourseEndpoints
     private static Results<NoContent, ProblemHttpResult> UpdateOnlineCoursebyID(
         int id, OnlineCourse onlineCourse, [FromServices] IOnlineCoursesDatabaseService dbService)
     {
-        bool entityExists = dbService.GetOnlineCourseByID(id) != null;
-
-        if (!entityExists)
-        {
-            return TypedResults.Problem(statusCode: 400, detail: $"Online course with id {id} does not exist");
-        }
-
         OnlineCourse? updatedCourse = dbService.UpdateOnlineCourseByID(id, onlineCourse);
 
         if (updatedCourse is null)
@@ -109,13 +103,6 @@ public static class OnlineCourseEndpoints
     private static Results<NoContent, ProblemHttpResult> DeleteOnlineCourseByID(
         int id, [FromServices] IOnlineCoursesDatabaseService dbService)
     {
-        bool entityExists = dbService.GetOnlineCourseByID(id) != null;
-
-        if (!entityExists)
-        {
-            return TypedResults.Problem(statusCode: 400, detail: $"Online course with id {id} does not exist");
-        }
-
         bool deleted = dbService.DeleteOnlineCourseByID(id);
 
         if (!deleted)
