@@ -21,7 +21,7 @@ public partial class SchoolForApiContext : DbContext
 
     public virtual DbSet<OnsiteCourse>? OnsiteCourses { get; set; }
 
-    public virtual DbSet<Person>? People { get; set; }
+    public virtual DbSet<Person>? Person { get; set; }
 
     public virtual DbSet<StudentGrade>? StudentGrades { get; set; }
 
@@ -86,9 +86,6 @@ public partial class SchoolForApiContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("InstructorID");
             entity.Property(e => e.Location).HasMaxLength(50);
-            entity.Property(e => e.Timestamp)
-                .IsRowVersion()
-                .IsConcurrencyToken();
 
             entity.HasOne(d => d.Instructor).WithOne(p => p.OfficeAssignment)
                 .HasForeignKey<OfficeAssignment>(d => d.InstructorId)

@@ -13,7 +13,5 @@ public partial class OfficeAssignment
     [StringLength(50)]
     public string Location { get; set; } = null!;
 
-    public byte[] Timestamp { get; set; } = null!;
-
     public virtual Person Instructor { get; set; } = null!;
 }
