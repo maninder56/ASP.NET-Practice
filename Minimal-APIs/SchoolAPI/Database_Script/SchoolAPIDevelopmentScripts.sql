@@ -165,10 +165,15 @@ GO
 
 
 --  OfficeAssignment Columns Info 
-SELECT *FROM dbo.ColumnInfoOfTable('OfficeAssignment'); 
+SELECT * FROM dbo.ColumnInfoOfTable('OfficeAssignment'); 
 GO
 
+-- Person Columsn Info 
+SELECT * FROM dbo.ColumnInfoOfTable('Person');
+GO 
 
+
+-- Add course for testing 
 
 --BEGIN TRANSACTION; 
 
@@ -183,6 +188,23 @@ GO
 --GO
 
 --ROLLBACK; 
+
+--COMMIT; 
+
+
+
+
+-- Add Instructor for testing
+
+--BEGIN TRANSACTION; 
+
+--SELECT *
+--FROM school.Person; 
+
+--INSERT INTO school.Person (LastName, FirstName, Discriminator) 
+--VALUES ('oooooo', 'Dummy Instructor', 'Instructor');
+
+--ROLLBACK;
 
 --COMMIT; 
 

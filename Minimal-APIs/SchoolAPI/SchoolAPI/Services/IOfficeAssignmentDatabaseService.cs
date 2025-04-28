@@ -6,7 +6,7 @@ public interface IOfficeAssignmentDatabaseService
 {
     // Helper Methods 
     public bool OfficeAssignmentExists(int instructorID);
-    public bool PersonExists(int instructorID); 
+    public bool InstructorExists(int instructorId); 
 
     // Read Operations 
     public List<OfficeAssignment> GetAllOfficeAssignments();

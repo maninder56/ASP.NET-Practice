@@ -66,7 +66,17 @@ public static class OfficeAssignmentEndpoints
         OfficeAssignment officeAssignment, [FromServices] IOfficeAssignmentDatabaseService dbService, 
         [FromServices] LinkGenerator linkGenerator)
     {
-        bool instructorExists = dbService.PersonExists(instructorID:officeAssignment.InstructorId);
+        bool instructorAlreadyAssigned = dbService.OfficeAssignmentExists(officeAssignment.InstructorId);
+
+        if (instructorAlreadyAssigned)
+        {
+            return TypedResults.ValidationProblem(new Dictionary<string, string[]>
+            {
+                { "InstructorID", new string[] { $"Instructor with ID {officeAssignment.InstructorId} has already been assigned an office" } }
+            });
+        }
+
+        bool instructorExists = dbService.InstructorExists(officeAssignment.InstructorId);
 
         if (!instructorExists)
         {

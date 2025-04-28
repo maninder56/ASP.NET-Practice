@@ -66,18 +66,27 @@ public class BaseDatabaseService
 
 
     // OfficeAssignment Helper Methods 
-    public bool OfficeAssignmentExists(int InstructorId)
+    public bool OfficeAssignmentExists(int instructorId)
     {
         return database.OfficeAssignments?.AsNoTracking()
-            .Any(o => o.InstructorId == InstructorId)
+            .Any(o => o.InstructorId == instructorId)
             ?? false;
     }
 
     // Person Helper Methods 
-    public bool PersonExists(int PersonId)
+    public bool PersonExists(int personId)
     {
         return database.Person?.AsNoTracking()
-            .Any(p => p.PersonId == PersonId)  
+            .Any(p => p.PersonId == personId)  
+            ?? false;
+    }
+
+
+    // Instructor Helper Methods 
+    public bool InstructorExists(int instructorId)
+    {
+        return database.Person?.AsNoTracking()
+            .Any(i => i.PersonId == instructorId && i.Discriminator == "Instructor")
             ?? false;
     }
 

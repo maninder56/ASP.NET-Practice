@@ -1,6 +1,41 @@
 @SchoolAPI_HostAddress = https://localhost:7000
 
+# Office Assignment 
 
+# Get all 
 GET {{SchoolAPI_HostAddress}}/office-assignment
+
+###
+
+
+# Get by id 
+GET {{SchoolAPI_HostAddress}}/office-assignment/37
+
+###
+
+# create 
+POST {{SchoolAPI_HostAddress}}/office-assignment
+content-type: application/json 
+
+{
+    "instructorId": 37,
+    "location": "Dummy Department"
+}
+
+###
+
+# update by id 
+PUT {{SchoolAPI_HostAddress}}/office-assignment/37
+content-type: application/json 
+
+{
+    "instructorId": 37,
+    "location": "Dummy Department updated"
+}
+
+###
+
+# delete by id 
+DELETE {{SchoolAPI_HostAddress}}/office-assignment/37
 
 ###
