@@ -28,6 +28,8 @@ public class OfficeAssignmentDatabaseService : BaseDatabaseService, IOfficeAssig
     // Create  Operations 
     public OfficeAssignment? CreateOffiAssignment(OfficeAssignment newOfficeAssignment)
     {
+        newOfficeAssignment.Timestamp = DateTime.Now;
+
         database.OfficeAssignments?.Add(newOfficeAssignment);
 
         return database.SaveChanges() > 0 ? newOfficeAssignment : null;
@@ -38,6 +40,7 @@ public class OfficeAssignmentDatabaseService : BaseDatabaseService, IOfficeAssig
     public bool UpdateOfficeAssignmentByID(int InstructorId, OfficeAssignment officeAssignment)
     {
         officeAssignment.InstructorId = InstructorId;
+        officeAssignment.Timestamp = GetOfficeAssignmentById(InstructorId)?.Timestamp ?? DateTime.Now;
 
         database.OfficeAssignments?.Update(officeAssignment);
 

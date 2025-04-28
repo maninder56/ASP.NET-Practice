@@ -1,5 +1,6 @@
 ﻿using DatabaseContext;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks.Dataflow;
 
 namespace SchoolAPI.Services.Implementations; 
 
@@ -69,6 +70,14 @@ public class BaseDatabaseService
     {
         return database.OfficeAssignments?.AsNoTracking()
             .Any(o => o.InstructorId == InstructorId)
+            ?? false;
+    }
+
+    // Person Helper Methods 
+    public bool PersonExists(int PersonId)
+    {
+        return database.Person?.AsNoTracking()
+            .Any(p => p.PersonId == PersonId)  
             ?? false;
     }
 
