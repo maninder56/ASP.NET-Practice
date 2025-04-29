@@ -1,0 +1,41 @@
+@SchoolAPI_HostAddress = https://localhost:7000
+
+# Instructor Endpoints 
+
+
+# Get all 
+GET {{SchoolAPI_HostAddress}}/instructor
+
+###
+
+# Get by ID 
+GET {{SchoolAPI_HostAddress}}/instructor/37
+
+###
+
+# Create
+POST {{SchoolAPI_HostAddress}}/instructor
+content-type: application/json 
+
+{
+  "firstName": "Dummy Instructor",
+  "lastName": "yyyyyyyyyy"
+}
+
+###
+
+# Update by ID
+PUT {{SchoolAPI_HostAddress}}/instructor/37
+content-type: application/json 
+
+{
+  "firstName": "Dummy Instructor",
+  "lastName": "Version two"
+}
+
+###
+
+# Delete by ID
+DELETE {{SchoolAPI_HostAddress}}/instructor/37
+
+###

@@ -81,6 +81,13 @@ public class BaseDatabaseService
             ?? false;
     }
 
+    public int MaximumPersonID()
+    {
+        return database.Person?.AsNoTracking()
+            .Max(c => c.PersonId)
+            ?? 0; 
+    }
+
 
     // Instructor Helper Methods 
     public bool InstructorExists(int instructorId)

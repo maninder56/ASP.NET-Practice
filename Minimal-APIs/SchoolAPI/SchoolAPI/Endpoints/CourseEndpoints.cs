@@ -100,7 +100,7 @@ public static class CourseEndpoints
 
         if (!deleted)
         {
-            return TypedResults.Problem(statusCode: 500, detail: "Failed to delete given request"); 
+            return TypedResults.Problem(statusCode: 500, detail: "Failed to delete Course"); 
         }
 
         return TypedResults.NoContent();

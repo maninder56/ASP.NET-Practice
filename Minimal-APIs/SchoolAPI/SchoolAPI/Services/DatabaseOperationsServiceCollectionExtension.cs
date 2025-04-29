@@ -1,4 +1,5 @@
-﻿using SchoolAPI.Services.Implementations; 
+﻿using SchoolAPI.Data;
+using SchoolAPI.Services.Implementations; 
 
 namespace SchoolAPI.Services; 
 
@@ -11,6 +12,7 @@ public static class DatabaseOperationsServiceCollectionExtension
         services.AddScoped<IOnlineCoursesDatabaseService, OnlineCoursesDatabaseService>(); 
         services.AddScoped<ICourseDatabaseService, CourseDatabaseService>();
         services.AddScoped<IOfficeAssignmentDatabaseService, OfficeAssignmentDatabaseService>();
+        services.AddScoped<IInstructorDatabaseService, InstructorDatabaseService>();
 
         return services; 
     }

@@ -6,6 +6,7 @@ public interface IInstructorDatabaseService
 {
     // Helper Methods 
     public bool InstructorExists(int instructorId);
+    public bool OfficeAssignmentExists(int instructorId); 
 
     // Read Operations 
     public List<Person> GetAllInstructors();
@@ -15,8 +16,8 @@ public interface IInstructorDatabaseService
     public Person? CreateInstructor(Person instructor);
 
     // Update Operations 
-    public Person? UpdateInstructorByID(int instructorID, Person instructor);
+    public bool UpdateInstructorByID(int instructorID, Person instructor);
 
     // Delete Operations 
-    public Person? DeleteInstructorByID(int instructorID);
+    public bool DeleteInstructorByID(int instructorID);
 }
