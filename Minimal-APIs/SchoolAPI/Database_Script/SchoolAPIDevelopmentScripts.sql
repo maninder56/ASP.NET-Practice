@@ -127,49 +127,72 @@ GROUP BY D.Name;
 GO
 
 
+-- All Instructors 
+SELECT 
+	P.PersonID, 
+	P.FirstName, 
+	P.LastName, 
+	P.HireDate
+FROM school.Person P
+WHERE P.Discriminator = 'Instructor';
+
+
+-- All Students
+SELECT 
+	P.PersonID, 
+	P.FirstName, 
+	P.LastName, 
+	P.EnrollmentDate
+FROM school.Person P
+WHERE P.Discriminator = 'Student';
+
+
+
+
 
 
 
 
 
 -- Inline table-valued function to get column Info
---CREATE FUNCTION dbo.ColumnInfoOfTable (@tableName VARCHAR(30))
+
+--CREATE FUNCTION school.ColumnInfoOfTable (@tableName VARCHAR(30))
 --RETURNS TABLE 
 --AS 
 --RETURN (
---	SELECT C.COLUMN_NAME, C.IS_NULLABLE, C.DATA_TYPE, C.CHARACTER_MAXIMUM_LENGTH
+--	SELECT C.COLUMN_NAME, C.IS_NULLABLE, C.DATA_TYPE, C.CHARACTER_MAXIMUM_LENGTH, C.COLUMN_DEFAULT
 --	FROM INFORMATION_SCHEMA.COLUMNS C
 --	WHERE C.TABLE_NAME = @tableName
 --); 
 --GO
 
-
+--DROP FUNCTION dbo.ColumnInfoOfTable; 
 
 -- All the Table's Columns Info 
 
 -- Department Table's Columns Info
-SELECT * FROM dbo.ColumnInfoOfTable('Department'); 
+SELECT * FROM school.ColumnInfoOfTable('Department'); 
 GO 
 
 -- Course Table's Columns Info
-SELECT * FROM dbo.ColumnInfoOfTable('Course'); 
+SELECT * FROM school.ColumnInfoOfTable('Course'); 
 GO 
 
 -- OnsiteCourse Table's Columns Info
-SELECT * FROM dbo.ColumnInfoOfTable('OnsiteCourse'); 
+SELECT * FROM school.ColumnInfoOfTable('OnsiteCourse'); 
 GO 
 
 -- OnlineCourse Table's Columns Info
-SELECT * FROM dbo.ColumnInfoOfTable('OnlineCourse'); 
+SELECT * FROM school.ColumnInfoOfTable('OnlineCourse'); 
 GO
 
 
 --  OfficeAssignment Columns Info 
-SELECT * FROM dbo.ColumnInfoOfTable('OfficeAssignment'); 
+SELECT * FROM school.ColumnInfoOfTable('OfficeAssignment'); 
 GO
 
 -- Person Columsn Info 
-SELECT * FROM dbo.ColumnInfoOfTable('Person');
+SELECT * FROM school.ColumnInfoOfTable('Person');
 GO 
 
 
@@ -209,3 +232,4 @@ GO
 --COMMIT; 
 
 
+-- turn auto increment off in instructor id 
