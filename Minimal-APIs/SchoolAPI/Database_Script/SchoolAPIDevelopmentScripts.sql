@@ -152,8 +152,6 @@ WHERE P.Discriminator = 'Student';
 
 
 
-
-
 -- Inline table-valued function to get column Info
 
 --CREATE FUNCTION school.ColumnInfoOfTable (@tableName VARCHAR(30))
@@ -232,4 +230,10 @@ GO
 --COMMIT; 
 
 
--- turn auto increment off in instructor id 
+
+--SET IDENTITY_INSERT school.Person ON;
+--GO
+
+
+INSERT INTO school.Person (PersonID,LastName, FirstName, Discriminator) 
+VALUES (37, 'oooooo', 'Dummy Instructor', 'Instructor');

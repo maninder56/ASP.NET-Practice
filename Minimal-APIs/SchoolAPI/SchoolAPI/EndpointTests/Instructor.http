@@ -25,7 +25,7 @@ content-type: application/json
 ###
 
 # Update by ID
-PUT {{SchoolAPI_HostAddress}}/instructor/37
+PUT {{SchoolAPI_HostAddress}}/instructor/8891
 content-type: application/json 
 
 {
@@ -36,6 +36,6 @@ content-type: application/json
 ###
 
 # Delete by ID
-DELETE {{SchoolAPI_HostAddress}}/instructor/37
+DELETE {{SchoolAPI_HostAddress}}/instructor/8891
 
 ###

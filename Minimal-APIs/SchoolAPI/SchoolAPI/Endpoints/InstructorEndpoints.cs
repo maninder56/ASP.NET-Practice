@@ -116,12 +116,17 @@ public static class InstructorEndpoints
     private static Results<NoContent, ProblemHttpResult> UpdateInstructorByID(
         int id, InstructorRecord instructor, [FromServices] IInstructorDatabaseService dbService)
     {
-        bool updated = dbService.UpdateInstructorByID(id, new Person()
+        Person personDetails = dbService.GetInstructorByID(id)!;
+
+        personDetails.FirstName = instructor.FirstName;
+        personDetails.LastName = instructor.LastName;
+
+        if (instructor.HireDate != null)
         {
-            FirstName = instructor.FirstName,
-            LastName = instructor.LastName,
-            HireDate = instructor.HireDate
-        }); 
+            personDetails.HireDate = instructor.HireDate;
+        }
+
+        bool updated = dbService.UpdateInstructorByID(id, personDetails); 
 
         if (!updated)
         {

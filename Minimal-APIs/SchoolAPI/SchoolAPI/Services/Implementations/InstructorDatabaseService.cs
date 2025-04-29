@@ -29,7 +29,7 @@ public class InstructorDatabaseService : BaseDatabaseService, IInstructorDatabas
     // Create Operations 
     public Person? CreateInstructor(Person instructor)
     {
-        instructor.PersonId = MaximumPersonID() + 1;
+        //instructor.PersonId = MaximumPersonID() + 1;
         instructor.HireDate = DateTime.Now;
         instructor.Discriminator = "Instructor"; 
 
