@@ -5,8 +5,8 @@ namespace SchoolAPI.Services;
 public interface IStudentDatabaseService
 {
     // Helper Methods 
-    public bool StudentExists(int studentId);   
-    public bool StudentGradeExists(int studentId);
+    public bool StudentExists(int studentId);
+    public bool StudentInStudentGradeExists(int studentId);
 
     // Read Operations 
     public List<Person> GetAllStudents(); 

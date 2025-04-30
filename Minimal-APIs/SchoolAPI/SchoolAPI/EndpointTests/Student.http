@@ -1,0 +1,41 @@
+@SchoolAPI_HostAddress = https://localhost:7000
+
+# Student Endpoints
+
+
+# Get all 
+GET {{SchoolAPI_HostAddress}}/student
+
+###
+
+# Get by id 
+GET {{SchoolAPI_HostAddress}}/student/8894
+
+###
+
+# Create 
+POST {{SchoolAPI_HostAddress}}/student
+content-type: application/json 
+
+{
+  "firstName": "Created Dummuy",
+  "lastName": "hammer"
+}
+
+###
+
+# update by id 
+PUT {{SchoolAPI_HostAddress}}/student/8894
+content-type: application/json 
+
+{
+  "firstName": "Updated Dummuy",
+  "lastName": "hammer"
+}
+###
+
+# delete by id 
+DELETE {{SchoolAPI_HostAddress}}/student/8894
+
+###
+
