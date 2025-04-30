@@ -97,6 +97,29 @@ public class BaseDatabaseService
             ?? false;
     }
 
+    // Student Helper Methods 
+    public bool StudentExists(int studentId)
+    {
+        return database.Person?.AsNoTracking()
+            .Any(s => s.PersonId == studentId && s.Discriminator == "Student")
+            ?? false; 
+    }
+
+    // Student Grade Helper Methods 
+    public bool StudentInStudentGradeExists(int studentId)
+    {
+        return database.StudentGrades?.AsNoTracking()
+            .Any(sg => sg.StudentId == studentId)
+            ?? false;
+    }
+
+    public bool CourseInStudentGradeExists(int courseId)
+    {
+        return database.StudentGrades?.AsNoTracking()
+            .Any(c => c.CourseId == courseId)
+            ?? false;
+    }
+
 
 
 }

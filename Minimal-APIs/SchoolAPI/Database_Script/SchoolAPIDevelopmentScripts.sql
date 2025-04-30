@@ -193,6 +193,10 @@ GO
 SELECT * FROM school.ColumnInfoOfTable('Person');
 GO 
 
+-- Student Grade Info 
+SELECT * FROM school.ColumnInfoOfTable('StudentGrade'); 
+GO 
+
 
 -- Add course for testing 
 
@@ -223,6 +227,7 @@ GO
 --FROM school.Person; 
 
 --INSERT INTO school.Person (LastName, FirstName, Discriminator) 
+--	OUTPUT inserted.PersonID, inserted.LastName, inserted.FirstName, inserted.Discriminator
 --VALUES ('oooooo', 'Dummy Instructor', 'Instructor');
 
 --ROLLBACK;
@@ -235,5 +240,29 @@ GO
 --GO
 
 
-INSERT INTO school.Person (PersonID,LastName, FirstName, Discriminator) 
-VALUES (37, 'oooooo', 'Dummy Instructor', 'Instructor');
+
+-- Testing for constraints in person and studentgrade tabel
+
+--BEGIN TRANSACTION; 
+
+--INSERT INTO school.Person (LastName, FirstName, Discriminator) 
+--	OUTPUT inserted.PersonID, inserted.LastName, inserted.FirstName, inserted.Discriminator
+--VALUES ('oooooo', 'Dummy Student', 'Student');
+
+--INSERT INTO school.StudentGrade(CourseID, StudentID, Grade)
+--	OUTPUT inserted.EnrollmentID, inserted.CourseID, inserted.StudentID, inserted.Grade
+--VALUES (4061, 8892, 4.1); 
+
+
+--SELECT *
+--FROM school.Person
+--WHERE PersonID > 8000; 
+
+--DELETE FROM school.Person
+--WHERE PersonID > ; 
+
+--DELETE FROM school.StudentGrade
+--WHERE EnrollmentID = ; 
+
+--ROLLBACK;
+

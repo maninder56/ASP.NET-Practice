@@ -93,9 +93,19 @@ public static class CourseEndpoints
 
 
     // DELETE Handlers
-    private static Results<NoContent, ProblemHttpResult> DeleteCourseByID(
+    private static Results<NoContent, ProblemHttpResult, ValidationProblem> DeleteCourseByID(
         int id, [FromServices] ICourseDatabaseService dbService)
     {
+        bool courseInStudentGrade = dbService.CourseInStudentGradeExists(id);
+
+        if (courseInStudentGrade)
+        {
+            return TypedResults.ValidationProblem(new Dictionary<string, string[]>
+            {
+                { "CourseID", new string[] { $"Course with ID {id} can not be deleted because it is being referenced by StudentGrade" } }
+            });
+        }
+
         bool deleted = dbService.DeleteCourseByID(id);
 
         if (!deleted)

@@ -5,7 +5,8 @@ namespace SchoolAPI.Services;
 public interface ICourseDatabaseService
 {
     // Helper methods 
-    public bool CourseExists(int courseId); 
+    public bool CourseExists(int courseId);
+    public bool CourseInStudentGradeExists(int courseId); 
 
     // Read Operations
     public List<Course> GetAllCourses(string type);
