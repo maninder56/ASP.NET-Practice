@@ -147,6 +147,10 @@ FROM school.Person P
 WHERE P.Discriminator = 'Student';
 
 
+-- ALL Students Grades 
+SELECT *
+FROM school.StudentGrade; 
+
 
 
 
@@ -195,6 +199,10 @@ GO
 
 -- Student Grade Info 
 SELECT * FROM school.ColumnInfoOfTable('StudentGrade'); 
+GO 
+
+-- Course Instructor 
+SELECT * FROM school.ColumnInfoOfTable('CourseInstructor'); 
 GO 
 
 

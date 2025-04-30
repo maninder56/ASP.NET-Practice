@@ -55,5 +55,6 @@ app.MapCourseEndpoints();
 app.MapOfficeAssignmentEndpoints();
 app.MapInstructorEndpoints();
 app.MapStudentEndpoints();
+app.MapStudentGradeEndpoints();
 
 app.Run();

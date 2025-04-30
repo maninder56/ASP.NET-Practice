@@ -14,6 +14,7 @@ public static class DatabaseOperationsServiceCollectionExtension
         services.AddScoped<IOfficeAssignmentDatabaseService, OfficeAssignmentDatabaseService>();
         services.AddScoped<IInstructorDatabaseService, InstructorDatabaseService>();
         services.AddScoped<IStudentDatabaseService, StudentDatabaseService>();
+        services.AddScoped<IStudentGradeDatabaseService, StudentGradeDatabaseService>();
 
         return services; 
     }

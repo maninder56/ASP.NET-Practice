@@ -1,0 +1,40 @@
+@SchoolAPI_HostAddress = https://localhost:7000
+
+# Student Grade Endpoints 
+
+
+# Get all 
+GET {{SchoolAPI_HostAddress}}/student-grade
+
+###
+
+# Get by id 
+GET {{SchoolAPI_HostAddress}}/student-grade/42
+
+###
+
+# Create by id 
+POST {{SchoolAPI_HostAddress}}/student-grade
+content-type: application/json 
+
+{
+  "courseId": 4061,
+  "studentId": 8895
+}
+###
+
+# update by id
+PUT {{SchoolAPI_HostAddress}}/student-grade/42
+content-type: application/json 
+
+{
+  "courseId": 1061,
+  "studentId": 8895
+}
+
+###
+
+# delete by id 
+DELETE {{SchoolAPI_HostAddress}}/student-grade/42
+
+###

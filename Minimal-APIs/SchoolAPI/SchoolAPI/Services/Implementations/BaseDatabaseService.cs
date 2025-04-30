@@ -56,6 +56,7 @@ public class BaseDatabaseService
             ?? false;
     }
 
+
     // OnsiteCourse Helper Methods 
     public bool OnsiteCourseExists(int courseID)
     {
@@ -72,6 +73,7 @@ public class BaseDatabaseService
             .Any(o => o.InstructorId == instructorId)
             ?? false;
     }
+
 
     // Person Helper Methods 
     public bool PersonExists(int personId)
@@ -105,7 +107,15 @@ public class BaseDatabaseService
             ?? false; 
     }
 
+
     // Student Grade Helper Methods 
+    public bool StudentGradeExists(int enrollmentID)
+    {
+        return database.StudentGrades?.AsNoTracking()
+            .Any(sg =>  sg.EnrollmentId == enrollmentID)
+            ?? false;
+    }
+
     public bool StudentInStudentGradeExists(int studentId)
     {
         return database.StudentGrades?.AsNoTracking()
@@ -116,7 +126,7 @@ public class BaseDatabaseService
     public bool CourseInStudentGradeExists(int courseId)
     {
         return database.StudentGrades?.AsNoTracking()
-            .Any(c => c.CourseId == courseId)
+            .Any(sg => sg.CourseId == courseId)
             ?? false;
     }
 
