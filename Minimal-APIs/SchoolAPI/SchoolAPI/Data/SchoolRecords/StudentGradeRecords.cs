@@ -1,9 +1,10 @@
 ﻿using DatabaseContext;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace SchoolAPI.Data.SchoolRecords; 
 
-public class StudentGradeRecords
+public static class StudentGradeRecords
 {
     public record StudentGradeRecord
     {

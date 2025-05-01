@@ -130,6 +130,13 @@ public class BaseDatabaseService
             ?? false;
     }
 
+    public bool StudentWithCourseExists(int studentId, int courseId)
+    {
+        return database.StudentGrades?.AsNoTracking()
+            .Any(sg => sg.StudentId == studentId && sg.CourseId == courseId)
+            ?? false; 
+    }
+
 
 
 }

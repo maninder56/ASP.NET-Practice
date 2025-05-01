@@ -8,6 +8,7 @@ public interface IStudentGradeDatabaseService
     public bool StudentGradeExists(int enrollmentID);
     public bool CourseExists(int courseId);
     public bool StudentExists(int studentId); 
+    public bool StudentWithCourseExists(int studentId, int courseId);
 
     // Read Operations
     public List<StudentGrade> GetAllStudentGrades(); 

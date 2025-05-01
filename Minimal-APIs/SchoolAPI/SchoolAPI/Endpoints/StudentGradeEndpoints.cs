@@ -6,7 +6,8 @@ using SchoolAPI.Services;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-using static SchoolAPI.Data.SchoolRecords.StudentGradeRecords; 
+using static SchoolAPI.Data.SchoolRecords.StudentGradeRecords;
+using static SchoolAPI.EndpointFilters.StudentGradeValidationFilters; 
 
 namespace SchoolAPI.Endpoints; 
 
@@ -18,7 +19,7 @@ public static class StudentGradeEndpoints
 
         RouteGroupBuilder endpointWithValidation = endpoint.MapGroup("/")
             .AddEndpointFilter<IdValidationFilter>()
-            .AddEndpointFilter<StudentGradeValidationFilters.StudentGradeExistsValidationFilter>();
+            .AddEndpointFilter<StudentGradeExistsValidationFilter>();
 
         // GET Endpoints 
         endpoint.MapGet("/", GetAllStudentGrades);
@@ -28,11 +29,12 @@ public static class StudentGradeEndpoints
         // POST Endpoints 
         endpoint.MapPost("/", CreateStudentGrade)
             .WithParameterValidation()
-            .AddEndpointFilter<StudentGradeValidationFilters.StudentGradeModelValidaitonFilter>();
+            .AddEndpointFilter<StudentGradeModelValidaitonFilter>();
 
         // PUT Endpoints 
         endpointWithValidation.MapPut("/{id:int}", UpdateStudentGradeByID)
-            .WithParameterValidation(); 
+            .WithParameterValidation()
+            .AddEndpointFilter<StudentGradeModelValidaitonFilter>(); 
 
         // DELETE Endpoints
         endpointWithValidation.MapDelete("{id:int}", DeleteStudentGradeByID);   

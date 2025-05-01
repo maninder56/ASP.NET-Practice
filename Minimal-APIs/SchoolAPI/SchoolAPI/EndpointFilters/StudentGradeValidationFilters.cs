@@ -1,12 +1,14 @@
 ﻿
 using DatabaseContext;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using SchoolAPI.Services;
-
+using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
 using static SchoolAPI.Data.SchoolRecords.StudentGradeRecords;
 
 namespace SchoolAPI.EndpointFilters; 
 
-public class StudentGradeValidationFilters
+public static class StudentGradeValidationFilters
 {
     // For updating and deleting validation 
     public class StudentGradeExistsValidationFilter : IEndpointFilter
@@ -34,7 +36,7 @@ public class StudentGradeValidationFilters
         }
     }
 
-    // For when Creating 
+    // For when Creating and updating
     public class StudentGradeModelValidaitonFilter : IEndpointFilter
     {
         private IStudentGradeDatabaseService dbService;
@@ -46,7 +48,20 @@ public class StudentGradeValidationFilters
 
         public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
         {
-            StudentGradeRecord studentGrade = context.GetArgument<StudentGradeRecord>(0);
+            object methodArgument = context.Arguments.FirstOrDefault(a => a is StudentGradeRecord)
+                ?? throw new ArgumentException("StudentGradeRecord Type not provided");
+
+            StudentGradeRecord studentGrade = (StudentGradeRecord)methodArgument; 
+
+            decimal? grade = studentGrade.Grade;
+
+            if (grade != null && !isGradeCorrect((decimal)grade))
+            {
+                return Results.ValidationProblem(new Dictionary<string, string[]>
+                {
+                    { "Grade", new string[] { $"Invalid value" } }
+                });
+            }
 
             if (!dbService.CourseExists(studentGrade.CourseId))
             {
@@ -65,6 +80,34 @@ public class StudentGradeValidationFilters
             }
 
             return await next(context);
+        }
+
+        private bool isGradeCorrect(decimal grade)
+        {
+            string gradeString = grade.ToString();
+            bool containsDecimal = gradeString.Contains('.');
+
+            if (containsDecimal)
+            {
+                if (gradeString.Length > 4)
+                {
+                    return false;
+                }
+
+                string afterDecimalNumbers = gradeString.Split('.')[1];
+
+                if (afterDecimalNumbers.Length > 2 || afterDecimalNumbers.Length < 2)
+                {
+                    return false;
+                }
+            }
+
+            if (!containsDecimal && gradeString.Length > 1)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 

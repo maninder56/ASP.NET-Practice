@@ -9,7 +9,7 @@ GET {{SchoolAPI_HostAddress}}/student-grade
 ###
 
 # Get by id 
-GET {{SchoolAPI_HostAddress}}/student-grade/42
+GET {{SchoolAPI_HostAddress}}/student-grade/43
 
 ###
 
@@ -18,18 +18,19 @@ POST {{SchoolAPI_HostAddress}}/student-grade
 content-type: application/json 
 
 {
-  "courseId": 4061,
+  "courseId": 4062,
   "studentId": 8895
 }
 ###
 
 # update by id
-PUT {{SchoolAPI_HostAddress}}/student-grade/42
+PUT {{SchoolAPI_HostAddress}}/student-grade/43
 content-type: application/json 
 
 {
-  "courseId": 1061,
-  "studentId": 8895
+  "courseId": 4062,
+  "studentId": 8895, 
+  "grade": 9.00
 }
 
 ###
