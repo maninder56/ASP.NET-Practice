@@ -1,0 +1,72 @@
+﻿@page 
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<article>
+    <section class="TodoSection">
+        <div>
+            <a href="#">Create New</a>
+        </div>
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date Created</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td rowspan="@(Model.TodoList.Count(t => !t.isCompleted) +1)">UnCompleted</td>
+                </tr>
+                @foreach (var todoModel in Model.TodoList)
+                {
+                    <tr>
+                        @if (!todoModel.isCompleted)
+                        {
+                        <td>@todoModel.Name</td>
+                        <td>@todoModel.Description</td>
+                        <td>@todoModel.CreatedDate.ToString("D")</td>
+                        <td>
+                            <a href="#">Completed</a>
+                        </td>
+                        <td><a href="#">Edit</a></td>
+                        <td><a href="#">Delete</a></td>
+                        }
+                    </tr>
+                }
+                @if(Model.TodoList.Any(t => t.isCompleted))
+                {
+                    <tr>
+                        <td colspan="7"></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="@(Model.TodoList.Count(t => t.isCompleted) +1)">UnCompleted</td>
+                    </tr>
+                    @foreach (var todoModel in Model.TodoList)
+                    {
+                        <tr>
+                            @if (!todoModel.isCompleted)
+                            {
+                                <td>@todoModel.Name</td>
+                                <td>@todoModel.Description</td>
+                                <td>@todoModel.CreatedDate</td>
+                                <td></td>
+                                <td><a href="#">Edit</a></td>
+                                <td><a href="#">Delete</a></td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    </section>
+</article>
