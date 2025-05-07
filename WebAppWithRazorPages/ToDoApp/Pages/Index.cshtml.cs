@@ -25,10 +25,10 @@ public class IndexModel : PageModel
         return Page();
     }
 
-    public IActionResult OnPatchToDoCompleted(int toDoID)
+    public IActionResult OnPostToDoCompleted(int toDoID)
     {
         service.UpdateToDoToCompletedByID(toDoID);
-        return Page();
+        return RedirectToPage("Index");
     }
 
     // Data shared with razor view 

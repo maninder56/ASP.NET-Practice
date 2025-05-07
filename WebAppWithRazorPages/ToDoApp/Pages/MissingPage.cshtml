@@ -1,0 +1,10 @@
+﻿@page "{error?}"
+@model ToDoApp.Pages.MissingPageModel
+@{
+    ViewData["Title"] = "Page Missing";
+}
+
+
+<h2>Page missing</h2>
+<p>Page does not Exists</p>
+<p>Error: @Model.errorCode</p>

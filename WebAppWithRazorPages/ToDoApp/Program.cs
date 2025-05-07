@@ -25,7 +25,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpLogging(); 
+app.UseHttpLogging();
+
+app.UseStatusCodePagesWithRedirects("/MissingPage/{0}");
 
 app.UseHttpsRedirection();
 

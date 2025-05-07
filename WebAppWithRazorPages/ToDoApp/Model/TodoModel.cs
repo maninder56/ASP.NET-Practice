@@ -5,7 +5,7 @@ namespace ToDoApp.Model;
 public class TodoModel
 {
     [Required]
-    public int Id { get; private set; }
+    public int Id { get; set; }
 
     [Required]
     [StringLength(100)]
@@ -14,9 +14,9 @@ public class TodoModel
     [StringLength(500)]
     public string? Description { get; set; }
 
-    public DateTime CreatedDate { get; init; }
+    public DateTime CreatedDate { get; set; }
 
-    public bool isCompleted { get; private set; }
+    public bool isCompleted { get; set; }
 
     public TodoModel(int id, string name)
     {
@@ -25,6 +25,8 @@ public class TodoModel
         CreatedDate = DateTime.Now; 
         isCompleted = false;
     }
+
+    public TodoModel() { }
 
     public void SetTodoCompleted() => isCompleted = true;
 

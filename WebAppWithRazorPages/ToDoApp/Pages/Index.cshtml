@@ -1,4 +1,4 @@
-﻿@page 
+﻿@page "{handler?}"
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -23,37 +23,41 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td rowspan="@(Model.TodoList.Count(t => !t.isCompleted) +1)">UnCompleted</td>
-                </tr>
-                @foreach (var todoModel in Model.TodoList)
+                @if(Model.TodoList.Any(t => !t.isCompleted))
                 {
                     <tr>
-                        @if (!todoModel.isCompleted)
-                        {
-                        <td>@todoModel.Name</td>
-                        <td>@todoModel.Description</td>
-                        <td>@todoModel.CreatedDate.ToString("D")</td>
-                        <td>
-                            <a href="#">Completed</a>
-                        </td>
-                        <td><a href="#">Edit</a></td>
-                        <td><a href="#">Delete</a></td>
-                        }
-                    </tr>
-                }
-                @if(Model.TodoList.Any(t => t.isCompleted))
-                {
-                    <tr>
-                        <td colspan="7"></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="@(Model.TodoList.Count(t => t.isCompleted) +1)">UnCompleted</td>
+                        <td rowspan="@(Model.TodoList.Count() +1)">UnCompleted</td>
                     </tr>
                     @foreach (var todoModel in Model.TodoList)
                     {
                         <tr>
                             @if (!todoModel.isCompleted)
+                            {
+                                <td>@todoModel.Name</td>
+                                <td>@todoModel.Description</td>
+                                <td>@todoModel.CreatedDate.ToString("D")</td>
+                                <td>
+                                    <form asp-page-handler="ToDoCompleted" method="post">
+                                        <input type="hidden" name="toDoID" value="@todoModel.Id" />
+                                        <button type="submit">Completed</button>
+                                    </form>
+                                </td>
+                                <td><a href="#">Edit</a></td>
+                                <td><a href="#">Delete</a></td>
+                            }
+                        </tr>
+                    }
+                }
+                
+                @if(Model.TodoList.Any(t => t.isCompleted))
+                {
+                    <tr>
+                        <td rowspan="@(Model.TodoList.Count() +1)">Completed</td>
+                    </tr>
+                    @foreach (var todoModel in Model.TodoList)
+                    {
+                        <tr>
+                            @if (todoModel.isCompleted)
                             {
                                 <td>@todoModel.Name</td>
                                 <td>@todoModel.Description</td>
@@ -66,6 +70,7 @@
                     }
                 }
             </tbody>
+
         </table>
 
     </section>
