@@ -40,10 +40,19 @@ body {
     text-align: center;
     text-decoration: none;
     color: black;
-    min-height: 100%;
-    min-width: 100%;
+    /*min-height: 100%;
+    min-width: 100%;*/
 }
 
 .CustomLink a:hover {
     background-color: whitesmoke;
 }
+
+.NewItemLink a {
+    width: 130px; 
+    background-color: lightgreen; 
+}
+
+/*.DeleteItemLink a {
+    background-color: lightcoral; 
+}*/
