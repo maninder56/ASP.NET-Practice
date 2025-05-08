@@ -1,7 +1,9 @@
 ﻿@page 
 @model ShoppingList.Pages.HomeModel
 @{
-    ViewData["Title"] = "Home"; 
+    ViewData["Title"] = "Home";
+
+    int itemCount = 0; 
 }
 
 <article>
@@ -9,6 +11,32 @@
         <header>
             <h2>Shopping List</h2>
         </header>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.ShoppingList)
+                {
+                        <tr>
+                            <td>@(++itemCount)</td>
+                            <td>@item.Name</td>
+                            <td>@item.Description</td>
+                            <td>@item.Quantity</td>
+                            <td class="CustomLink">
+                                <a href="/ItemInfo/@item.Id">Detials</a>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
 
     </section>
 </article>

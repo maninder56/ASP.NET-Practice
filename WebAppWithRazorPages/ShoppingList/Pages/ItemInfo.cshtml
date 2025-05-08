@@ -1,0 +1,47 @@
+﻿@page "{id:int?}"
+@model ShoppingList.Pages.ItemInfoModel
+@{
+    ViewData["Title"] = "Item Details";
+}
+
+<article>
+    <section>
+        <header>
+            <h2>Shopping Item Details</h2>
+        </header>
+
+        @if (Model.NoIDProvided)
+        {
+            <p>Item ID is required to see the detials, No Item ID provided.</p>
+        }
+        else if(Model.ItemInfo is null)
+        {
+            <p>Item with ID : @Model.RequestedItemID does not exists.</p>
+        }
+        else
+        {
+            <table class="table table-bordered">
+
+                <tbody>
+                    <tr>
+                        <td>Item ID</td>
+                        <td>@Model.ItemInfo.Id</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>@Model.ItemInfo.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>@Model.ItemInfo.Description</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>@Model.ItemInfo.Quantity</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        }
+    </section>
+</article>
