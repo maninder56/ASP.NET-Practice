@@ -57,3 +57,18 @@ body {
 /*.DeleteItemLink a {
     background-color: lightcoral; 
 }*/
+
+
+/* Add Item Page */
+
+.SaveButton {
+    display: block;
+    border: solid 1px;
+    border-radius: 10px;
+    padding: 0.5em 0.8em;
+    background-color: lightgreen;
+}
+
+    .SaveButton:hover {
+        background-color: #00cd00;
+    }

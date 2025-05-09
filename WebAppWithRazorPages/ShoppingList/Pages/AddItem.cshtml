@@ -1,0 +1,49 @@
+﻿@page
+@model ShoppingList.Pages.AddItemModel
+@{
+    ViewData["Title"] = "Add Item";
+}
+
+<article>
+
+    <section>
+
+        @if(Model.ItemFailedToSaved is bool notSaved)
+        {
+            if (notSaved)
+            {
+                <p class="text-danger">Item Failed to save, Please Try Again.</p>
+            }
+        }
+
+        <form method="post">
+            
+            <header>
+                <h3>Add Item to Shopping List</h3>
+            </header>
+
+            <p>
+                <label for="Name">Name</label>
+                <input type="text" name="Name" id="Name" required/>
+            </p>
+
+            <p>
+                <label for="Description">Description</label>
+                <input type="text" name="Description" id="Description" />
+            </p>
+
+            <p>
+                <label for="Quantity">Quantity</label>
+                <input type="number" name="Quantity" id="Description" required />
+            </p>
+
+            <p>
+                <button class="SaveButton">Save</button>
+            </p>
+
+        </form>
+
+    </section>
+
+</article>
+
