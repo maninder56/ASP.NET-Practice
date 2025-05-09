@@ -1,0 +1,17 @@
+﻿@page "{errorCode:int?}"
+@model ShoppingList.Pages.MissingPageModel
+@{
+    ViewData["Title"] = "Page Not Found"; 
+}
+
+<article>
+    <section>
+
+        <header>
+            <h2>@Model.ErrorCode Error</h2>
+            <h3 class="text-danger">Requested page not Found</h3>
+        </header>
+        <p>Please check the url you have entered is correct, and try again.</p>
+
+    </section>
+</article>
