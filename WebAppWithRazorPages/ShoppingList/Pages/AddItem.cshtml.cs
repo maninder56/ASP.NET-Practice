@@ -49,7 +49,6 @@ namespace ShoppingList.Pages
 
                 if (saved is not null)
                 {
-                    ItemFailedToSaved = false;
                     return RedirectToPage("Home");
                 }
             }
@@ -61,14 +60,14 @@ namespace ShoppingList.Pages
         public class InputModel
         {
             [Required]
-            [StringLength(50, ErrorMessage = "Name can not be more than 50 characters long")]
+            [StringLength(20, ErrorMessage = "Name can not be more than 20 characters long")]
             public required string Name { get; set; }
 
-            [StringLength(100)]
+            [StringLength(50, ErrorMessage = "Description needs to be less than 50 characters long")]
             public string? Description { get; set; }
 
             [Required]
-            [Range(1, int.MaxValue)]
+            [Range(1, int.MaxValue, ErrorMessage = "Quantity needs to be more than 1")]
             public int Quantity { get; set; }
         }
     }

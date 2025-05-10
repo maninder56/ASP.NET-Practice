@@ -12,20 +12,22 @@
             <h2>Shopping List</h2>
         </header>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach(var item in Model.ShoppingList)
-                {
+        @if (Model.ShoppingList.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShoppingList)
+                    {
                         <tr>
                             <td>@(++itemCount)</td>
                             <td>@item.Name</td>
@@ -38,9 +40,10 @@
                                 <a href="/DeleteItem/@item.Id">Delete</a>
                             </td>
                         </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
+        }
 
         <div class="CustomLink AddItemLink">
             <a href="/AddItem">Add Item</a>

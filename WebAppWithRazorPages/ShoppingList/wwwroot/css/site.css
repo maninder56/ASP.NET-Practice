@@ -84,3 +84,15 @@ body {
     .SaveButton:hover {
         background-color: #00cd00;
     }
+
+
+/* DeleteConfirmation */
+
+.DeleteConfirmation {
+    display: flex; 
+    flex-direction:row; 
+}
+
+.DeleteConfirmation form {
+    margin-right: 100px; 
+}

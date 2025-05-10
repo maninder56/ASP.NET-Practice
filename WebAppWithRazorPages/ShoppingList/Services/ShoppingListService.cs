@@ -29,7 +29,7 @@ public class ShoppingListService : IShoppingListService
     // Create 
     public ItemModel? CreateItem(ItemModel newItem)
     {
-        newItem.Id = shoppingList.Keys.Max() + 1;
+        newItem.Id = shoppingList.Keys.Any() ? shoppingList.Keys.Max() + 1 : 1;
 
         return shoppingList.TryAdd(newItem.Id, newItem) ? newItem : null;
     }
