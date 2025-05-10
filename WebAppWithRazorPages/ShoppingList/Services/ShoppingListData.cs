@@ -1,4 +1,4 @@
-﻿using ShoppingList.Modesl;
+﻿using ShoppingList.Models;
 using System.Collections.Concurrent;
 
 namespace ShoppingList.Services; 

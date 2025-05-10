@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.Modesl; 
+﻿namespace ShoppingList.Models; 
 
 public class ItemModel
 {

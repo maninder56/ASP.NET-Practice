@@ -45,18 +45,30 @@ body {
     min-width: 100%;*/
 }
 
-.CustomLink a:hover {
-    background-color: whitesmoke;
+    .CustomLink a:hover {
+        background-color: whitesmoke;
+    }
+
+
+.AddItemLink a {
+    width: 130px;
+    background-color: lightgreen;
 }
 
-.NewItemLink a {
-    width: 130px; 
-    background-color: lightgreen; 
-}
+    .AddItemLink a:hover {
+        background-color: #77dd77;
+    }
 
-/*.DeleteItemLink a {
+
+.DeleteItemLink a {
     background-color: lightcoral; 
-}*/
+}
+
+    .DeleteItemLink a:hover {
+        background-color: #ff5349;
+    }
+
+
 
 
 /* Add Item Page */

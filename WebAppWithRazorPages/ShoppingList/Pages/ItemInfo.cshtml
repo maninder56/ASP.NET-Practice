@@ -20,28 +20,7 @@
         }
         else
         {
-            <table class="table table-bordered">
-
-                <tbody>
-                    <tr>
-                        <td>Item ID</td>
-                        <td>@Model.ItemInfo.Id</td>
-                    </tr>
-                    <tr>
-                        <td>Name</td>
-                        <td>@Model.ItemInfo.Name</td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td>@Model.ItemInfo.Description</td>
-                    </tr>
-                    <tr>
-                        <td>Quantity</td>
-                        <td>@Model.ItemInfo.Quantity</td>
-                    </tr>
-                </tbody>
-
-            </table>
+            <partial name="_ItemInfoPartialView" model="Model.ItemInfo" />
         }
     </section>
 </article>

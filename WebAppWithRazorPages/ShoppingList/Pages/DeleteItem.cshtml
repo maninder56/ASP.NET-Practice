@@ -1,0 +1,31 @@
+﻿@page "{id:int?}"
+@model ShoppingList.Pages.DeleteItemModel
+@{
+    ViewData["Title"] = "Delete Item";
+}
+
+
+<article>
+    <section>
+
+        <header>
+            <h2>Item To Delete</h2>
+        </header>
+
+        @if(Model.NoIDProvided)
+        {
+            <p>No ID Provided: Please provide ID of Item which you would like to Delete.</p>
+        }
+        else if (Model.ItemToDelete is null)
+        {
+            <p>Item with ID : @Model.ItemIDFromRoute does not Exists.</p>
+        }
+        else
+        {
+            <partial name="_ItemInfoPartialView" model="Model.ItemToDelete" />
+        }
+
+
+    </section>
+</article>
+

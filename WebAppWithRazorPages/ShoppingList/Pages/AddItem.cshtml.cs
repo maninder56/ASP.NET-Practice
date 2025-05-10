@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ShoppingList.Models;
 using ShoppingList.Services;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata;
@@ -38,7 +39,7 @@ namespace ShoppingList.Pages
 
             if (Input is InputModel input)
             {
-                var saved = service.CreateItem(new Modesl.ItemModel()
+                var saved = service.CreateItem(new ItemModel()
                 {
                     Id = 0,
                     Name = input.Name,
