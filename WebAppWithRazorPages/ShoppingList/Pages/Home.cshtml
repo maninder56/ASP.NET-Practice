@@ -23,6 +23,7 @@
                         <th>Quantity</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,10 +35,13 @@
                             <td>@item.Description</td>
                             <td>@item.Quantity</td>
                             <td class="CustomLink">
-                                <a href="/ItemInfo/@item.Id">Detials</a>
+                                <a asp-page="ItemInfo" asp-route-id="@item.Id">Detials</a>
                             </td>
                             <td class="CustomLink DeleteItemLink">
-                                <a href="/DeleteItem/@item.Id">Delete</a>
+                                <a asp-page="DeleteItem" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                            <td class="CustomLink EditItemLink">
+                                <a asp-page="EditItem" asp-route-id="@item.Id">Edit</a>
                             </td>
                         </tr>
                     }
@@ -46,7 +50,7 @@
         }
 
         <div class="CustomLink AddItemLink">
-            <a href="/AddItem">Add Item</a>
+            <a asp-page="AddItem">Add Item</a>
         </div>
 
     </section>

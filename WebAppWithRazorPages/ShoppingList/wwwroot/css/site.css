@@ -68,6 +68,14 @@ body {
         background-color: #ff5349;
     }
 
+.EditItemLink a {
+    background-color: #8AC7DB;
+}
+    .EditItemLink a:hover {
+        background-color: #338BA8;
+    }
+
+    
 
 
 
