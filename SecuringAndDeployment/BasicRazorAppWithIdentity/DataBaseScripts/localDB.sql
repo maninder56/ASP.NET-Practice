@@ -25,19 +25,29 @@ SELECT *
 FROM AspNetUserRoles; 
 
 
+
 SELECT *
 FROM AspNetUsers; 
 
-SELECT *
-FROM AspNetUserLogins; 
+-- USER : Ibara@gamil.com, pass: Ibara123#
 
 SELECT *
 FROM AspNetUserClaims; 
+
+
+-- For Third-party logins like google 
+SELECT *
+FROM AspNetUserLogins; 
 
 SELECT *
 FROM AspNetUserTokens; 
 
 
+--BEGIN TRANSACTION; 
+
+--UPDATE AspNetUsers
+--SET EmailConfirmed = 1
+--WHERE USERNAME = 'Ibara@gamil.com';
 
 
 
