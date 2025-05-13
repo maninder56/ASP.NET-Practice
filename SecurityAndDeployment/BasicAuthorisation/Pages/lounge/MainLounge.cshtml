@@ -1,0 +1,19 @@
+﻿@page
+@model BasicAuthorisation.Pages.lounge.MainLoungeModel
+@{
+    ViewData["Title"] = "Main Lounge";
+}
+
+<article>
+    <section>
+        <header>
+            <h2>Only Authenticated users can see this page</h2>
+        </header>
+        <p>Welcome @(Model.UserName ?? "Anonymous") to this lounge</p>
+        @if(Model.UserName is null)
+        {
+            <p class="text-danger">Anonymous Users should not be able to access this page.</p>
+        }
+        <a asp-page="/Lounge/PrivateLounge">Private Lounge</a>
+    </section>
+</article>

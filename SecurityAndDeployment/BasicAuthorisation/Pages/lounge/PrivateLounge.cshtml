@@ -1,0 +1,18 @@
+﻿@page
+@model BasicAuthorisation.Pages.lounge.PrivateLoungeModel
+@{
+    ViewData["Title"] = "Private Lounge";
+}
+
+<article>
+    <section>
+        <header>
+            <h2>Only Private users can see this page</h2>
+        </header>
+        <p>Welcome @(Model.UserName ?? "Anonymous") to this PRIVATE lounge</p>
+        @if (Model.UserName is null)
+        {
+            <p class="text-danger">Anonymous Users should not be able to access this page.</p>
+        }
+    </section>
+</article>
