@@ -7,6 +7,7 @@ builder.Services.AddRazorPages();
 
 // Logging Services
 builder.Logging.AddFile(); 
+builder.Logging.AddSeq();
 
 // Product Services
 builder.Services.AddProductServices(); 
