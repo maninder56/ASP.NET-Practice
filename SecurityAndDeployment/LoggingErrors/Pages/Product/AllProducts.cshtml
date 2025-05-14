@@ -1,0 +1,34 @@
+﻿@page
+@model LoggingErrors.Pages.Product.AllProductsModel
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<article>
+    <section>
+        <header>
+            <h2>All Products</h2>
+        </header>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var p in Model.ProductList)
+                {
+                    <tr>
+                        <td>@p.Id</td>
+                        <td>@p.Name</td>
+                        <td>@p.Category</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</article>
+
