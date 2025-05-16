@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ShoppingList.Modesl;
+using ShoppingList.Models;
 using ShoppingList.Services;
 
 namespace ShoppingList.Pages

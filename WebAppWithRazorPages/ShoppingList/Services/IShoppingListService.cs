@@ -1,4 +1,4 @@
-﻿using ShoppingList.Modesl;
+﻿using ShoppingList.Models;
 
 namespace ShoppingList.Services; 
 

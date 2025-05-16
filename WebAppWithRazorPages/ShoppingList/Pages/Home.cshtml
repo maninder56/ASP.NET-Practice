@@ -12,38 +12,45 @@
             <h2>Shopping List</h2>
         </header>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th></th>
-                    @* <th></th> *@
-                </tr>
-            </thead>
-            <tbody>
-                @foreach(var item in Model.ShoppingList)
-                {
+        @if (Model.ShoppingList.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShoppingList)
+                    {
                         <tr>
                             <td>@(++itemCount)</td>
                             <td>@item.Name</td>
                             <td>@item.Description</td>
                             <td>@item.Quantity</td>
                             <td class="CustomLink">
-                                <a href="/ItemInfo/@item.Id">Detials</a>
+                                <a asp-page="ItemInfo" asp-route-id="@item.Id">Detials</a>
                             </td>
-                            @* <td class="CustomLink DeleteItemLink">
-                                <a href="#">Delete</a>
-                            </td> *@
+                            <td class="CustomLink DeleteItemLink">
+                                <a asp-page="DeleteItem" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                            <td class="CustomLink EditItemLink">
+                                <a asp-page="EditItem" asp-route-id="@item.Id">Edit</a>
+                            </td>
                         </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
+        }
 
-        <div class="CustomLink NewItemLink">
-            <a href="#">Add Item</a>
+        <div class="CustomLink AddItemLink">
+            <a asp-page="AddItem">Add Item</a>
         </div>
 
     </section>

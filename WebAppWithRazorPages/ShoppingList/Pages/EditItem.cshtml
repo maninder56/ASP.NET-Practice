@@ -1,0 +1,51 @@
+﻿@page "{id:int?}"
+@model ShoppingList.Pages.EditItemModel
+@{
+    ViewData["Title"] = "Edit Item";
+}
+
+<article>
+    <section>
+        <header>
+            <h2>Edit Item</h2>
+        </header>
+        @if(Model.NoIDProvided)
+        {
+            <p>No Item ID given, please Provide ID of Item which you would like to edit</p>
+        }
+        else if (Model.ItemToEdit is null)
+        {
+            <p>No Item Exists with ID : @Model.ItemIDFromRoute</p>
+        }
+        else
+        {
+            if (Model.ItemFailedToEdit)
+            {
+                <p class="text-danger">Item failed to update, please try again</p>
+            }
+            <form asp-page="EditItem" >
+                <div class="form-group">
+                    <label asp-for="Input.Id"></label>
+                    <input asp-for="Input.Id" value="@Model.ItemToEdit.Id" readonly class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Name"></label>
+                    <input asp-for="Input.Name" value="@Model.ItemToEdit.Name" class="form-control" />
+                    <span asp-validation-for="Input.Name"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Description"></label>
+                    <input asp-for="Input.Description" value="@Model.ItemToEdit.Description" class="form-control" />
+                    <span asp-validation-for="Input.Description"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Quantity"></label>
+                    <input asp-for="Input.Quantity" value="@Model.ItemToEdit.Quantity" class="form-control" />
+                    <span asp-validation-for="Input.Quantity"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        }
+    </section>
+</article>
+
