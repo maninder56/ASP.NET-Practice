@@ -12,8 +12,9 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
-
+        _logger.LogInformation("Redirect user to Notes page");
+        return RedirectToPage("/Notes/AllNotes"); 
     }
 }
