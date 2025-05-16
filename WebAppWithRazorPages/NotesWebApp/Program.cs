@@ -2,9 +2,7 @@ using NotesWebApp.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-var seqConfig = builder.Configuration.GetSection("Seq");
-
-var logger = new LoggerFactory().CreateLogger("StartUP");
+IConfigurationSection? seqConfig = builder.Configuration.GetSection("Logging").GetSection("Seq");
 
 // Add Logging 
 builder.Logging.AddSeq(seqConfig); 
@@ -25,14 +23,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-if (seqConfig is null)
-{
-    logger.LogWarning("Failed to load Seq configurations");
-}
-else
-{
-    logger.LogInformation(seqConfig.ToString());
-}
 
 
 app.UseHttpsRedirection();
