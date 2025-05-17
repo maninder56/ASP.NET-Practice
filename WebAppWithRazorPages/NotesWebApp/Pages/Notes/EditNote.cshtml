@@ -1,0 +1,35 @@
+﻿@page "{id:int?}"
+@model NotesWebApp.Pages.Notes.EditNoteModel
+@{
+    ViewData["Title"] = "All Notes";
+}
+
+<article class="edit-note">
+    <section>
+        <header>
+            <h3>Edit Note</h3>
+        </header>
+
+        @if (Model.NoteIDIsNull)
+        {
+            <p>No Note ID provided, Note ID is required to edit a note.</p>
+        }
+        else if (Model.NoteIDDoesNotExits)
+        {
+            <p>Note with ID : @Model.NoteIDFromRoute does not Exists</p>
+        }
+        else if (Model.Input is not null)
+        {
+
+            <div>
+                <div>@Model.Input.Ttitle</div>
+                <div>@Model.Input.Content</div>
+            </div>
+        }
+        else
+        {
+            <p>There was an error while loading Note</p>
+        }
+
+    </section>
+</article>

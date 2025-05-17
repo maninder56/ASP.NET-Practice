@@ -15,7 +15,7 @@
             {
                 @foreach (var note in Model.NoteList)
                 {
-                    <a href="#">
+                    <a asp-page="/Notes/EditNote" asp-route-id="@note.Id">
                         <div class="note-grid-container">
                             <div class="note-title">@note.Title</div>
                             <p class="note-content">@note.Content</p>

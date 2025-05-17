@@ -38,7 +38,7 @@ public class NotesDataService : INotesDataService
             return null;
         }
 
-        logger.LogInformation("Get Note with {NoteID}", id); 
+        logger.LogInformation("Get Note with ID {NoteID}", id); 
         return note;
     }
 
