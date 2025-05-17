@@ -7,7 +7,6 @@
     @* <script type="importmap"></script> *@
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/NotesWebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -31,13 +30,13 @@
 
             </div>
         </nav> *@
+        <h1>
+            <a asp-page="/Notes/AllNotes">Notes</a>
+        </h1>
         
-        <a asp-page="/Notes/AllNotes">
-            <h1 class="NotesHeading">Notes</h1>
-        </a>
     </header>
 
-    <div>
+    <div class="content">
         <main>
             @RenderBody()
         </main>

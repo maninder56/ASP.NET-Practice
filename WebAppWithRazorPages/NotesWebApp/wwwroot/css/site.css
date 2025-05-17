@@ -1,31 +1,165 @@
-html {
-  font-size: 14px;
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    --primary-color: #FFF44F;
+    text-decoration: none;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+
+
+html, body {
+    height: 100%; 
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* To have fotter stick to bottom */
 body {
-  margin-bottom: 60px;
+    display: flex; 
+    flex-direction: column; 
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+body > header {
+    flex: 0 0 auto; 
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.content {
+    flex: 1 0 auto;
 }
+
+body > footer {
+    flex: 0 1 auto; 
+}
+
+
+/* Title */
+body > header {
+    margin: 10px; 
+    padding: 0px; 
+}
+
+body > header h1 {
+    font-size: 3rem;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center; 
+
+    margin: 0px; 
+}
+
+
+body > header h1 a {
+    display: block;
+
+    letter-spacing: 2px; 
+
+    width: 250px;  
+
+    text-align: center;
+    text-decoration: none; 
+    color: black; 
+        
+    border: solid 2px; 
+    border-radius: 20px; 
+
+    background-color: var(--primary-color);
+
+    padding: 10px;
+}
+
+body > header h1 a:hover {
+    background-color: #f2e629;
+    border
+}
+
+body > header h1 a:active {
+    background-color: #ffef00;
+}
+
+
+
+/* For testing only*/
+/*article * {
+    border: solid 1px;
+    margin: 5px;
+}*/
+
+
+/* Main content */
+
+
+article {
+    padding-right: 30px; 
+    padding-left: 30px; 
+}
+
+article section h3 {
+    padding-left: 20px; 
+}
+
+
+.note-grid {
+    display:grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    grid-auto-rows: 200px; 
+    grid-gap: 50px; 
+}
+
+    .note-grid a {
+        display: block;
+        border: solid 3px;
+        border-radius: 20px;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+        padding: 10px;
+        background-color: #fffeed;
+    }
+
+.note-grid a:hover {
+    border-color: #f2e629;
+}
+
+        .note-grid a:active {
+            background-color: #fffdc4;
+        }
+
+
+
+
+.note-grid-container {
+    height: 100%; 
+    display:flex; 
+    flex-direction: column; 
+}
+
+.note-title {
+    font-weight: bold; 
+    margin-top: 10px; 
+}
+
+.note-content {
+    overflow: hidden;
+    margin: 10px;
+    font-size: 0.8rem; 
+}
+
+
+.note-grid .create-new-note {
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background-color: #99ff91;
+}
+
+    .note-grid .create-new-note:hover {
+        border-color: #31c926;
+    }
+
+    .note-grid .create-new-note:active {
+        background-color: #6bff61;
+    }
+
+
+
+
+

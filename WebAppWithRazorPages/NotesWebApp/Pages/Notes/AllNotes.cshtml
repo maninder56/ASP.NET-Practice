@@ -9,19 +9,26 @@
         <header>
             <h3>All Notes</h3>
         </header>
-        @if(Model.notes is null)
-        {
-            <p>No notes available to display</p>
-        }
-        else
-        {
-            <ul>
-                @foreach(var note in Model.notes)
+
+        <div class="note-grid">
+            @if(Model.NoteList is not null)
+            {
+                @foreach (var note in Model.NoteList)
                 {
-                    <li>@note.ToString()</li>
+                    <a href="#">
+                        <div class="note-grid-container">
+                            <div class="note-title">@note.Title</div>
+                            <p class="note-content">@note.Content</p>
+                        </div>
+                    </a>
                 }
-            </ul>
-        }
+            }
+            <a href="#" class="create-new-note">
+                <div>
+                    Add New Note
+                </div>
+            </a>
+        </div>
 
     </section>
 </article>

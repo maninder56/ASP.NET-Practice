@@ -19,19 +19,19 @@ namespace NotesWebApp.Pages.Notes
         
 
         // Data shared with view 
-        public List<Note>? notes { get; private set; }
+        public List<Note>? NoteList { get; private set; }
 
         public IActionResult OnGet()
         {
-            notes = service.GetAllNotes();
+            NoteList = service.GetAllNotes();
 
-            if (notes.Count == 0 )
+            if (NoteList.Count == 0 )
             {
                 logger.LogWarning("Unable to get notes from service"); 
                 return Page();
             }
 
-            logger.LogInformation("Loaded {NoteCount} Notes from service", notes.Count);
+            logger.LogInformation("Loaded {NoteCount} Notes from service", NoteList.Count);
             return Page();
         }
     }
