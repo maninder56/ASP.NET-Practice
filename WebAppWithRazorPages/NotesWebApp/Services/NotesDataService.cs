@@ -20,11 +20,11 @@ public class NotesDataService : INotesDataService
     {
         if(noteList.Count == 0)
         {
-            logger.LogWarning("Notes List is Empty"); 
+            logger.LogWarning("No Note available in Note Data"); 
             return new List<Note>(); 
         }
 
-        logger.LogInformation("{NoteCount} Notes Loaded", noteList.Count);
+        logger.LogInformation("{NoteCount} Notes Loaded into service", noteList.Count);
         return noteList;
     }
 
@@ -38,7 +38,7 @@ public class NotesDataService : INotesDataService
             return null;
         }
 
-        logger.LogInformation("Get Note with ID {NoteID}", id); 
+        logger.LogInformation("Get Note with ID {NoteID} from service", id); 
         return note;
     }
 
@@ -51,7 +51,7 @@ public class NotesDataService : INotesDataService
 
         if (noteList.Find(n => n.Id == note.Id) == null)
         {
-            logger.LogWarning("Failed to Create Note"); 
+            logger.LogWarning("Failed to Create Note from service"); 
             return false;
         }
 
@@ -89,8 +89,8 @@ public class NotesDataService : INotesDataService
             return false; 
         }
 
-        logger.LogInformation("Successfully deleted note with ID {NoteID}", id); 
         noteList.Remove(note);
+        logger.LogInformation("Successfully deleted note with ID {NoteID}", id);
         return true; 
     }
 }

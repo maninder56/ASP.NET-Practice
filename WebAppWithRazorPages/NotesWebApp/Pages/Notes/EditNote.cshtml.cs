@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NotesWebApp.Models;
 using NotesWebApp.Services;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 
 namespace NotesWebApp.Pages.Notes; 
@@ -25,8 +26,14 @@ public class EditNoteModel : PageModel
     public bool NoteIDDoesNotExits {  get; private set; }
     public int NoteIDFromRoute { get; private set; }
 
+    // post handler properites 
+    public bool InValidInputModel { get; private set; }
+    public bool InputModelIsNullForPostRequest { get; private set; }
+    public bool NoteFailedToUpdate { get; private set; }
+
     // Data to and from view 
     [BindProperty]
+    [FromForm]
     public InputModel? Input { get; set; }
 
     public IActionResult OnGet(int? id)
@@ -52,6 +59,7 @@ public class EditNoteModel : PageModel
 
             Input = new InputModel()
             {
+                ID = noteID,
                 Ttitle = note.Title, 
                 Content = note.Content
             };  
@@ -61,12 +69,49 @@ public class EditNoteModel : PageModel
         return Page();
     }
 
+
+
+    public IActionResult OnPost()
+    {
+        if (!ModelState.IsValid)
+        {
+            InValidInputModel = true;
+            logger.LogWarning("Form validation failed, One or more properties are invalid when requrested to edit a note"); 
+            return Page();
+        }
+
+        if (Input is null)
+        {
+            InputModelIsNullForPostRequest = true;
+            logger.LogError("Inupt model is null, after validation, Binding Failed"); 
+            return Page();
+        }
+
+        Note editedNote = new Note()
+        {
+            Id = Input.ID, Title = Input.Ttitle, Content = Input.Content ?? string.Empty
+        };
+
+        if (!service.UpdateNoteByID(Input.ID, editedNote))
+        {
+            NoteFailedToUpdate = true;
+            logger.LogWarning("Failed to Update Note from Edit request"); 
+            return Page();
+        }
+
+        return RedirectToPage("AllNotes"); 
+    }
+
+
+
     public class InputModel
     {
         [Required]
-        public required string Ttitle { get; set; }
+        public required int ID { get; set; }
 
         [Required]
-        public required string Content { get; set; }
+        public required string Ttitle { get; set; }
+
+        public string? Content { get; set; }
     }
 }
