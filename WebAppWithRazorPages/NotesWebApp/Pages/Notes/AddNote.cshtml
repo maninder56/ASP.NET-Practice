@@ -6,7 +6,7 @@
 
 
 <article class="add-note">
-    <header>
+    <header class ="home-button">
         <a asp-page="/Notes/AllNotes">
             <h2>Home</h2>
         </a>
@@ -18,34 +18,32 @@
 
         @if(Model.InvalidFormData)
         {
-            <p>Invalid Data, please fill in required fields</p>
+            <p class="danger">Invalid Data, please fill in required fields</p>
         }
         else if (Model.InputIsNullAfterPost || Model.FailedToSaveNote)
         {
-            <p>Failed to save note, please try again</p>
+            <p class="danger">Failed to save note, please try again</p>
         }
-        
-        <form method="post">
 
-            <div>
-                <label asp-for="Input.Title"></label>
-                <input asp-for="Input.Title" />
-                <span asp-validation-for="Input.Title"></span>
-            </div>
+        <div class="add-note-form"> 
+            <form method="post">
 
-
-            <div>
-                <label asp-for="Input.Content"></label>
-                @* <input asp-for="Input.Content" /> *@
-                <textarea asp-for="Input.Content"></textarea>
-            </div>
+                <div class="form-title">
+                    <input asp-for="Input.Title" placeholder="Title"/>
+                    <span asp-validation-for="Input.Title"></span>
+                </div>
 
 
-            <button type="submit">Save</button>
-        </form>
-        
+                <div class="form-content">
+                    @* <input asp-for="Input.Content" /> *@
+                    <textarea asp-for="Input.Content" placeholder="Enter Text here..."></textarea>
+                </div>
 
-
+                <div class="form-button">
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </div>
     </section>
 </article>
 

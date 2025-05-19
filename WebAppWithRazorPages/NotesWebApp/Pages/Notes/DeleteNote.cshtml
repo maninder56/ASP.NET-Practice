@@ -5,7 +5,7 @@
 }
 
 <article class="delete-note">
-    <header>
+    <header class="home-button">
         <a asp-page="/Notes/AllNotes">
             <h2>Home</h2>
         </a>
@@ -17,38 +17,41 @@
 
         @if(Model.NoteIDFromRouteIsNull)
         {
-            <p>Note ID is required to delete a note</p>
+            <p class="danger">Note ID is required to delete a note</p>
         }
         else if (Model.NoteDoesNotExists)
         {
-            <p>Note  with ID @Model.NoteIDFromRoute does not exists</p>
+            <p class="danger">Note  with ID @Model.NoteIDFromRoute does not exists</p>
         }
         else
         {
             if (Model.InValidInput)
             {
-                <p>Invalid Note ID</p>
+                <p class="danger">Invalid Note ID</p>
             }
             else if (Model.InputModelIsNullAfterPost || Model.FailedToDeleteNote)
             {
-                <p>Error occured while processing your request, please try again</p>
+                <p class="danger">Error occured while processing your request, please try again</p>
             }
 
-            <div>
+            <div class="note-Info">
+                
                 <section>
                     <header>
                         <h4>@Model.NoteToDelete?.Title</h4>
                     </header>
-                    <p>@Model.NoteToDelete?.Content</p>
+                    <p class="delete-note-content">@Model.NoteToDelete?.Content</p>
                 </section>
-            </div>
 
-            <div>Are you sure ?</div>
-            <form method="post">
-                <input asp-for="Input.Id" value="@Model.NoteIDFromRoute" hidden />
-                <button type="submit">Yes</button>
-            </form>
-            <a asp-page="EditNote" asp-route-id="@Model.NoteIDFromRoute">No</a>
+                <div class="delete-confirmation">
+                    <div>Are you sure ?</div>
+                    <form method="post">
+                        <input asp-for="Input.Id" value="@Model.NoteIDFromRoute" hidden />
+                        <button type="submit">Yes</button>
+                    </form>
+                    <a asp-page="EditNote" asp-route-id="@Model.NoteIDFromRoute">No</a>
+                </div>
+            </div>   
         }
 
     </section>

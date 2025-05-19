@@ -130,8 +130,10 @@ border-color: #f2e629;
 }
 
 .note-title {
+    flex: 0 0 auto; 
     font-weight: bold; 
     margin-top: 10px; 
+    overflow: hidden; 
 }
 
 .note-content {
@@ -249,12 +251,7 @@ border-color: #f2e629;
     flex-direction: column; 
 }
 
-/* For testing only*/
-/*.edit-note * {
-    border: solid 1px;
-    margin: 10px;
-}
-*/
+
 
 .edit-note .edit-note-form form {
     flex: 1 1 auto; 
@@ -325,7 +322,177 @@ border-color: #f2e629;
 
 
 
+/* For testing only*/
+/*.delete-note * {
+    border: solid 1px;
+    margin: 10px;
+}*/
 
 
+/* Delete Page */
+
+.delete-note {
+    height: 80%; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.delete-note header {
+    flex: 0 0 auto; 
+}
+
+.delete-note section {
+    flex: 1 0 auto; 
+}
+
+
+.delete-note section > header {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-note section > header h3 {
+    display: inline-block;
+    text-align: center;
+    padding: 0px;
+    font-size: 40px;
+    margin-top: 0px;
+    margin-bottom: 2px;
+}
+
+
+
+/* Note Info section */
+
+.note-Info{
+    
+}
+
+.delete-note-content {
+    
+}
+
+/* large nores must not grow indefinitely, use overflow scroll  */
+
+
+
+
+
+
+
+
+
+
+
+
+/* Add Note Page */
+
+.add-note-form {
+
+}
+
+.add-note {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-note section {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-note section > header {
+    display: flex;
+    justify-content: center;
+}
+
+.add-note section > header h3 {
+    display: inline-block;
+    text-align: center;
+    padding: 0px;
+    font-size: 40px;
+    margin-top: 0px;
+    margin-bottom: 2px;
+}
+
+
+/* Add form*/
+
+.add-note .add-note-form {
+    flex: 1 1 auto;
+    background-color: #fffeed;
+    border: solid 2px;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.add-note .add-note-form form {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-note-form form .form-title {
+    flex: 0 0 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-note-form form .form-title input {
+    flex: 1 0 auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    border: solid 2px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+
+.add-note-form form .form-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-note-form form .form-content textarea {
+    flex: 1 0 auto;
+    font-weight: bold;
+    font-size: 15px;
+    border: solid 2px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.add-note-form form .form-button {
+    flex: 0 0 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.add-note-form form .form-button button {
+    width: 100px;
+    height: 50px;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: limegreen;
+    border: solid 2px;
+    border-radius: 10px;
+}
+
+.add-note-form form .form-button button:hover {
+    cursor: pointer;
+    background-color: lightgreen;
+}
+
+.add-note-form form .form-button button:active {
+    background-color: green;
+}
 
 
