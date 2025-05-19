@@ -1,0 +1,58 @@
+﻿@page "{id:int?}"
+@model NotesWebApp.Pages.Notes.DeleteNoteModel
+@{
+    ViewData["Title"] = "Delete Note"; 
+}
+
+<article class="delete-note">
+    <header>
+        <a asp-page="/Notes/AllNotes">
+            <h2>Home</h2>
+        </a>
+    </header>
+    <section>
+        <header>
+            <h3>Delete Note</h3>
+        </header>
+
+        @if(Model.NoteIDFromRouteIsNull)
+        {
+            <p>Note ID is required to delete a note</p>
+        }
+        else if (Model.NoteDoesNotExists)
+        {
+            <p>Note  with ID @Model.NoteIDFromRoute does not exists</p>
+        }
+        else
+        {
+            if (Model.InValidInput)
+            {
+                <p>Invalid Note ID</p>
+            }
+            else if (Model.InputModelIsNullAfterPost || Model.FailedToDeleteNote)
+            {
+                <p>Error occured while processing your request, please try again</p>
+            }
+
+            <div>
+                <section>
+                    <header>
+                        <h4>@Model.NoteToDelete?.Title</h4>
+                    </header>
+                    <p>@Model.NoteToDelete?.Content</p>
+                </section>
+            </div>
+
+            <div>Are you sure ?</div>
+            <form method="post">
+                <input asp-for="Input.Id" value="@Model.NoteIDFromRoute" hidden />
+                <button type="submit">Yes</button>
+            </form>
+            <a asp-page="/Notes/AllNotes">No</a>
+        }
+
+    </section>
+</article>
+
+
+

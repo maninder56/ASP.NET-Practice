@@ -1,7 +1,7 @@
 ﻿@page "{id:int?}"
 @model NotesWebApp.Pages.Notes.EditNoteModel
 @{
-    ViewData["Title"] = "All Notes";
+    ViewData["Title"] = "Edit Notes";
 }
 
 <article class="edit-note">
@@ -58,6 +58,10 @@
 
                 <button type="submit">Save</button>
             </form>
+
+            <div>
+                <a asp-page="DeleteNote" asp-route-id="@Model.Input.ID">Delete</a>
+            </div>
         }
         else
         {
