@@ -48,7 +48,7 @@
                 <input asp-for="Input.Id" value="@Model.NoteIDFromRoute" hidden />
                 <button type="submit">Yes</button>
             </form>
-            <a asp-page="/Notes/AllNotes">No</a>
+            <a asp-page="EditNote" asp-route-id="@Model.NoteIDFromRoute">No</a>
         }
 
     </section>

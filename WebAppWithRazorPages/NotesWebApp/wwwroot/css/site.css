@@ -9,7 +9,7 @@
 
 
 html, body {
-    height: 100%; 
+    height: 95vh; 
 }
 
 /* To have fotter stick to bottom */
@@ -22,6 +22,10 @@ body > header {
     flex: 0 0 auto; 
 }
 
+main {
+    height: 100%; 
+}
+
 .content {
     flex: 1 0 auto;
 }
@@ -30,6 +34,7 @@ body > footer {
     flex: 0 1 auto; 
 }
 
+/* Home Page*/
 
 /* Title */
 body > header {
@@ -68,20 +73,12 @@ body > header h1 a {
 
 body > header h1 a:hover {
     background-color: #f2e629;
-    border
 }
 
 body > header h1 a:active {
     background-color: #ffef00;
 }
 
-
-
-/* For testing only*/
-/*article * {
-    border: solid 1px;
-    margin: 5px;
-}*/
 
 
 /* Main content */
@@ -104,24 +101,24 @@ article section h3 {
     grid-gap: 50px; 
 }
 
-    .note-grid a {
-        display: block;
-        border: solid 3px;
-        border-radius: 20px;
-        text-align: center;
-        text-decoration: none;
-        color: black;
-        padding: 10px;
-        background-color: #fffeed;
-    }
-
-.note-grid a:hover {
-    border-color: #f2e629;
+.note-grid a {
+    display: block;
+    border: solid 3px;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    background-color: #fffeed;
 }
 
-        .note-grid a:active {
-            background-color: #fffdc4;
-        }
+.note-grid a:hover {
+border-color: #f2e629;
+}
+
+.note-grid a:active {
+    background-color: #fffdc4;
+}
 
 
 
@@ -151,13 +148,111 @@ article section h3 {
     background-color: #99ff91;
 }
 
-    .note-grid .create-new-note:hover {
-        border-color: #31c926;
-    }
+.note-grid .create-new-note:hover {
+    border-color: #31c926;
+}
 
-    .note-grid .create-new-note:active {
-        background-color: #6bff61;
-    }
+.note-grid .create-new-note:active {
+    background-color: #6bff61;
+}
+
+
+/* Shared elementd across pages*/
+.home-button a {
+    display: inline-block;
+    border-radius: 20px;
+}
+
+
+.home-button h2 {
+    background-color: var(--primary-color);
+    color: black;
+    display: inline-block;
+    margin: 0px;
+    padding: 10px;
+    border: solid 2px;
+    border-color: black;
+    border-radius: 20px;
+}
+
+.danger {
+    color: red; 
+}
+
+
+.delete-button{
+    display: flex; 
+    padding: 10px;
+}
+
+.delete-button a {
+    display: inline-block; 
+    margin-left: auto; 
+    background-color: red; 
+    padding: 10px; 
+    color: black; 
+    text-decoration: none; 
+    border: solid 2px; 
+    border-radius: 10px; 
+}
+
+.delete-button a:hover {
+    background-color: lightcoral; 
+}
+
+.delete-button a:active {
+    background-color:darkred; 
+}
+
+
+
+
+
+/* Edit page */
+.edit-note {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.edit-note section {
+    flex: 1 1 auto; 
+    display:flex; 
+    flex-direction:column;
+/*    justify-content: center; 
+    align-content: center; */
+}
+
+.edit-note section > header {
+    display:flex; 
+    justify-content: center; 
+}
+
+.edit-note section > header h3{
+    display:inline-block; 
+    text-align:center;
+    padding:0px;
+}
+
+.edit-note .edit-note-form {
+    flex: 1 1 auto;
+    background-color: #fffeed;
+    border: solid 2px;
+    border-radius: 20px;
+    padding: 20px; 
+}
+
+/* For testing only*/
+/*.edit-note * {
+    border: solid 1px;
+    margin: 10px;
+}*/
+
+
+
+
+
 
 
 
