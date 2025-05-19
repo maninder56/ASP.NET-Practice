@@ -2,13 +2,14 @@
 @model NotesWebApp.Pages.Notes.EditNoteModel
 @{
     ViewData["Title"] = "All Notes";
-
-    // public bool InValidInputModel { get; private set; }
-    //     public bool InputModelIsNull { get; private set; }
-    //     public bool NoteFailedToUpdate { get; private set; }
 }
 
 <article class="edit-note">
+    <header>
+        <a asp-page="/Notes/AllNotes">
+            <h2>Home</h2>
+        </a>
+    </header>
     <section>
         <header>
             <h3>Edit Note</h3>
@@ -16,7 +17,7 @@
 
         @if(Model.InValidInputModel)
         {
-            <p>Invalid Properties, Please give provide correct Note properties</p>
+            <p>Invalid Properties, Please provide correct Note properties</p>
         }
         else if (Model.InputModelIsNullForPostRequest)
         {
@@ -42,9 +43,9 @@
                 <input asp-for="Input.ID"  value="@Model.Input.ID" hidden/>
                 
                 <div>
-                    <label asp-for="Input.Ttitle"></label>
-                    <input asp-for="Input.Ttitle" />
-                    <span asp-validation-for="Input.Ttitle"></span>
+                    <label asp-for="Input.Title"></label>
+                    <input asp-for="Input.Title" />
+                    <span asp-validation-for="Input.Title"></span>
                 </div>
 
 
@@ -55,12 +56,12 @@
                 </div>
                 
 
-                <button type="submit">Submit</button>
+                <button type="submit">Save</button>
             </form>
         }
         else
         {
-            <p>There was an error while loading Note</p>
+            <p>There was an error while loading this Note</p>
         }
 
     </section>

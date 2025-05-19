@@ -60,7 +60,7 @@ public class EditNoteModel : PageModel
             Input = new InputModel()
             {
                 ID = noteID,
-                Ttitle = note.Title, 
+                Title = note.Title, 
                 Content = note.Content
             };  
         }
@@ -89,7 +89,7 @@ public class EditNoteModel : PageModel
 
         Note editedNote = new Note()
         {
-            Id = Input.ID, Title = Input.Ttitle, Content = Input.Content ?? string.Empty
+            Id = Input.ID, Title = Input.Title, Content = Input.Content ?? string.Empty
         };
 
         if (!service.UpdateNoteByID(Input.ID, editedNote))
@@ -110,7 +110,7 @@ public class EditNoteModel : PageModel
         public required int ID { get; set; }
 
         [Required]
-        public required string Ttitle { get; set; }
+        public required string Title { get; set; }
 
         public string? Content { get; set; }
     }

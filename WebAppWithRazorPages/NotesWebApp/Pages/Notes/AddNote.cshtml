@@ -1,0 +1,51 @@
+﻿@page
+@model NotesWebApp.Pages.Notes.AddNoteModel
+@{
+    ViewData["Title"] = "Add Note"; 
+}
+
+
+<article class="add-note">
+    <header>
+        <a asp-page="/Notes/AllNotes">
+            <h2>Home</h2>
+        </a>
+    </header>
+    <section>
+        <header>
+            <h3>Add Note</h3>
+        </header>
+
+        @if(Model.InvalidFormData)
+        {
+            <p>Invalid Data, please fill in required fields</p>
+        }
+        else if (Model.InputIsNullAfterPost || Model.FailedToSaveNote)
+        {
+            <p>Failed to save note, please try again</p>
+        }
+        
+        <form method="post">
+
+            <div>
+                <label asp-for="Input.Title"></label>
+                <input asp-for="Input.Title" />
+                <span asp-validation-for="Input.Title"></span>
+            </div>
+
+
+            <div>
+                <label asp-for="Input.Content"></label>
+                @* <input asp-for="Input.Content" /> *@
+                <textarea asp-for="Input.Content"></textarea>
+            </div>
+
+
+            <button type="submit">Save</button>
+        </form>
+        
+
+
+    </section>
+</article>
+
