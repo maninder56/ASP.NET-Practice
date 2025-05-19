@@ -48,21 +48,20 @@
                 <form method="post">
                     <input asp-for="Input.ID" value="@Model.Input.ID" hidden />
 
-                    <div>
-                        <label asp-for="Input.Title"></label>
+                    <div class="form-title">
                         <input asp-for="Input.Title" />
                         <span asp-validation-for="Input.Title"></span>
                     </div>
 
 
-                    <div>
-                        <label asp-for="Input.Content"></label>
+                    <div class="form-content">
                         @* <input asp-for="Input.Content" /> *@
-                        <textarea asp-for="Input.Content"></textarea>
+                        <textarea asp-for="Input.Content" ></textarea>
                     </div>
 
-
-                    <button type="submit">Save</button>
+                    <div class="form-button">
+                        <button type="submit">Save</button>
+                    </div>
                 </form>
             </div>
         }
