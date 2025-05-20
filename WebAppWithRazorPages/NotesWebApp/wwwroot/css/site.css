@@ -285,10 +285,11 @@ border-color: #f2e629;
 .edit-note-form form .form-content textarea {
     flex: 1 0 auto;
     font-weight: bold;
-    font-size:15px;
+    font-size: 15px;
     border: solid 2px;
     border-radius: 10px;
     margin: 10px;
+    padding: 10px;
 }
 
 
@@ -326,8 +327,8 @@ border-color: #f2e629;
 /*.delete-note * {
     border: solid 1px;
     margin: 10px;
-}*/
-
+}
+*/
 
 /* Delete Page */
 
@@ -337,12 +338,15 @@ border-color: #f2e629;
     flex-direction: column; 
 }
 
-.delete-note header {
+.delete-note > header {
     flex: 0 0 auto; 
 }
 
-.delete-note section {
-    flex: 1 0 auto; 
+.delete-note > section {
+    flex: 1 0 auto;
+    display: flex; 
+    flex-direction: column; 
+
 }
 
 
@@ -364,20 +368,110 @@ border-color: #f2e629;
 
 /* Note Info section */
 
-.note-Info{
-    
+.delete-note .note-Info {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: solid 2px;
+    border-radius: 20px;
+    background-color: #fffeed;
+    padding: 20px; 
 }
 
-.delete-note-content {
-    
+.delete-note .note-Info > section {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
-/* large nores must not grow indefinitely, use overflow scroll  */
+.note-Info > section header {
+    flex: 0 0 auto; 
+    display: flex; 
+    justify-content: center; 
+    border: solid 2px; 
+    border-radius: 20px; 
+    padding: 0px; 
+    background-color: white; 
+}
+
+.note-Info > section header h4 {
+    display: inline-block;
+    text-align: center;
+    font-size: 40px;
+    margin: 10px; 
+}
+
+.note-Info .delete-note-content {
+    flex: 1 0 auto;
+    max-height: 45vh;
+    border: solid 2px;
+    border-radius: 20px;
+    padding: 10px;
+    overflow: auto;
+    background-color: white;
+}
 
 
+.delete-confirmation {
+    flex: 0 0 100px;
+    background-color: white; 
+    border: solid 2px; 
+    border-radius: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+}
 
 
+.delete-confirmation .delete-answer {
+    margin: 5px; 
+}
 
+
+.delete-confirmation .delete-answer form {
+    display: inline;
+}
+
+.delete-answer form button {
+    padding: 10px;
+    width: 100px;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #ff9a9a;
+    border: solid 2px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.delete-answer form button:hover {
+    background-color: #ffbbbb;
+}
+
+.delete-answer form button:active {
+    background-color: #ff4b4b;
+}
+
+
+.delete-answer a {
+    display: inline-block;
+    background-color: #94ff94;
+    padding: 10px;
+    width: 80px;
+    color: black;
+    text-decoration: none;
+    border: solid 2px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.delete-answer a:hover {
+    background-color: #c6ffc6;
+}
+
+.delete-answer a:active {
+    background-color: #55c455;
+}
 
 
 
@@ -386,10 +480,6 @@ border-color: #f2e629;
 
 
 /* Add Note Page */
-
-.add-note-form {
-
-}
 
 .add-note {
     height: 100%;
@@ -468,6 +558,7 @@ border-color: #f2e629;
     border: solid 2px;
     border-radius: 10px;
     margin: 10px;
+    padding: 10px;
 }
 
 .add-note-form form .form-button {

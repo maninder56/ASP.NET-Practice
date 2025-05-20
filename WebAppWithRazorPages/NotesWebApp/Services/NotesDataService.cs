@@ -14,6 +14,16 @@ public class NotesDataService : INotesDataService
         noteList = Notes.Data;
     }
 
+    // Helper method 
+    private int generateNewID()
+    {
+        if (noteList.Count == 0)
+        {
+            return 1; 
+        }
+
+        return noteList.Max(i => i.Id) + 1; 
+    }
 
 
     public List<Note> GetAllNotes()
@@ -45,7 +55,7 @@ public class NotesDataService : INotesDataService
 
     public bool CreateNote(Note note)
     {
-        note.Id = noteList.Count + 1; 
+        note.Id = generateNewID(); 
 
         noteList.Add(note);
 
