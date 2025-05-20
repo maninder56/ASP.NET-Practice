@@ -1,0 +1,64 @@
+﻿@page "{id:int?}"
+@model NotesWebApp.Pages.Notes.DeleteNoteModel
+@{
+    ViewData["Title"] = "Delete Note"; 
+}
+
+<article class="delete-note">
+    <header class="home-button">
+        <a asp-page="/Notes/AllNotes">
+            <h2>Home</h2>
+        </a>
+    </header>
+    <section>
+        <header>
+            <h3>Delete Note</h3>
+        </header>
+
+        @if(Model.NoteIDFromRouteIsNull)
+        {
+            <p class="danger">Note ID is required to delete a note</p>
+        }
+        else if (Model.NoteDoesNotExists)
+        {
+            <p class="danger">Note  with ID @Model.NoteIDFromRoute does not exists</p>
+        }
+        else
+        {
+            if (Model.InValidInput)
+            {
+                <p class="danger">Invalid Note ID</p>
+            }
+            else if (Model.InputModelIsNullAfterPost || Model.FailedToDeleteNote)
+            {
+                <p class="danger">Error occured while processing your request, please try again</p>
+            }
+
+            <div class="note-Info">
+                
+                <section>
+                    <header>
+                        <h4>@Model.NoteToDelete?.Title</h4>
+                    </header>
+                    <p class="delete-note-content">@Model.NoteToDelete?.Content</p>
+                </section>
+
+                <div class="delete-confirmation">
+                    <div>Are you sure ?</div>
+                    <div class="delete-answer">
+                        <form method="post">
+                            <input asp-for="Input.Id" value="@Model.NoteIDFromRoute" hidden />
+                            <button type="submit">Yes</button>
+                        </form>
+                        <a asp-page="EditNote" asp-route-id="@Model.NoteIDFromRoute">No</a>
+                    </div>
+                    
+                </div>
+            </div>   
+        }
+
+    </section>
+</article>
+
+
+

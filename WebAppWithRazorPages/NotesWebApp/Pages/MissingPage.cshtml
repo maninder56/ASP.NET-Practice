@@ -1,0 +1,14 @@
+﻿@page "{error?}"
+@model NotesWebApp.Pages.MissingPageModel
+@{
+    ViewData["Title"] = "Missing Page"; 
+}
+
+<article>
+    <section>
+        <header>
+            <h2>@(Model.Error) Error</h2>
+        </header>
+        <p>Requested page Not Found, please enter correct URL</p>
+    </section>
+</article>
