@@ -29,7 +29,7 @@ FROM AspNetUserRoles;
 SELECT *
 FROM AspNetUsers; 
 
--- USER : Ibara@gamil.com, pass: Ibara123#
+
 
 SELECT *
 FROM AspNetUserClaims; 
