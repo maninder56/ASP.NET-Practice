@@ -1,0 +1,52 @@
+﻿@model List<ToDoItem>; 
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<article>
+    <section>
+        <header>To Do List</header>
+        @if(Model.Count == 0)
+        {
+            <div>To do is Empty</div>
+        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@item.name</td>
+                        <td>@(item.isCompleted ? "Completed" : "No done")</td>
+                        <td>
+                            @if(!item.isCompleted)
+                            {
+                                <a asp-controller="Home" asp-action="ToDoCompleted" asp-route-id="@item.id">Completed</a>
+                            }
+                        </td>
+                        <td><a asp-controller="Home" asp-action="ToDoDelete" asp-route-id="@item.id">Delete</a></td>
+                    </tr>
+                }
+                <tr>
+                    <td>
+                        <form method="post" id="createform" asp-action="AddNewTodo">
+                            <input type="text" name="todotitle" id="todotitle" placeholder="Todo..." />
+                        </form>
+                    </td>
+                    <td>
+                        <button type="submit" form="createform">Add ToDo</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </section>
+</article>
