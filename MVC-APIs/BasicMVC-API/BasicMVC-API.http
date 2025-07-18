@@ -1,0 +1,26 @@
+@Host=https://localhost:8000
+
+
+GET {{Host}}/api/todo/list
+Content-Type: application/json
+###
+
+
+POST {{Host}}/api/todo/add
+Content-Type: application/json
+
+{
+    "name": "Complete API uisng MVC"
+}
+
+
+###
+
+@id=3
+PUT {{Host}}/api/todo/completed/{{id}}
+
+###
+
+DELETE {{Host}}/api/todo/delete/{{id}}
+
+###
