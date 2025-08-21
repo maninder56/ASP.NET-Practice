@@ -1,0 +1,25 @@
+@CommunityBoardAPI_HostAddress = https://localhost:8000
+
+
+GET {{CommunityBoardAPI_HostAddress}}/api/poster
+
+###
+
+@id=13
+GET {{CommunityBoardAPI_HostAddress}}/api/poster/{{id}}
+
+###
+
+POST {{CommunityBoardAPI_HostAddress}}/api/poster
+Content-Type: application/json
+
+{
+  "title": "dummy",
+  "description": "T."
+}
+
+###
+
+DELETE {{CommunityBoardAPI_HostAddress}}/api/poster/{{id}}
+
+###
