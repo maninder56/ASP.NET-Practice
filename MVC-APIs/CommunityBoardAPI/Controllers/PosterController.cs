@@ -1,4 +1,5 @@
-﻿using CommunityBoardAPI.Model.DTOs;
+﻿using CommunityBoardAPI.Filters;
+using CommunityBoardAPI.Model.DTOs;
 using CommunityBoardAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -12,12 +13,16 @@ public class PosterController : ControllerBase
 {
     private IPosterService service; 
 
-    public PosterController(IPosterService service)
+    private ILogger<PosterController> logger;
+
+    public PosterController(IPosterService service, ILogger<PosterController> logger)
     {
         this.service = service;
+        this.logger = logger;
     }
 
 
+    [LogResourceFilter]
     [HttpGet]
     public ActionResult<List<PosterRecord>> AllPosters()
     {
@@ -31,6 +36,7 @@ public class PosterController : ControllerBase
         return Ok(list);
     }
 
+    [IDValidationFilter]
     [HttpGet("{id}")]
     public ActionResult<PosterDetailedRecord> GetPosterByID(int id)
     {
@@ -54,9 +60,14 @@ public class PosterController : ControllerBase
             return BadRequest(); 
         }
 
-        return CreatedAtRoute(created, poster);
+        string? url = Url.Action("GetPosterByID", new { id = created}); 
+
+        logger.LogInformation("url: {url}", url);
+
+        return Created(url, poster);
     }
 
+    [IDValidationFilter]
     [HttpDelete("{id}")]
     public IActionResult DeletePosterByID(int id)
     {

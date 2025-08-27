@@ -5,8 +5,8 @@ GET {{CommunityBoardAPI_HostAddress}}/api/poster
 
 ###
 
-@id=13
-GET {{CommunityBoardAPI_HostAddress}}/api/poster/{{id}}
+
+GET {{CommunityBoardAPI_HostAddress}}/api/poster/17
 
 ###
 
@@ -20,6 +20,6 @@ Content-Type: application/json
 
 ###
 
-DELETE {{CommunityBoardAPI_HostAddress}}/api/poster/{{id}}
+DELETE {{CommunityBoardAPI_HostAddress}}/api/poster/9
 
 ###
