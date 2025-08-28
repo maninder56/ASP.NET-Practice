@@ -9,6 +9,7 @@ public class IDValidationFilterAttribute : Attribute, IActionFilter
 
     public void OnActionExecuting(ActionExecutingContext context)
     {
+        Console.WriteLine("Id_Validation");
         object? argumentValue = null; 
 
         if (!context.ActionArguments.TryGetValue("id", out argumentValue))

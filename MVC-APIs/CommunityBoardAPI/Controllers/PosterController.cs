@@ -37,15 +37,11 @@ public class PosterController : ControllerBase
     }
 
     [IDValidationFilter]
+    [EnsurePosterExists]
     [HttpGet("{id}")]
     public ActionResult<PosterDetailedRecord> GetPosterByID(int id)
     {
-        var poster = service.GetPosterInDetailByID(id);
-
-        if (poster is null)
-        {
-            return NotFound();
-        }
+        PosterDetailedRecord poster = service.GetPosterInDetailByID(id);
 
         return Ok(poster);
     }
@@ -68,15 +64,11 @@ public class PosterController : ControllerBase
     }
 
     [IDValidationFilter]
+    [EnsurePosterExists]
     [HttpDelete("{id}")]
     public IActionResult DeletePosterByID(int id)
     {
-        var deleted = service.DeletePosterByID(id);
-
-        if (deleted is null)
-        {
-            return NotFound(); 
-        }
+        bool deleted = service.DeletePosterByID(id);
         
         if (!(bool)deleted)
         {

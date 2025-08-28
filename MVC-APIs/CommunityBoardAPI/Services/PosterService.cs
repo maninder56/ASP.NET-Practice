@@ -18,11 +18,11 @@ public class PosterService : IPosterService
         return list.Select(l => new PosterRecord(l.Id, l.Title)).ToList(); 
     }
 
-    public PosterDetailedRecord? GetPosterInDetailByID(int id)
+    public PosterDetailedRecord GetPosterInDetailByID(int id)
     {
         return list.Where(l => l.Id == id)
             .Select(l => new PosterDetailedRecord(l.Id, l.Title, l.Description, l.CreatedAt))
-            .FirstOrDefault();
+            .First();
     }
 
     public int? CreatePoster(NewPosterRecord newPoster)
@@ -34,16 +34,15 @@ public class PosterService : IPosterService
         return id;
     }
 
-    public bool? DeletePosterByID(int id)
+    public bool DeletePosterByID(int id)
     {
-        PosterModel? poster = list.FirstOrDefault(l => l.Id == id);  
-
-        if (poster is null)
-        {
-            return null;
-        }
+        PosterModel poster = list.First(l => l.Id == id);  
 
         return list.Remove(poster); 
     }
 
+    public bool PosterExists(int id)
+    {
+        return list.Any(l => l.Id == id);
+    }
 }
